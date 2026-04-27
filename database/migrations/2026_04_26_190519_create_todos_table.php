@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('todo');
             $table->boolean('isDone');
+            $table->boolean('isDeleted');
             $table->timestamps();
         });
     }

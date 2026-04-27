@@ -5,20 +5,28 @@ use App\Models\Todo;
 
 Route::get('/', function () {
 
-    $todos = Todo::all();
+    return redirect('/todos');
+});
+
+Route::get('/todos', function () {
+    $todos = Todo::where('isDeleted', 0)->get();
 
     return view('todos', [
         'todos' => $todos,
     ]);
 });
 
-Route::get('/todos', function () {
-    return view('todos');
-});
-
 Route::post('/todos', function () {
-    dd($todo);
-    // paused here
+    $todo = request('todo');
+    $isDone = request('isDone') === 'on' ? 1 : 0;
+
+    Todo::create([
+        'todo' => $todo,
+        'isDone' => $isDone,
+        'isDeleted' => 0,
+    ]);
+
+    return redirect('/');
 });
 
 Route::get('/todo', function () {

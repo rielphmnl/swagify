@@ -9,7 +9,7 @@
     [ ] html
     [ ] route
     [ ] ...
-[ ] create new
+[x] create new
     [x] html
-    [ ] fix create new route
-    [ ] action
+    [x] fix create new route
+    [x] action
