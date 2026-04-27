@@ -16,6 +16,11 @@ Route::get('/todos', function () {
     return view('todos');
 });
 
+Route::post('/todos', function () {
+    dd($todo);
+    // paused here
+});
+
 Route::get('/todo', function () {
     return view('todo');
 });

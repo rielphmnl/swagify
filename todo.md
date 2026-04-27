@@ -5,5 +5,11 @@
             [x] todo description
             [x] edit todo button
         [x] create new todo button
-[ ] fix edit route
-[ ] fix create new route
+[ ] edit
+    [ ] html
+    [ ] route
+    [ ] ...
+[ ] create new
+    [x] html
+    [ ] fix create new route
+    [ ] action
