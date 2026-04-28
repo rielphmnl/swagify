@@ -7,8 +7,12 @@
         [x] create new todo button
 [ ] edit
     [ ] html
+        [x] button for edit
+        [x] button for delete
+        [ ] fix form
     [ ] route
-    [ ] ...
+        [ ] route for edit
+        [ ] route for delete
 [x] create new
     [x] html
     [x] fix create new route

@@ -11,7 +11,7 @@ Route::get('/', function () {
 Route::get('/todos', function () {
     $todos = Todo::where('isDeleted', 0)->get();
 
-    return view('todos', [
+    return view('todos/index', [
         'todos' => $todos,
     ]);
 });
@@ -29,8 +29,12 @@ Route::post('/todos', function () {
     return redirect('/');
 });
 
-Route::get('/todo', function () {
-    return view('todo');
+Route::get('/todos/{id}', function ($id) {
+    $todo = Todo::find($id);
+
+    return view('todos/todo', [
+        'todo' => $todo,
+    ]);
 });
 
 Route::get('/create', function () {

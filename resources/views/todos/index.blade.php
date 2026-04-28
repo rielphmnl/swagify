@@ -8,7 +8,7 @@
                     <?= $todo->isDone === 1 ? "<li><s>" . $todo->todo . "</s></li>" : "<li>" . $todo->todo . "</li>" ?>
                     
                     <div class="border-neutral-400 hover:bg-neutral-200/80 border px-2 py-1 rounded text-sm cursor-pointer">
-                        <a href="/todo/{{ $todo->id }}">edit</a>
+                        <a href="/todos/{{ $todo->id }}">edit</a>
                     </div>
                 </div>
             <?php endforeach ?>
