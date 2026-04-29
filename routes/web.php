@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Todo;
 
+// home redirect to show all
 Route::get('/', function () {
 
     return redirect('/todos');
 });
 
+// read all
 Route::get('/todos', function () {
     $todos = Todo::where('isDeleted', 0)->get();
 
@@ -16,6 +18,7 @@ Route::get('/todos', function () {
     ]);
 });
 
+// create
 Route::post('/todos', function () {
     $todo = request('todo');
     $isDone = request('isDone') === 'on' ? 1 : 0;
@@ -29,6 +32,7 @@ Route::post('/todos', function () {
     return redirect('/');
 });
 
+// read 1
 Route::get('/todos/{id}', function ($id) {
     $todo = Todo::find($id);
 
@@ -37,6 +41,32 @@ Route::get('/todos/{id}', function ($id) {
     ]);
 });
 
+// update
+Route::patch('/todos/{id}', function (Todo $id) {
+    $todo = request('todo');
+    $isDone = request('isDone') === 'on' ? 1 : 0;
+
+
+    $id->update([
+        'todo' => $todo,
+        'isDone' => $isDone,
+    ]);
+
+    return redirect ('/todos');
+});
+
+// delete
+Route::delete('/todos/{id}', function (Todo $id) {
+    $id->update([
+        'isDeleted' => 1,
+    ]);
+
+    // $id->delete();
+
+    return redirect ('/todos');
+});
+
+// create page
 Route::get('/create', function () {
     return view('create');
 });
