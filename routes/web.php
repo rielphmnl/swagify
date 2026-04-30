@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Todo;
 
@@ -10,63 +11,19 @@ Route::get('/', function () {
 });
 
 // read all
-Route::get('/todos', function () {
-    $todos = Todo::where('isDeleted', 0)->get();
-
-    return view('todos/index', [
-        'todos' => $todos,
-    ]);
-});
-
-// create
-Route::post('/todos', function () {
-    $todo = request('todo');
-    $isDone = request('isDone') === 'on' ? 1 : 0;
-
-    Todo::create([
-        'todo' => $todo,
-        'isDone' => $isDone,
-        'isDeleted' => 0,
-    ]);
-
-    return redirect('/');
-});
-
-// read 1
-Route::get('/todos/{id}', function ($id) {
-    $todo = Todo::find($id);
-
-    return view('todos/todo', [
-        'todo' => $todo,
-    ]);
-});
-
-// update
-Route::patch('/todos/{id}', function (Todo $id) {
-    $todo = request('todo');
-    $isDone = request('isDone') === 'on' ? 1 : 0;
-
-
-    $id->update([
-        'todo' => $todo,
-        'isDone' => $isDone,
-    ]);
-
-    return redirect ('/todos');
-});
-
-// delete
-Route::delete('/todos/{id}', function (Todo $id) {
-    $id->update([
-        'isDeleted' => 1,
-    ]);
-
-    // $id->delete();
-
-    return redirect ('/todos');
-});
+Route::get('/todos', [TodoController::class, 'index']);
 
 // create page
-Route::get('/create', function () {
-    return view('create');
-});
+Route::get('/create', [TodoController::class, 'create']);
+
+// create
+Route::post('/todos', [TodoController::class, 'store']);
+
+// read 1
+Route::get('/todos/{todo}', [TodoController::class, 'edit']);
+
+// update
+Route::patch('/todos/{todo}', [TodoController::class, 'update']);
+
+// delete
+Route::delete('/todos/{todo}', [TodoController::class, 'destroy']);

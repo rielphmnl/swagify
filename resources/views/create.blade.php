@@ -3,11 +3,12 @@
         <a href="/">back</a>
     </div>    
 
-    <p class="text-2xl">create new todo</p>
-
+    
     <div class="bg-neutral-200/70 rounded-xl p-5">
-        <form method="POST" action="/todos" class="flex flex-col gap-2">
-            <input class="bg-neutral-200/50 px-2 py-1" name="todo" placeholder="todo" autofocus>
+        <p class="text-2xl">create new todo</p>
+
+        <form method="POST" action="/todos" class="flex flex-col gap-2 mt-5">
+            <textarea class="bg-neutral-200/50 px-2 py-1" name="todo" placeholder="create new todo" autofocus></textarea>
     
             <div>
                 <label for="isDone">Is task done?</label>
