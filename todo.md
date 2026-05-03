@@ -10,7 +10,7 @@
         [x] button for edit
         [x] button for delete
         [x] fix form
-    [x] route
+[x] route
         [x] route for edit
         [x] route for delete
 [x] create new

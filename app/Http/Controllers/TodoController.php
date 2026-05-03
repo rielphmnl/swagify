@@ -12,7 +12,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::where('isDeleted', 0)->get();
+        $todos = Todo::where('isDeleted', null)->get();
 
         return view('todos/index', [
             'todos' => $todos,
@@ -38,7 +38,7 @@ class TodoController extends Controller
         Todo::create([
             'todo' => $todo,
             'isDone' => $isDone,
-            'isDeleted' => 0,
+            'isDeleted' => null,
         ]);
 
         return redirect('/');
@@ -87,7 +87,7 @@ class TodoController extends Controller
     public function destroy(Todo $todo)
     {
         $todo->update([
-            'isDeleted' => 1,
+            'isDeleted' => now(),
         ]);
 
         // $todo->delete();
