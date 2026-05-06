@@ -17,3 +17,13 @@
     [x] html
     [x] fix create new route
     [x] action
+[x] errors
+    [x] create page error
+    [x] edit page error
+[ ] authentication
+    [ ] make html
+        [ ] log in
+        [ ] sign up
+    [ ] make controller for auth
+    [ ] make validations for input fields
+    [ ] ...

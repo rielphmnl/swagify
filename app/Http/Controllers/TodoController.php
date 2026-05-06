@@ -12,11 +12,11 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::where('isDeleted', null)->get();
+        $todos = Todo::all();
 
         return view('todos/index', [
             'todos' => $todos,
-    ]);
+        ]);
     }
 
     /**
@@ -32,13 +32,16 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        $todo = request('todo');
+        $request->validate([
+            'todo' => ['required', 'min:3'],
+        ]);
+
+        $todo = $request->input('todo');
         $isDone = request('isDone') === 'on' ? 1 : 0;
 
         Todo::create([
             'todo' => $todo,
-            'isDone' => $isDone,
-            'isDeleted' => null,
+            'isDone' => $isDone,            
         ]);
 
         return redirect('/');
@@ -69,6 +72,10 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
+        $request->validate([
+            'todo' => ['required', 'min:3'],
+        ]);
+
         $task = request('todo');
         $isDone = request('isDone') === 'on' ? 1 : 0;
 
@@ -86,11 +93,7 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        $todo->update([
-            'isDeleted' => now(),
-        ]);
-
-        // $todo->delete();
+        $todo->delete();
 
         return redirect ('/todos');
     }

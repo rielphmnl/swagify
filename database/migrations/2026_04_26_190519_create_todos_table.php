@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('todo');
             $table->boolean('isDone');
-            $table->timestamp('isDeleted')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

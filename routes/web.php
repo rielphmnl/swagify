@@ -14,7 +14,7 @@ Route::get('/', function () {
 Route::get('/todos', [TodoController::class, 'index']);
 
 // create page
-Route::get('/create', [TodoController::class, 'create']);
+Route::get('/todos/create', [TodoController::class, 'create']);
 
 // create
 Route::post('/todos', [TodoController::class, 'store']);

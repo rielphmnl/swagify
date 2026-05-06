@@ -9,6 +9,7 @@
 
         <form method="POST" action="/todos" class="flex flex-col gap-2 mt-5">
             <textarea class="bg-neutral-200/50 px-2 py-1" name="todo" placeholder="create new todo" autofocus></textarea>
+            <x-error name='todo' />
     
             <div>
                 <label for="isDone">Is task done?</label>
