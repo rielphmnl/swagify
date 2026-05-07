@@ -17,9 +17,7 @@
                 <div>
                     <p class="text-xl">No todos to display</p>
                 </div>
-            @endif
-
-            
+            @endif            
         </ul>
     </div>
 

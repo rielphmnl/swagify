@@ -21,9 +21,9 @@
     [x] create page error
     [x] edit page error
 [ ] authentication
-    [ ] make html
-        [ ] log in
-        [ ] sign up
+    [x] make html
+        [x] log in
+        [x] sign up
     [ ] make controller for auth
     [ ] make validations for input fields
     [ ] ...
