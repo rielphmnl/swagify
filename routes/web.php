@@ -11,28 +11,34 @@ Route::get('/', function () {
     return redirect('/todos');
 });
 
-// read all
-Route::get('/todos', [TodoController::class, 'index']);
-// create page
-Route::get('/todos/create', [TodoController::class, 'create']);
-// create
-Route::post('/todos', [TodoController::class, 'store']);
-// read 1
-Route::get('/todos/{todo}', [TodoController::class, 'edit']);
-// update
-Route::patch('/todos/{todo}', [TodoController::class, 'update']);
-// delete
-Route::delete('/todos/{todo}', [TodoController::class, 'destroy']);
 
+Route::middleware('auth')->group(function() {
+    // read all
+    Route::get('/todos', [TodoController::class, 'index'])->middleware('auth');
+    // create page
+    Route::get('/todos/create', [TodoController::class, 'create']);
+    // create
+    Route::post('/todos', [TodoController::class, 'store']);
+    // read 1
+    Route::get('/todos/{todo}', [TodoController::class, 'edit']);
+    // update
+    Route::patch('/todos/{todo}', [TodoController::class, 'update']);
+    // delete
+    Route::delete('/todos/{todo}', [TodoController::class, 'destroy']);
 
-// signup form
-Route::get('/register', [RegisteredUserController::class, 'create']);
-// store
-Route::post('/register', [RegisteredUserController::class, 'store']);
+    //logout
+    Route::delete('/logout', [SessionsController::class, 'destroy']);
+});
 
-//logout
-Route::delete('/logout', [SessionsController::class, 'destroy']);
-// login page
-Route::get('/login', [SessionsController::class, 'create']);
-// login user
-Route::post('/login', [SessionsController::class, 'store']);
+Route::middleware('guest')->group(function() {
+    // signup form
+    Route::get('/register', [RegisteredUserController::class, 'create']);
+    // store
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+
+    // login page
+    Route::get('/login', [SessionsController::class, 'create']);
+    // login user
+    Route::post('/login', [SessionsController::class, 'store']);
+});
+
