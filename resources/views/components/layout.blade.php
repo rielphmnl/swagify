@@ -21,9 +21,23 @@
     </div>
 
     <div class="w-screen h-screen flex flex-col">
-        <nav class="flex justify-end gap-2 py-2 px-5">
-            <a class="bg-neutral-200/70 hover:bg-neutral-200/90 border border-neutral-300 rounded-lg cursor-pointer py-1 px-2" href="/login">log in</a>
-            <a class="bg-neutral-200/70 hover:bg-neutral-200/90 border border-neutral-300 rounded-lg cursor-pointer py-1 px-2" href="/register">sign up</a>
+        <nav class="flex justify-between py-2 px-5">
+            <div>
+                <p>placeholder user</p>
+            </div>
+
+            <div class="flex gap-2 justify-end">
+                @guest
+                    <a class="bg-neutral-200/70 hover:bg-neutral-200/90 border border-neutral-300 rounded-lg cursor-pointer py-1 px-2" href="/login">log in</a>
+                    <a class="bg-neutral-200/70 hover:bg-neutral-200/90 border border-neutral-300 rounded-lg cursor-pointer py-1 px-2" href="/register">sign up</a>
+                @else
+                    <form method="POST" action="/logout">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-neutral-200/70 hover:bg-neutral-200/90 border border-neutral-300 rounded-lg cursor-pointer py-1 px-2">logout</button>
+                    </form>
+                @endguest
+            </div>
         </nav>
 
         <div class="flex flex-col justify-center items-center gap-5 flex-1">

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\SessionsController;
+use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Todo;
@@ -23,12 +25,14 @@ Route::patch('/todos/{todo}', [TodoController::class, 'update']);
 Route::delete('/todos/{todo}', [TodoController::class, 'destroy']);
 
 
-// signup
-Route::get('/register', function() {
-    return view('/register');
-});
+// signup form
+Route::get('/register', [RegisteredUserController::class, 'create']);
+// store
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
-// login
-Route::get('/login', function() {
-    return view('/login');
-});
+//logout
+Route::delete('/logout', [SessionsController::class, 'destroy']);
+// login page
+Route::get('/login', [SessionsController::class, 'create']);
+// login user
+Route::post('/login', [SessionsController::class, 'store']);
