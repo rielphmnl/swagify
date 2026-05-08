@@ -24,6 +24,7 @@
     [x] make html
         [x] log in
         [x] sign up
-    [ ] make controller for auth
-    [ ] make validations for input fields
+    [x] make controller for auth
+    [x] make validations for input fields
+    [ ] assign todo to user
     [ ] ...
