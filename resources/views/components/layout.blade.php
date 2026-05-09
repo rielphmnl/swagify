@@ -23,7 +23,9 @@
     <div class="w-screen h-screen flex flex-col">
         <nav class="flex justify-between py-2 px-5">
             <div>
-                <p>placeholder user</p>
+                @auth
+                    <p>wazzzaaaap <span class="text-2xl font-semibold">{{ Auth::user()->username }}</span></p>
+                @endauth
             </div>
 
             <div class="flex gap-2 justify-end">

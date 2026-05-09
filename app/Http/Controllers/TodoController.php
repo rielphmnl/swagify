@@ -13,7 +13,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::all();
+        $todos = Auth::user()->todos;
 
         return view('todos/index', [
             'todos' => $todos,
@@ -40,10 +40,9 @@ class TodoController extends Controller
         $todo = $request->input('todo');
         $isDone = request('isDone') === 'on' ? 1 : 0;
 
-        Todo::create([
+        Auth::user()->todos()->create([
             'todo' => $todo,
             'isDone' => $isDone,     
-            'user_id' => Auth::id(),
         ]);
 
         return redirect('/');

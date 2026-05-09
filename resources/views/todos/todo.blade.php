@@ -1,8 +1,8 @@
 <x-layout>
     <div class="bg-neutral-200/30 rounded-lg p-5 flex flex-col gap-3">
         <div>
-            <div class="bg-neutral-200/50 hover:bg-neutral-200/80 border border-neutral-400 px-2 py-1 rounded cursor-pointer w-fit">
-                <a href="/">back</a>
+            <div>
+                <a href="/" class="bg-neutral-200/50 hover:bg-neutral-200/80 border border-neutral-400 px-2 py-1 rounded cursor-pointer w-fit">back</a>
             </div>
         </div>
         
