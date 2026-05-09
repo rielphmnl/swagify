@@ -26,5 +26,6 @@
         [x] sign up
     [x] make controller for auth
     [x] make validations for input fields
-    [ ] assign todo to user
+    [x] assign todo to user
+    [ ] restrict user to only view his own items
     [ ] ...
