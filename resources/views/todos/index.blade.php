@@ -1,6 +1,6 @@
 <x-layout>
     <div class="bg-neutral-200/30 rounded-lg flex flex-col justify-center items-center gap-5 p-5">
-        <p class="text-2xl">TODO LIST</p>
+        <p class="text-2xl">{{ Auth::user()->username }}'s TODO LIST</p>
     
         <div class="bg-neutral-200/50 rounded-lg p-5">
             <ul class="flex flex-col gap-1">

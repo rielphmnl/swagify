@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Todo;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Gate::define('view-post', function(User $user, Todo $todo) {
+        //     // bakit di ko maipasok todo??? grrrr
+        //     // dd(request()->all());
+        //     return $user->id === $todo->user_id;
+        //     // how do i get todo???
+        //     // dd(Todo::find(1));
+        //     // return false;
+        // });
     }
 }

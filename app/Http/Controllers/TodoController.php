@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TodoController extends Controller
 {
@@ -61,6 +62,8 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
+        Gate::authorize('update', $todo);   
+
         $todo = Todo::find($todo->id);
 
         return view('todos/todo', [
@@ -73,6 +76,8 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
+        Gate::authorize('update', $todo);
+
         $request->validate([
             'todo' => ['required', 'min:3'],
         ]);
@@ -94,6 +99,8 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
+        Gate::authorize('update', $todo);
+
         $todo->delete();
 
         return redirect ('/todos');

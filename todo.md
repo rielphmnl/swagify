@@ -27,5 +27,8 @@
     [x] make controller for auth
     [x] make validations for input fields
     [x] assign todo to user
-    [ ] restrict user to only view his own items
+    [x] restrict user to only view his own items
+        [x] gate
+            [x] create gate
+            [x] gate logic: is $user === userid of post
     [ ] ...
