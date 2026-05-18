@@ -12,9 +12,9 @@ Route::get('/', function () {
 });
 
 
-Route::middleware('auth')->group(function() {
+// Route::middleware('auth')->group(function() {
     // read all
-    Route::get('/todos', [TodoController::class, 'index'])->middleware('auth');
+    Route::get('/todos', [TodoController::class, 'index']);
     // create page
     Route::get('/todos/create', [TodoController::class, 'create']);
     // create
@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function() {
 
     //logout
     Route::delete('/logout', [SessionsController::class, 'destroy']);
-});
+// });
 
 Route::middleware('guest')->group(function() {
     // signup form

@@ -14,11 +14,12 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Auth::user()->todos;
+        $todos = Todo::where("user_id", 1)->get(); //query
 
-        return view('todos/index', [
-            'todos' => $todos,
-        ]);
+        // return view('todos/index', [
+        //     'todos' => $todos,
+        // ]);
+        return response($todos);
     }
 
     /**
@@ -41,12 +42,14 @@ class TodoController extends Controller
         $todo = $request->input('todo');
         $isDone = request('isDone') === 'on' ? 1 : 0;
 
-        Auth::user()->todos()->create([
+        $new_todo = Todo::create([
             'todo' => $todo,
-            'isDone' => $isDone,     
+            'isDone' => $isDone,
+            'user_id' => 1, // Auth::user()->id,
         ]);
 
-        return redirect('/');
+        // return redirect('/');
+        return response($new_todo);
     }
 
     /**
@@ -62,13 +65,21 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        Gate::authorize('update', $todo);   
+        // Gate::authorize('update', $todo);   
 
-        $todo = Todo::find($todo->id);
+        if ($todo->user_id === Auth::user()->id) {
+            return response("You are not aauthorized to edit this todo", 403);
+        }
 
         return view('todos/todo', [
             'todo' => $todo,
         ]);
+    }
+
+
+    public function name($param1, $param2 = "default")
+    {
+
     }
 
     /**
