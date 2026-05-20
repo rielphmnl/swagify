@@ -67,19 +67,13 @@ class TodoController extends Controller
     {
         // Gate::authorize('update', $todo);   
 
-        if ($todo->user_id === Auth::user()->id) {
-            return response("You are not aauthorized to edit this todo", 403);
+        if ($todo->user_id !== Auth::user()->id) {
+            return response("You are not authorized to edit this todo", 403);
         }
 
         return view('todos/todo', [
             'todo' => $todo,
         ]);
-    }
-
-
-    public function name($param1, $param2 = "default")
-    {
-
     }
 
     /**

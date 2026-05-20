@@ -26,7 +26,7 @@ Route::get('/', function () {
     // delete
     Route::delete('/todos/{todo}', [TodoController::class, 'destroy']);
 
-    //logout
+    // logout
     Route::delete('/logout', [SessionsController::class, 'destroy']);
 // });
 
@@ -42,3 +42,11 @@ Route::middleware('guest')->group(function() {
     Route::post('/login', [SessionsController::class, 'store']);
 });
 
+
+// songs
+
+
+// artists
+
+
+// albums

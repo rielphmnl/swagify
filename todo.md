@@ -20,7 +20,7 @@
 [x] errors
     [x] create page error
     [x] edit page error
-[ ] authentication
+[x] authentication
     [x] make html
         [x] log in
         [x] sign up
@@ -31,4 +31,18 @@
         [x] gate
             [x] create gate
             [x] gate logic: is $user === userid of post
-    [ ] ...
+
+
+[ ] songs
+    [ ] model
+    [x] migration
+    [ ] controller
+[ ] albums
+    [ ] model
+    [x] migration
+    [ ] controller
+[ ] artists
+    [ ] model
+    [x] migration
+    [ ] controller
+
