@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Artist;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
-            $table->int('artist_id'); //foreignIdFor(Artist::class) change after model is created
+            $table->foreignIdFor(Artist::class)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

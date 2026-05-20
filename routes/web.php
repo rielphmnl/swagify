@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Auth\SessionsController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\TodoController;
@@ -43,10 +44,11 @@ Route::middleware('guest')->group(function() {
 });
 
 
-// songs
-
-
 // artists
-
+Route::get('/artists', [ArtistController::class, 'index']);
 
 // albums
+
+
+// songs
+

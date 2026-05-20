@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Album;
+use App\Models\Artist;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('song_file');
-            $table->integer('artist_id'); //foreignIdFor(Artist::class) change after model is created
-            $table->integer('album_id'); //foreignIdFor(Album::class) change after model is created
+            $table->foreignIdFor(Artist::class)->nullable();
+            $table->foreignIdFor(Album::class)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
