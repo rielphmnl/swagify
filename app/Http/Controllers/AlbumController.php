@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Artist;
+use App\Models\Album;
 use Illuminate\Http\Request;
 
-class ArtistController extends Controller
+class AlbumController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response(Artist::all());
+        return response(Album::all());
     }
 
     /**
@@ -20,7 +20,7 @@ class ArtistController extends Controller
      */
     public function create()
     {
-        // return view('create_artist');
+        //
     }
 
     /**
@@ -31,28 +31,31 @@ class ArtistController extends Controller
         $request->validate([
             'name' => ['required'],
             'image' => ['required'],
+            'artist_id' => ['integer'],
         ]);
 
-        $new_artist = Artist::create([
+
+        $new_album = Album::create([
             'name' => request('name'),
             'image' => request('image'),
+            'artist_id' => request('artist_id'),
         ]);
 
-        return response($new_artist);
+        return response($new_album);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Artist $artist)
+    public function show(Album $album)
     {
-        return response($artist);
+        return response($album);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Artist $artist)
+    public function edit(Album $album)
     {
         //
     }
@@ -60,28 +63,30 @@ class ArtistController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Artist $artist)
+    public function update(Request $request, Album $album)
     {
         $request->validate([
             'name' => ['required'],
             'image' => ['required'],
+            'artist_id' => ['integer:strict'],
         ]);
 
-        $artist->update([
+        $album->update([
             'name' => request('name'),
             'image' => request('image'),
+            'artist_id' => request('artist_id'),
         ]);
 
-        return response($artist);
+        return response($album);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Artist $artist)
+    public function destroy(Album $album)
     {
-        $artist->delete();
+        $album->delete();
 
-        return response(Artist::all());
+        return response(Album::all());
     }
 }

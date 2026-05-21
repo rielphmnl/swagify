@@ -10,6 +10,8 @@ class Song extends Model
 {
     use SoftDeletes;
 
+    protected $guarded = [];
+
     public function artist(): BelongsTo
     {
         return $this->belongsTo(Artist::class);

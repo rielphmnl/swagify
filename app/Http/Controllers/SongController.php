@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Artist;
+use App\Models\Song;
 use Illuminate\Http\Request;
 
-class ArtistController extends Controller
+class SongController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response(Artist::all());
+        return response(Song::all());
     }
 
     /**
@@ -20,7 +20,7 @@ class ArtistController extends Controller
      */
     public function create()
     {
-        // return view('create_artist');
+        //
     }
 
     /**
@@ -31,28 +31,34 @@ class ArtistController extends Controller
         $request->validate([
             'name' => ['required'],
             'image' => ['required'],
+            'song_file' => ['required'],
+            'artist_id' => ['integer:strict'],
+            'album_id' => ['integer:strict'],
         ]);
 
-        $new_artist = Artist::create([
+        $new_song = Song::create([
             'name' => request('name'),
             'image' => request('image'),
+            'song_file' => request('song_file'),
+            'artist_id' => request('artist_id'),
+            'album_id' => request('album_id'),
         ]);
 
-        return response($new_artist);
+        return response($new_song);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Artist $artist)
+    public function show(Song $song)
     {
-        return response($artist);
+        return response($song);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Artist $artist)
+    public function edit(Song $song)
     {
         //
     }
@@ -60,28 +66,34 @@ class ArtistController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Artist $artist)
+    public function update(Request $request, Song $song)
     {
         $request->validate([
             'name' => ['required'],
             'image' => ['required'],
+            'song_file' => ['required'],
+            'artist_id' => ['integer:strict'],
+            'album_id' => ['integer:strict'],
         ]);
 
-        $artist->update([
+        $song->update([
             'name' => request('name'),
             'image' => request('image'),
+            'song_file' => request('song_file'),
+            'artist_id' => request('artist_id'),
+            'album_id' => request('album_id'),
         ]);
 
-        return response($artist);
+        return response($song);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Artist $artist)
+    public function destroy(Song $song)
     {
-        $artist->delete();
+        $song->delete();
 
-        return response(Artist::all());
+        return response(Song::all());
     }
 }

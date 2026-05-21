@@ -11,6 +11,8 @@ class Album extends Model
 {
     use SoftDeletes;
 
+    protected $guarded = [];
+
     public function songs(): HasMany
     {
         return $this->hasMany(Song::class);
