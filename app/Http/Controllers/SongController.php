@@ -32,8 +32,8 @@ class SongController extends Controller
             'name' => ['required'],
             'image' => ['required'],
             'song_file' => ['required'],
-            'artist_id' => ['integer:strict'],
-            'album_id' => ['integer:strict'],
+            'artist_id' => ['integer:strict', 'exists:artists,id'], // check if exists rule 
+            'album_id' => ['integer:strict', 'exists:albums,id'], //optional 
         ]);
 
         $new_song = Song::create([

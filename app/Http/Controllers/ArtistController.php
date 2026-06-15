@@ -10,9 +10,31 @@ class ArtistController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response(Artist::all());
+        $query = new Artist;
+
+        if ($request->input('search')) {
+            // $query = $query->orWhere('name', 'LIKE', '%' . $request->search . '%')
+            //     ->orWhere('nickname', 'LIKE', '%' . $request->search . '%')
+            //     ->orWhere('description', 'LIKE', '%' . $request->search . '%');
+
+            $query = $query->where(function($q){
+                $q->where('name', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('nickname', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->input('status')) {
+            $query = $query->where('status', $request->status);
+        }
+        
+        // if ((something or smth or smt) and status)
+
+        $artists = $query->get();
+
+        return response($artists);
     }
 
     /**
@@ -28,9 +50,10 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
+        // make image optional
         $request->validate([
             'name' => ['required'],
-            'image' => ['required'],
+            'image' => ['required'], //validate image
         ]);
 
         $new_artist = Artist::create([
@@ -64,13 +87,26 @@ class ArtistController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'image' => ['required'],
+            'image' => [],
         ]);
 
-        $artist->update([
+        $parameters = [
             'name' => request('name'),
-            'image' => request('image'),
-        ]);
+        ];
+
+
+        if ($request->file('image')) {
+            //upload image
+            //$imagePath = uploaded
+            //$parameters['image'] = imagePath;
+        }
+
+
+        $artist->update($parameters);
+
+
+
+
 
         return response($artist);
     }
