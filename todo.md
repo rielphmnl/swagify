@@ -33,17 +33,19 @@
             [x] gate logic: is $user === userid of post
 
 
-[x] artists
+[ ] artists
     [x] model
     [x] migration
-    [x] controller
-        [ ] ...
-[x] albums
+    [ ] controller
+        [ ] fix image related controllers
+[ ] albums
     [x] model
     [x] migration
-    [x] controller
-[x] songs
+    [ ] controller
+        [ ] fix image related controllers
+[ ] songs
     [x] model
     [x] migration
-    [x] controller
+    [ ] controller
+        [ ] fix image related controllers
 

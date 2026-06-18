@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArtistController extends Controller
 {
@@ -15,23 +16,10 @@ class ArtistController extends Controller
         $query = new Artist;
 
         if ($request->input('search')) {
-            // $query = $query->orWhere('name', 'LIKE', '%' . $request->search . '%')
-            //     ->orWhere('nickname', 'LIKE', '%' . $request->search . '%')
-            //     ->orWhere('description', 'LIKE', '%' . $request->search . '%');
-
-            $query = $query->where(function($q){
-                $q->where('name', 'LIKE', '%' . $request->search . '%')
-                    ->orWhere('nickname', 'LIKE', '%' . $request->search . '%')
-                    ->orWhere('description', 'LIKE', '%' . $request->search . '%');
-            });
+            $query = $query->where('name', 'LIKE', '%' . $request->input('search') . '%');
         }
 
-        if ($request->input('status')) {
-            $query = $query->where('status', $request->status);
-        }
         
-        // if ((something or smth or smt) and status)
-
         $artists = $query->get();
 
         return response($artists);
@@ -50,15 +38,23 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
-        // make image optional
+
         $request->validate([
             'name' => ['required'],
-            'image' => ['required'], //validate image
+            'image' => ['nullable', 'image', 'max:5120'], //validate image
         ]);
+
+        //initialized default image
+        $imagePath = Storage::url('dafault_artist.webp');
+
+        if ($request->image) {
+            $imagePath = Storage::url($request->image->store('artist_image', 'public'));  
+        }
+
 
         $new_artist = Artist::create([
             'name' => request('name'),
-            'image' => request('image'),
+            'image' => $imagePath,
         ]);
 
         return response($new_artist);
@@ -85,28 +81,27 @@ class ArtistController extends Controller
      */
     public function update(Request $request, Artist $artist)
     {
+        dd($request->all()); //bakit null???
         $request->validate([
-            'name' => ['required'],
-            'image' => [],
+            'name' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'max:5120'],
         ]);
 
-        $parameters = [
-            'name' => request('name'),
-        ];
 
+        // tama ba to???
+        $parameters = [];
 
-        if ($request->file('image')) {
-            //upload image
-            //$imagePath = uploaded
-            //$parameters['image'] = imagePath;
+        if ($request->name) {
+            $parameters['name'] = request('naame');
         }
 
+        if ($request->image) {
+            $parameters['image'] = Storage::url($request->image->store('artist_image', 'public'));  
+        }
 
-        $artist->update($parameters);
-
-
-
-
+        if (!empty($parameters)) {
+            $artist->update($parameters);
+        }
 
         return response($artist);
     }
