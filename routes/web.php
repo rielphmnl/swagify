@@ -12,7 +12,8 @@ use App\Models\Todo;
 
 // home redirect to show all
 Route::get('/', function () {
-    return redirect('/todos');
+    // return redirect('/todos');
+    return view('welcome');
 });
 
 

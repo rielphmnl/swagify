@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="w-screen h-screen">
+    <div class="bg-neutral-950 text-neutral-950 h-full w-full flex flex-col justify-center items-center gap-2">
+        <div class="w-3xs flex justify-between">
+            <input id="newPostTitle" type="text" class="bg-green-600 w-4xs text-neutral-950 px-2 rounded-md" autofocus placeholder="new post">
+            <button id="newPostBtn" class="border border-green-600 bg-neutral-950 text-green-600 px-2 rounded-md hover:cursor-pointer">add</button>
+        </div>
+        <p class="bg-yellow-400"> DATA </p>
+        <div id="displayDiv" class="bg-red-600"></div>
+    </div>
+
+    <script>
+        const dataLink = 'https://my-json-server.typicode.com/typicode/demo/posts/';
+        const displayDivEl = document.querySelector('#displayDiv');
+        // const displayTextEl = document.querySelector('#displayText');
+
+        
+        // data = fetch(dataLink)
+        //         .then(res => {
+        //             if (!res.ok) {
+        //                 throw new Error('cant find biatch');
+        //             }
+
+        //             return res.json()
+        //         })
+        //         .then(data => console.log('INSIIIIIDE' + data))
+        //         .catch(error => console.error(error));
+        
+        // console.log('OUTSIDE' + data);
+
+        // makes div for post
+        function createTodoDiv(data) {
+            const newDiv = document.createElement('div');
+            newDiv.id = 'post-' + data.id;
+    
+            const newPostElName = document.createElement('p');
+            newPostElName.innerText = data.title;
+            newDiv.appendChild(newPostElName);
+    
+            return newDiv;
+        }
+        
+        // initial load prints all posts
+        function initialLoad() {
+            fetch(dataLink)
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('cant find biatch');
+                    }
+
+                    return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    for (const i of data) {
+                        newDiv = createTodoDiv(i);
+                        displayDivEl.appendChild(newDiv);
+                    }
+                })
+                .catch(error => console.error(error));
+
+            let test = ['a', 'b', 'c'];
+            for (_ in test) {
+                console.log(_);
+            }
+        }
+
+        function addPost() {
+            const titleEl = document.querySelector('#newPostTitle').value;
+
+            fetch(dataLink, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    title: titleEl
+                    }),
+                })
+                .then(
+                    response => response.json()
+                )
+                .then(
+                    //display in html
+                    data => {
+                        data.title = titleEl;
+                        const newPostDiv = createTodoDiv(data);
+                        displayDivEl.appendChild(newPostDiv);
+                        console.log(data);
+                    }
+                )
+                .catch(error => console.error(error)
+            );
+        }
+
+        initialLoad();
+
+        document.querySelector('#newPostBtn').addEventListener('click', addPost);
+    </script>
+</body>
+</html>
