@@ -14,6 +14,12 @@
             <!-- get -->
             <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">get</p>
+
+                <div id="get_image_div" class="size-24 border border-fuchsia-600 rounded-xl mx-auto overflow-hidden p-1 hidden">
+                    <img id="get_image" src=""/>
+                    <!-- <img id="get_image" src="/storage/artist_image/DEwIsmEZB3BdQaojZsb7veCCf01fp7LowbICOsWM.png"/> -->
+                </div>
+
                 <label for="get_artist_id">
                     ID:
                     <span id="get_artist_id" class="text-fuchsia-600"></span>
@@ -67,7 +73,7 @@
             fetch(`http://127.0.0.1:8000/artists/${artistId}`)
             .then(response => {
                 if (!response.ok){
-                    throw new Error("can't fetch artist");
+                    throw new Error("can't fetch artist " + response.status);
                 }
                 
                 return response.json();
@@ -78,32 +84,37 @@
                 document.querySelector('#get_artist_id').innerHTML = data.id;
                 document.querySelector('#get_artist_name').innerHTML = data.name;
                 document.querySelector('#get_image_path').innerHTML = data.image;
+
+
+                const image = document.querySelector('#get_image').src = data.image;
+                document.querySelector('#get_image_div').classList.replace('hidden', 'block');
+
+
             })
             .catch(error => console.error(error));
             // alert(`http://127.0.0.1:8000//artists/${artistId}`);
         }
 
         function postArtist() {
+            // name of artist
             const name = document.querySelector('#post_artist_name').value;
-            const file = document.querySelector('#postImage');
+            // image of artist
+            const file = document.querySelector('#post_image');
             const image = file.files[0];
 
-            ////////????????
-            const formData = new formData();
+            // create form to submit
+            const formData = new FormData();
+            formData.append('name', name);
             formData.append('image', image);
 
-            //////////////////////////
-            //////////////////////////
-            /////// how to send file /////
-            //////////////////////////
 
             fetch("http://127.0.0.1:8000/artists", {
                 method: 'post',
-                body: ///////??????
+                body: formData,
             })
                 .then(response => {
                     if (!response.ok){
-                        throw new Error("can't fetch artist");
+                        throw new Error("can't fetch artist " + response.status);
                     }
                     
                     return response.json();
@@ -113,6 +124,11 @@
 
                 )
                 .catch(error => console.error(error));
+
+            //////////////////
+            //////////////////
+            // redirect or clear elements?
+            //////////////////
         }
 
         document.querySelector('#getArtistBtn').addEventListener('click', getArtistById);
