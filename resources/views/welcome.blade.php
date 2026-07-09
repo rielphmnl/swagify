@@ -17,7 +17,6 @@
 
                 <div id="get_image_div" class="size-24 border border-fuchsia-600 rounded-xl mx-auto overflow-hidden p-1 hidden">
                     <img id="get_image" src=""/>
-                    <!-- <img id="get_image" src="/storage/artist_image/DEwIsmEZB3BdQaojZsb7veCCf01fp7LowbICOsWM.png"/> -->
                 </div>
 
                 <label for="get_artist_id">
@@ -61,6 +60,19 @@
                 </div>
             </div>
 
+
+            <!-- delete -->
+            <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
+                <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">delete</p>
+
+                <div class="flex justify-center gap-5 mt-2">
+                    <input id="deleteArtistId" class="border border-fuchsia-600 rounded-4xl px-5 w-20" placeholder="id" type="number"/>
+                    <button id="deleteArtistBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">delete artist</button>
+                </div>
+            </div>
+
+
+            
 
 
         </div>
@@ -131,8 +143,31 @@
             //////////////////
         }
 
+        function deleteArtist() {
+            const artistId = document.querySelector('#deleteArtistId').value;
+            ///////// hot to change link domain
+            fetch(`http://127.0.0.1:8000/artists/${artistId}`, {
+                method: 'delete',
+                body: artistId,
+            })
+                .then(response => {
+                    if(!response.ok) {
+                        throw new Error("artist not found " + response.status);
+                    }
+
+                    return response.json();
+                })
+                .then(data => {
+                    return data;
+                    /// delete image
+                })
+                .catch(error => console.error(error));
+
+        }
+
         document.querySelector('#getArtistBtn').addEventListener('click', getArtistById);
         document.querySelector('#postArtistBtn').addEventListener('click', postArtist);
+        document.querySelector('#deleteArtistBtn').addEventListener('click', deleteArtist);
     </script>
 </body>
 </html>
