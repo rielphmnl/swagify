@@ -80,7 +80,7 @@ class ArtistController extends Controller
      */
     public function update(Request $request, Artist $artist)
     {
-        dd($request->all()); //bakit null???
+        // dd($request->all()); //bakit null??? //ok na, postman problem
         $request->validate([
             'name' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:5120'],
@@ -91,7 +91,7 @@ class ArtistController extends Controller
         $parameters = [];
 
         if ($request->name) {
-            $parameters['name'] = request('naame');
+            $parameters['name'] = request('name');
         }
 
         if ($request->image) {
@@ -112,6 +112,6 @@ class ArtistController extends Controller
     {
         $artist->delete();
 
-        return response(Artist::all());
+        return response($artist);
     }
 }

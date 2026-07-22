@@ -65,6 +65,10 @@
             <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">delete</p>
 
+                <div id="delete_image_div" class="size-24 border border-fuchsia-600 rounded-xl mx-auto overflow-hidden p-1 hidden">
+                    <img id="delete_image" src="" class="opacity-30"/>
+                </div>
+
                 <div class="flex justify-center gap-5 mt-2">
                     <input id="deleteArtistId" class="border border-fuchsia-600 rounded-4xl px-5 w-20" placeholder="id" type="number"/>
                     <button id="deleteArtistBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">delete artist</button>
@@ -82,6 +86,8 @@
     <script>
         function getArtistById() {
             const artistId = document.querySelector('#getArtistId').value;
+            clearElements();
+
             fetch(`http://127.0.0.1:8000/artists/${artistId}`)
             .then(response => {
                 if (!response.ok){
@@ -97,10 +103,8 @@
                 document.querySelector('#get_artist_name').innerHTML = data.name;
                 document.querySelector('#get_image_path').innerHTML = data.image;
 
-
-                const image = document.querySelector('#get_image').src = data.image;
+                document.querySelector('#get_image').src = data.image;
                 document.querySelector('#get_image_div').classList.replace('hidden', 'block');
-
 
             })
             .catch(error => console.error(error));
@@ -119,6 +123,7 @@
             formData.append('name', name);
             formData.append('image', image);
 
+            clearElements();
 
             fetch("http://127.0.0.1:8000/artists", {
                 method: 'post',
@@ -145,7 +150,10 @@
 
         function deleteArtist() {
             const artistId = document.querySelector('#deleteArtistId').value;
-            ///////// hot to change link domain
+
+            clearElements();
+
+            ///////// how to change link domain
             fetch(`http://127.0.0.1:8000/artists/${artistId}`, {
                 method: 'delete',
                 body: artistId,
@@ -158,11 +166,34 @@
                     return response.json();
                 })
                 .then(data => {
+                    console.log(data);
+
+                    document.querySelector('#delete_image').src = data.image;
+                    document.querySelector('#delete_image_div').classList.replace('hidden', 'block');
+
                     return data;
                     /// delete image
                 })
                 .catch(error => console.error(error));
 
+        }
+
+        function clearElements() {
+            document.querySelector('#get_artist_id').innerHTML = "";
+            document.querySelector('#get_artist_name').innerHTML = "";
+            document.querySelector('#get_image_path').innerHTML = "";
+            document.querySelector('#getArtistId').value = "";
+            
+            document.querySelector('#get_image_div').classList.replace('block', 'hidden');
+
+            document.querySelector('#post_artist_name').value = "";
+            document.querySelector('#post_image').value = "";
+
+            document.querySelector('#deleteArtistId').value = "";
+
+            document.querySelector('#delete_image_div').classList.replace('block', 'hidden');
+            
+            console.log('elements cleared');            
         }
 
         document.querySelector('#getArtistBtn').addEventListener('click', getArtistById);

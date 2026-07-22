@@ -36,8 +36,10 @@
 [ ] artists
     [x] model
     [x] migration
-    [ ] controller
-        [ ] fix image related controllers
+    [x] controller
+        [x] fix image related controllers
+    [ ] front-end of show all
+        [ ] display all artist on load
 [ ] albums
     [x] model
     [x] migration
