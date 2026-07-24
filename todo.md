@@ -38,8 +38,8 @@
     [x] migration
     [x] controller
         [x] fix image related controllers
-    [ ] front-end of show all
-        [ ] display all artist on load
+    [x] front-end of show all
+        [x] display all artist on load
 [ ] albums
     [x] model
     [x] migration

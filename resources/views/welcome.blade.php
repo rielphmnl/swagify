@@ -19,17 +19,17 @@
                     <img id="get_image" src=""/>
                 </div>
 
-                <label for="get_artist_id">
+                <label>
                     ID:
                     <span id="get_artist_id" class="text-fuchsia-600"></span>
                 </label>
     
-                <label for="get_artist_name">
+                <label>
                     Name:
                     <span id="get_artist_name" class="text-fuchsia-600"></span>
                 </label>
     
-                <label for="get_image_path">
+                <label>
                     Image path:
                     <span id="get_image_path" class="text-fuchsia-600"></span>
                 </label>
@@ -77,10 +77,11 @@
 
 
             <!-- all artists -->
-            <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
+            <div id="allArtistsDiv" class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">all artists</p>
 
-                <div class="border border-fuchsia-600 rounded-xl w-xs px-2 flex gap-2">
+                <!-- div template -->
+                <!-- <div class="border border-fuchsia-600 rounded-xl w-xs px-2 flex gap-2">
                     <div class="size-24 overflow-hidden flex items-center">
                         <img src="/storage/artist_image/e0zWFZgOt2sD3cYlXxv4p3vF3ccBJAegcHkfkQj3.png"/>
                     </div>
@@ -90,7 +91,7 @@
                          <p>name: </p>
                          <p>image path: </p>
                     </div>
-                </div>
+                </div> -->
 
                 
 
@@ -217,46 +218,69 @@
             console.log('elements cleared');            
         }
 
-        function createArtistDiv() {
+        function createArtistDiv(artist) {
+            // full div
             const newDiv = document.createElement('div');
-            newDiv.id = 'artist-' + data.id;
-            newDiv.classList.add('border', 'border-fuchsia-600', 'rounded-xl', 'w-xs', 'px-2', 'flex', 'gap-2');
+            newDiv.id = 'artist-' + artist.id;
+            newDiv.classList.add('border', 'border-fuchsia-600', 'rounded-xl', 'w-xs', 'px-2', 'py-1', 'flex', 'gap-2');
     
-            const newImgDiv = document.createElement('div');
-            newDiv.classList.add('size-24', 'overflow-hidden', 'flex', 'items-center');
+            // left div
+            const leftDiv = document.createElement('div');
+            leftDiv.classList.add('size-24', 'overflow-hidden', 'flex', 'items-center');
 
+            // img
             const newImg = document.createElement('img');
-            newImg.src = "/storage/artist_image/e0zWFZgOt2sD3cYlXxv4p3vF3ccBJAegcHkfkQj3.png"
+            newImg.src = artist.image;
 
-            //////// append to div
+            // append left part to main div
+            leftDiv.appendChild(newImg);
+            newDiv.appendChild(leftDiv);
 
 
-            const newPostElName = document.createElement('p');
-            newPostElName.innerText = data.title;
-            newDiv.appendChild(newPostElName);
+            // right div
+            const rightDiv = document.createElement('div');
+            rightDiv.classList.add('h-24', 'flex-1', 'overflow-auto', 'flex', 'flex-col', 'justify-center');
+
+            // details
+            const newId = document.createElement('p');
+            newId.innerText = artist.id;
+
+            const newName = document.createElement('p');
+            newName.innerText = artist.name;
+
+            const newPath = document.createElement('p');
+            newPath.innerText = artist.image;
+
+            // append right part to main div
+            rightDiv.appendChild(newId);
+            rightDiv.appendChild(newName);
+            rightDiv.appendChild(newPath);
+            newDiv.appendChild(rightDiv);
+
     
             return newDiv;
-
         }
-
-        <div class="border      gap-2">
-            <div class="size-24  flex items-center">
-                <img src="/storage/artist_image/e0zWFZgOt2sD3cYlXxv4p3vF3ccBJAegcHkfkQj3.png"/>
-            </div>
-
-            <div class="h-24 flex-1 overflow-hidden flex flex-col justify-center">
-                    <p>id: </p>
-                    <p>name: </p>
-                    <p>image path: </p>
-            </div>
-        </div>
-
         
 
 
         function intitialLoad() {
-            createArtistDiv();
+            const divEl = document.querySelector('#allArtistsDiv');
 
+            // make div per artist
+            fetch('http://127.0.0.1:8000/artists')
+                .then(response => {
+                    if(!response.ok) {
+                        throw new Error('artists not found');
+                    }
+
+                    return response.json();
+                })
+                .then(artists => {
+                    for (const artist of artists) {
+                        divEl.appendChild(createArtistDiv(artist));
+                    }
+                })
+                .catch(error => console.error(error))
         }
 
         document.querySelector('#getArtistBtn').addEventListener('click', getArtistById);
