@@ -16,6 +16,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/feartist', function () {
+    return view('artist');
+});
+// Route::get('/fealbum', function () {
+//     return view('album');
+// });
+// Route::get('/fesong', function () {
+//     return view('song');
+// });
+// no fe yet
+
+
 
 // Route::middleware('auth')->group(function() {
     // read all

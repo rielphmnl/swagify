@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SongController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response(Song::all());
+        $query = new Song;
+
+        if ($request->input('search')) {
+            $query = $query->where('name', 'LIKE', '%' . $request->input('search') . '%');
+        }
+
+        
+        $songs = $query->get();
+
+        return response($songs);
     }
 
     /**
@@ -29,17 +39,25 @@ class SongController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required'],
-            'image' => ['required'],
-            'song_file' => ['required'],
+            'name' => ['required', 'string'],
+            'image' => ['nullable', 'image', 'max:5120'],
+            'song_file' => ['required'], // how? text for now
             'artist_id' => ['integer:strict', 'exists:artists,id'], // check if exists rule 
-            'album_id' => ['integer:strict', 'exists:albums,id'], //optional 
+            'album_id' => ['integer:strict', 'exists:albums,id'], // optional 
         ]);
+
+        // initialized default image
+        $imagePath = Storage::url('dafault_song.png');
+
+        if ($request->image) {
+            $imagePath = Storage::url($request->image->store('song_image', 'public'));  
+        }
+
 
         $new_song = Song::create([
             'name' => request('name'),
-            'image' => request('image'),
-            'song_file' => request('song_file'),
+            'image' => $imagePath,
+            'song_file' => request('song_file'), // text for now
             'artist_id' => request('artist_id'),
             'album_id' => request('album_id'),
         ]);
@@ -69,20 +87,41 @@ class SongController extends Controller
     public function update(Request $request, Song $song)
     {
         $request->validate([
-            'name' => ['required'],
-            'image' => ['required'],
-            'song_file' => ['required'],
-            'artist_id' => ['integer:strict'],
-            'album_id' => ['integer:strict'],
+            'name' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'max:5120'],
+            'song_file' => ['nullable'],
+            'artist_id' => ['nullable', 'integer:strict', 'exists:artists,id'],
+            'album_id' => ['nullable', 'integer:strict', 'exists:album,id'],
         ]);
 
-        $song->update([
-            'name' => request('name'),
-            'image' => request('image'),
-            'song_file' => request('song_file'),
-            'artist_id' => request('artist_id'),
-            'album_id' => request('album_id'),
-        ]);
+        // not required, update only those that are changed
+        $parameters = [];
+
+        if ($request->name) {
+            $parameters['name'] = request('name');
+        }
+
+        if ($request->image) {
+            $parameters['image'] = Storage::url($request->image->store('song_image', 'public'));  
+        }
+
+        if ($request->song_file) {
+            $parameters['song_file'] = request('song_file');
+        }
+
+        if ($request->artist_id) {
+            $parameters['artist_id'] = request('artist_id');
+        }
+
+        if ($request->album_id) {
+            $parameters['album_id'] = request('album_id');
+        }
+
+
+        if (!empty($parameters)) {
+            $song->update($parameters);
+        }
+
 
         return response($song);
     }
@@ -94,6 +133,6 @@ class SongController extends Controller
     {
         $song->delete();
 
-        return response(Song::all());
+        return response($song);
     }
 }

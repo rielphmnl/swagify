@@ -39,11 +39,11 @@ class ArtistController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required'],
+            'name' => ['required', 'string'],
             'image' => ['nullable', 'image', 'max:5120'], //validate image
         ]);
 
-        //initialized default image
+        // initialized default image
         $imagePath = Storage::url('dafault_artist.webp');
 
         if ($request->image) {
@@ -102,6 +102,7 @@ class ArtistController extends Controller
             $artist->update($parameters);
         }
 
+        
         return response($artist);
     }
 

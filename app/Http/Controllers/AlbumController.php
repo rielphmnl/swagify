@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response(Album::all());
+        $query = new Album();
+
+        if ($request->input('search')) {
+            $query = $query->where('name', 'LIKE', '%' . $request->input('search') . '%');
+        }
+
+        
+        $albums = $query->get();
+
+        return response($albums);
     }
 
     /**
@@ -29,15 +39,22 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required'],
-            'image' => ['required'],
-            'artist_id' => ['integer'],
+            'name' => ['required', 'string'],
+            'image' => ['nullable', 'image', 'max:5120'],
+            'artist_id' => ['integer:strict', 'exists:artists,id'],
         ]);
+
+        // initialized default song/album image
+        $imagePath = Storage::url('dafault_song.png');
+
+        if ($request->image) {
+            $imagePath = Storage::url($request->image->store('song_image', 'public'));  
+        }
 
 
         $new_album = Album::create([
             'name' => request('name'),
-            'image' => request('image'),
+            'image' => request($imagePath),
             'artist_id' => request('artist_id'),
         ]);
 
@@ -66,16 +83,29 @@ class AlbumController extends Controller
     public function update(Request $request, Album $album)
     {
         $request->validate([
-            'name' => ['required'],
-            'image' => ['required'],
-            'artist_id' => ['integer:strict'],
+            'name' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'max:5120'],
+            'artist_id' => ['nullable', 'integer:strict'],
         ]);
 
-        $album->update([
-            'name' => request('name'),
-            'image' => request('image'),
-            'artist_id' => request('artist_id'),
-        ]);
+        // update only indicated
+        if ($request->name) {
+            $parameters['name'] = request('name');
+        }
+
+        if ($request->image) {
+            $parameters['image'] = Storage::url($request->image->store('song_image', 'public'));  
+        }
+
+        if ($request->artist_id) {
+            $parameters['artist_id'] = request('artist_id');
+        }
+
+        
+        if (!empty($parameters)) {
+            $album->update($parameters);
+        }
+
 
         return response($album);
     }
@@ -87,6 +117,6 @@ class AlbumController extends Controller
     {
         $album->delete();
 
-        return response(Album::all());
+        return response($album);
     }
 }

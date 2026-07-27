@@ -40,6 +40,9 @@
         [x] fix image related controllers
     [x] front-end of show all
         [x] display all artist on load
+    [ ] front end update
+        [ ] make div for update
+        [ ] make it work
 [ ] albums
     [x] model
     [x] migration
