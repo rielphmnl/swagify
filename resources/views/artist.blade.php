@@ -211,7 +211,12 @@
             const formData = new FormData();
             formData.append('id', id);
             formData.append('name', name);
+
+            // if (image) {
             formData.append('image', image);
+            // }
+
+            formData.append('_method', 'PUT');
 
             console.log('!!!!!!!!!!!!!!!!!!!');
             console.log(formData);
@@ -221,8 +226,11 @@
             clearElements();
 
             fetch(`http://127.0.0.1:8000/artists/${id}`, {
-                method: 'PUT',
+                method: 'POST',
                 body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                }
             })
                 .then(response => {
                     if (!response.ok){

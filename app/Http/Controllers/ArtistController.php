@@ -82,8 +82,8 @@ class ArtistController extends Controller
     {
         // dd($request->all()); //bakit null??? //ok na, postman problem
         $request->validate([
-            'name' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'max:5120'],
+            'name' => ['required', 'string'],
+            'image' => ['required', 'image', 'max:5120'],
         ]);
 
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\Auth\SessionsController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\SwagifyController;
 use App\Http\Controllers\TodoController;
 use App\Models\Album;
 use Illuminate\Support\Facades\Route;
@@ -12,8 +13,8 @@ use App\Models\Todo;
 
 // home redirect to show all
 Route::get('/', function () {
-    // return redirect('/todos');
-    return view('welcome');
+    return redirect('/feartist');
+    // return view('welcome');
 });
 
 Route::get('/feartist', function () {
@@ -26,6 +27,8 @@ Route::get('/feartist', function () {
 //     return view('song');
 // });
 // no fe yet
+
+Route::get('/swagify', [SwagifyController::class, 'index']);
 
 
 

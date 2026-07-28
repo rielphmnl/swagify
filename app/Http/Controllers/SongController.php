@@ -13,7 +13,7 @@ class SongController extends Controller
      */
     public function index(Request $request)
     {
-        $query = new Song;
+        $query = Song::query();
 
         if ($request->input('search')) {
             $query = $query->where('name', 'LIKE', '%' . $request->input('search') . '%');
@@ -41,7 +41,7 @@ class SongController extends Controller
         $request->validate([
             'name' => ['required', 'string'],
             'image' => ['nullable', 'image', 'max:5120'],
-            'song_file' => ['required'], // how? text for now
+            'song_file' => ['required', 'file'], // how? text for now
             'artist_id' => ['integer:strict', 'exists:artists,id'], // check if exists rule 
             'album_id' => ['integer:strict', 'exists:albums,id'], // optional 
         ]);
@@ -53,11 +53,13 @@ class SongController extends Controller
             $imagePath = Storage::url($request->image->store('song_image', 'public'));  
         }
 
+        $songPath = Storage::url($request->song_file->store('song_file', 'public'));  
+        
 
         $new_song = Song::create([
             'name' => request('name'),
             'image' => $imagePath,
-            'song_file' => request('song_file'), // text for now
+            'song_file' => $songPath,
             'artist_id' => request('artist_id'),
             'album_id' => request('album_id'),
         ]);
