@@ -33,24 +33,27 @@
             [x] gate logic: is $user === userid of post
 
 
-[ ] artists
+[x] artists
     [x] model
     [x] migration
     [x] controller
         [x] fix image related controllers
     [x] front-end of show all
         [x] display all artist on load
-    [ ] front end update
-        [ ] make div for update
-        [ ] make it work
-[ ] albums
+    [x] front end update
+        [x] make div for update
+        [x] make it work
+[x] albums
     [x] model
     [x] migration
-    [ ] controller
-        [ ] fix image related controllers
-[ ] songs
+    [x] controller
+        [x] fix image related controllers
+[x] songs
     [x] model
     [x] migration
-    [ ] controller
-        [ ] fix image related controllers
+    [x] controller
+        [x] fix image related controllers
 
+
+[ ] swagify front end 
+    [ ] make javascript of initial load, loading all songs on left pane
