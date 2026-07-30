@@ -6,9 +6,9 @@
 	<title>swagify</title>
 
 	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-	<!-- <link rel="stylesheet" src="style.css"> -->
+
 	<style>
-		@import "tailwindcss";
+		/* @import "tailwindcss"; */
 
 		.btn-scale-color:hover {
 			transform: scale(1.05);
@@ -20,13 +20,11 @@
 			display: block;
 		}
 
-		#playlist:hover #playicon {
+		#listDiv > a:hover #playicon {
 			display:block;
 		}
-
-		
 	</style>
-
+	
 </head>
 <body class="bg-black text-neutral-300 h-screen max-h-screen flex flex-col">
 	<header class="flex pt-2 px-3 items-center">
@@ -80,7 +78,7 @@
 	</header>
 
 	<!-- main section -->
-	<section class="flex-1 m-2 flex gap-2">
+	<section class="flex-1 min-h-0 m-2 flex gap-2">
 		<!-- your library -->
 		<section class="library bg-neutral-900 min-w-xs rounded-md flex flex-col">
 			<!-- top part -->
@@ -117,7 +115,7 @@
 			</div>
 
 			<!-- bottom part -->
-			<div class="shrink overflow-y-scroll">
+			<div class="flex-1 overflow-y-auto">
 				<div class="px-2">
 					<!-- search bar -->
 					<div class="flex items-center justify-between">
@@ -134,13 +132,14 @@
 					</div>
 		
 					<!-- list of playlists/albums/etc -->
-					<div>
+					<div id="listDiv" class="flex-1 overflow-y-auto">
 						<!-- per item -->
 						
+						<!-- song card template -->
 						<!-- item repeat -->
 						<!-- item repeat -->
-						<div id="playlist" class="hover:bg-neutral-800 cursor-pointer rounded-md h-16 w-full flex items-center px-2 gap-2">
-							<!-- thumbnail -->
+						<!-- <a href="/feartist" id="playlist" class="hover:bg-neutral-800 cursor-pointer rounded-md h-16 w-full flex items-center px-2 gap-2">
+							thumbnail
 							<div class="size-12 rounded overflow-hidden relative">
 								<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">
 								<div id="playicon" class="absolute top-0 bottom-0 right-0 left-0 hidden">
@@ -150,166 +149,22 @@
 								</div>
 							</div>
 		
-							<!-- details -->
+							details
 							<div>
-								<!-- title -->
+								title
 								<div>
 									<p class="text-neutral-300 font-light">DtMF radio</p>
 								</div>
 		
-								<!-- sub details -->
+								sub details
 								<div>
 									<p class="text-neutral-400 text-sm font-light">Playlist • Spotify</p>
 								</div>
 							</div>
-						</div>
+						</a> -->
 						<!-- item repeat -->
 						<!-- item repeat -->
 						
-						<!-- item repeat -->
-						<!-- item repeat -->
-						<div id="playlist" class="hover:bg-neutral-800 cursor-pointer rounded-md h-16 w-full flex items-center px-2 gap-2">
-							<!-- thumbnail -->
-							<div class="size-12 rounded overflow-hidden relative">
-								<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">
-								<div id="playicon" class="absolute top-0 bottom-0 right-0 left-0 hidden">
-									<div class="w-full h-full flex justify-center items-center bg-neutral-800/70">
-										<svg  class="text-neutral-300 hover:scale-105" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z"/></svg>
-									</div>
-								</div>
-							</div>
-		
-							<!-- details -->
-							<div>
-								<!-- title -->
-								<div>
-									<p class="text-neutral-300 font-light">DtMF radio</p>
-								</div>
-		
-								<!-- sub details -->
-								<div>
-									<p class="text-neutral-400 text-sm font-light">Playlist • Spotify</p>
-								</div>
-							</div>
-						</div>
-						<!-- item repeat -->
-						<!-- item repeat -->
-						 
-						<!-- item repeat -->
-						<!-- item repeat -->
-						<div id="playlist" class="hover:bg-neutral-800 cursor-pointer rounded-md h-16 w-full flex items-center px-2 gap-2">
-							<!-- thumbnail -->
-							<div class="size-12 rounded overflow-hidden relative">
-								<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">
-								<div id="playicon" class="absolute top-0 bottom-0 right-0 left-0 hidden">
-									<div class="w-full h-full flex justify-center items-center bg-neutral-800/70">
-										<svg  class="text-neutral-300 hover:scale-105" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z"/></svg>
-									</div>
-								</div>
-							</div>
-		
-							<!-- details -->
-							<div>
-								<!-- title -->
-								<div>
-									<p class="text-neutral-300 font-light">DtMF radio</p>
-								</div>
-		
-								<!-- sub details -->
-								<div>
-									<p class="text-neutral-400 text-sm font-light">Playlist • Spotify</p>
-								</div>
-							</div>
-						</div>
-						<!-- item repeat -->
-						<!-- item repeat -->	
-						 
-						<!-- item repeat -->
-						<!-- item repeat -->
-						<div id="playlist" class="hover:bg-neutral-800 cursor-pointer rounded-md h-16 w-full flex items-center px-2 gap-2">
-							<!-- thumbnail -->
-							<div class="size-12 rounded overflow-hidden relative">
-								<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">
-								<div id="playicon" class="absolute top-0 bottom-0 right-0 left-0 hidden">
-									<div class="w-full h-full flex justify-center items-center bg-neutral-800/70">
-										<svg  class="text-neutral-300 hover:scale-105" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z"/></svg>
-									</div>
-								</div>
-							</div>
-		
-							<!-- details -->
-							<div>
-								<!-- title -->
-								<div>
-									<p class="text-neutral-300 font-light">DtMF radio</p>
-								</div>
-		
-								<!-- sub details -->
-								<div>
-									<p class="text-neutral-400 text-sm font-light">Playlist • Spotify</p>
-								</div>
-							</div>
-						</div>
-						<!-- item repeat -->
-						<!-- item repeat -->
-
-						<!-- item repeat -->
-						<!-- item repeat -->
-						<div id="playlist" class="hover:bg-neutral-800 cursor-pointer rounded-md h-16 w-full flex items-center px-2 gap-2">
-							<!-- thumbnail -->
-							<div class="size-12 rounded overflow-hidden relative">
-								<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">
-								<div id="playicon" class="absolute top-0 bottom-0 right-0 left-0 hidden">
-									<div class="w-full h-full flex justify-center items-center bg-neutral-800/70">
-										<svg  class="text-neutral-300 hover:scale-105" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z"/></svg>
-									</div>
-								</div>
-							</div>
-		
-							<!-- details -->
-							<div>
-								<!-- title -->
-								<div>
-									<p class="text-neutral-300 font-light">DtMF radio</p>
-								</div>
-		
-								<!-- sub details -->
-								<div>
-									<p class="text-neutral-400 text-sm font-light">Playlist • Spotify</p>
-								</div>
-							</div>
-						</div>
-						<!-- item repeat -->
-						<!-- item repeat -->
-
-						<!-- item repeat -->
-						<!-- item repeat -->
-						<div id="playlist" class="hover:bg-neutral-800 cursor-pointer rounded-md h-16 w-full flex items-center px-2 gap-2">
-							<!-- thumbnail -->
-							<div class="size-12 rounded overflow-hidden relative">
-								<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">
-								<div id="playicon" class="absolute top-0 bottom-0 right-0 left-0 hidden">
-									<div class="w-full h-full flex justify-center items-center bg-neutral-800/70">
-										<svg  class="text-neutral-300 hover:scale-105" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z"/></svg>
-									</div>
-								</div>
-							</div>
-		
-							<!-- details -->
-							<div>
-								<!-- title -->
-								<div>
-									<p class="text-neutral-300 font-light">DtMF radio</p>
-								</div>
-		
-								<!-- sub details -->
-								<div>
-									<p class="text-neutral-400 text-sm font-light">Playlist • Spotify</p>
-								</div>
-							</div>
-						</div>
-						<!-- item repeat -->
-						<!-- item repeat -->
 		
 					</div>
 				</div>
@@ -517,13 +372,14 @@
     <script>
         function createSongCard(song) {
             // full div
-            const newDiv = document.createElement('div');
+            const newDiv = document.createElement('a');
             newDiv.id = 'song-' + song.id;
+			newDiv.href = "/songs/" + song.id;
             newDiv.classList.add('hover:bg-neutral-800', 'cursor-pointer', 'rounded-md', 'h-16', 'w-full', 'flex', 'items-center', 'px-2', 'gap-2');
     
             // thumbnail div
             const thumbnailDiv = document.createElement('div');
-            leftDiv.classList.add('size-12', 'rounded', 'overflow-hidden', 'relative');
+            thumbnailDiv.classList.add('size-12', 'rounded', 'overflow-hidden', 'relative');
 
             // img
             const newImg = document.createElement('img');
@@ -584,7 +440,7 @@
             const subDetailsDiv = document.createElement('div');
 
             const albumName = document.createElement('p');
-            albumName.innerText = "Album • " + "HOW TO GET???";
+            albumName.innerText = "Album • " + song.artist.name;
             albumName.classList.add('text-neutral-400', 'text-sm', 'font-light');
 
             subDetailsDiv.appendChild(albumName);
@@ -599,7 +455,10 @@
 
 
         function initialLoad() {
-            fetch('http://127.0.0.1:8000/songs/1')
+			const listDiv = document.querySelector('#listDiv');
+
+
+            fetch('http://127.0.0.1:8000/swagify')
             .then(response => {
                 if (!response.ok){
                     throw new Error("can't fetch song " + response.status);
@@ -607,8 +466,11 @@
                 
                 return response.json();
             })
-            .then(song => {
-                createSongCard(song)
+            .then(songs => {
+				for (song of songs) {
+					listDiv.appendChild(createSongCard(song));
+					console.log(song.artist.name);
+				}
             })
             .catch(error => console.error(error));
         }
