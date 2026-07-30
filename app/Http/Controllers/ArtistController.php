@@ -82,8 +82,8 @@ class ArtistController extends Controller
     {
         // dd($request->all()); //bakit null??? //ok na, postman problem
         $request->validate([
-            'name' => ['required', 'string'],
-            'image' => ['required', 'image', 'max:5120'],
+            'name' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'max:5120'],
         ]);
 
 
@@ -97,6 +97,7 @@ class ArtistController extends Controller
         if ($request->image) {
             $parameters['image'] = Storage::url($request->image->store('artist_image', 'public'));  
         }
+        
 
         if (!empty($parameters)) {
             $artist->update($parameters);

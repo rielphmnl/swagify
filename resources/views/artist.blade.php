@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fetch</title>
+    <title>front end artist</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="bg-neutral-800">
@@ -62,7 +62,7 @@
 
 
             <!-- put -->
-            <div id="putDiv" class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
+            <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">put</p>
 
                 <label for="put_artist_id">
@@ -82,6 +82,10 @@
     
                 <div class="flex justify-center gap-5 mt-2">
                     <button id="putArtistBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">put artist</button>
+                </div>
+
+                <div id="putDiv">
+                    
                 </div>
             </div>
 
@@ -188,9 +192,11 @@
                 })
                 .then(
                     artist => {
-                    console.log(artist)
+                    console.log(artist);
 
-                    divEl.appendChild(createArtistDiv(artist))
+                    divEl.appendChild(createArtistDiv(artist));
+
+                    refreshArtistsList();
                 })
                 .catch(error => console.error(error));
         }
@@ -212,9 +218,9 @@
             formData.append('id', id);
             formData.append('name', name);
 
-            // if (image) {
-            formData.append('image', image);
-            // }
+            if (image) {
+                formData.append('image', image);
+            };
 
             formData.append('_method', 'PUT');
 
@@ -236,19 +242,14 @@
                     if (!response.ok){
                         throw new Error("can't fetch artist " + response.status);
                     }
-                    
-                    console.log('*************************');
-                    console.log(response);
-                    console.log('*************************');
+
                     return response.json();
                 })
                 .then(
                     artist => {
-                    console.log('#############################')
-                    console.log(artist.name)
-                    console.log('#############################')
+                        divEl.appendChild(createArtistDiv(artist));
 
-                    divEl.appendChild(createArtistDiv(artist))
+                        refreshArtistsList();
                 })
                 .catch(error => console.error(error));
         }
@@ -276,6 +277,8 @@
                     document.querySelector('#delete_image').src = data.image;
                     document.querySelector('#delete_image_div').classList.replace('hidden', 'block');
 
+                    refreshArtistsList();
+
                     return data;
                     /// delete image
                 })
@@ -297,6 +300,8 @@
             document.querySelector('#put_artist_id').value = "";
             document.querySelector('#put_artist_name').value = "";
             document.querySelector('#put_image').value = "";
+
+            document.querySelector('#putDiv').replaceChildren();
 
             document.querySelector('#deleteArtistId').value = "";
 
@@ -349,6 +354,14 @@
         }
         
 
+        function refreshArtistsList() {
+            const divEl = document.querySelector('#allArtistsDiv');
+
+            divEl.replaceChildren();
+
+            intitialLoad();
+        }
+
 
         function intitialLoad() {
             const divEl = document.querySelector('#allArtistsDiv');
@@ -369,6 +382,7 @@
                 })
                 .catch(error => console.error(error))
         }
+
 
         document.querySelector('#getArtistBtn').addEventListener('click', getArtistById);
         document.querySelector('#postArtistBtn').addEventListener('click', postArtist);

@@ -55,5 +55,12 @@
         [x] fix image related controllers
 
 
+[ ] minimalist front end
+    [x] artist
+    [ ] album
+    [ ] song
+
+
 [ ] swagify front end 
-    [ ] make javascript of initial load, loading all songs on left pane
+    [x] make javascript of initial load, loading all songs on left pane
+    [ ] ...
