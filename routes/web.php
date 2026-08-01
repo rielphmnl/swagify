@@ -18,13 +18,13 @@ Route::get('/', function () {
 });
 
 Route::get('/feartist', function () {
-    return view('artist');
+    return view('simple/artist');
 });
-// Route::get('/fealbum', function () {
-//     return view('album');
-// });
+Route::get('/fealbum', function () {
+    return view('simple/album');
+});
 // Route::get('/fesong', function () {
-//     return view('song');
+//     return view('simple/song');
 // });
 // no fe yet
 

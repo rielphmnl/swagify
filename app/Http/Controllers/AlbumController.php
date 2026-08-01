@@ -41,7 +41,7 @@ class AlbumController extends Controller
         $request->validate([
             'name' => ['required', 'string'],
             'image' => ['nullable', 'image', 'max:5120'],
-            'artist_id' => ['integer:strict', 'exists:artists,id'],
+            'artist_id' => ['required', 'numeric', 'exists:artists,id'],
         ]);
 
         // initialized default song/album image
@@ -51,10 +51,13 @@ class AlbumController extends Controller
             $imagePath = Storage::url($request->image->store('song_image', 'public'));  
         }
 
-
+        // nagsstore so dito ang sira koooooooo
+        // grrrr
+        // so ang mali ko is hindi niya nakikita as number ang artist_id, how to fix???
+        // integer is type strict. numeric accepts numeric strings. don't apply :strict
         $new_album = Album::create([
             'name' => request('name'),
-            'image' => request($imagePath),
+            'image' => $imagePath,
             'artist_id' => request('artist_id'),
         ]);
 
@@ -85,7 +88,7 @@ class AlbumController extends Controller
         $request->validate([
             'name' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:5120'],
-            'artist_id' => ['nullable', 'integer:strict'],
+            'artist_id' => ['nullable', 'numeric', 'exists:artists,id'],
         ]);
 
         // update only indicated

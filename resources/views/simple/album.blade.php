@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>front end artist</title>
+    <title>front end album</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="bg-neutral-800">
     <div class="w-screen h-screen bg-neutral-800 text-neutral-200 p-3">
         <div class="border border-fuchsia-600 rounded-xl p-3">
-            <p class="text-fuchsia-600 px-3 text-xl font-bold">Artist</p>
+            <p class="text-fuchsia-600 px-3 text-xl font-bold">Album</p>
 
             <!-- get -->
             <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
@@ -21,12 +21,17 @@
 
                 <label>
                     ID:
-                    <span id="get_artist_id" class="text-fuchsia-600"></span>
+                    <span id="get_album_id" class="text-fuchsia-600"></span>
                 </label>
     
                 <label>
                     Name:
-                    <span id="get_artist_name" class="text-fuchsia-600"></span>
+                    <span id="get_album_name" class="text-fuchsia-600"></span>
+                </label>
+
+                <label>
+                    Artist ID:
+                    <span id="get_artist_id" class="text-fuchsia-600"></span>
                 </label>
     
                 <label class="w-full overflow-x-auto">
@@ -35,8 +40,8 @@
                 </label>
     
                 <div class="flex justify-center gap-5 mt-2">
-                    <input id="getArtistId" class="border border-fuchsia-600 rounded-4xl px-5 w-20" placeholder="id" type="number"/>
-                    <button id="getArtistBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">get artist</button>
+                    <input id="getAlbumId" class="border border-fuchsia-600 rounded-4xl px-5 w-20" placeholder="id" type="number"/>
+                    <button id="getAlbumBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">get album</button>
                 </div>
             </div>
 
@@ -45,9 +50,14 @@
             <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">post</p>
 
-                <label for="post_artist_name">
+                <label for="post_album_name">
                     Name:
-                    <input id="post_artist_name" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" />
+                    <input id="post_album_name" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" />
+                </label>
+
+                <label for="post_artist_id">
+                    Artist ID:
+                    <input id="post_artist_id" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" type="number" />
                 </label>
     
                 <label for="post_image">
@@ -56,12 +66,10 @@
                 </label>
     
                 <div class="flex justify-center gap-5 mt-2">
-                    <button id="postArtistBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">post artist</button>
+                    <button id="postAlbumBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">post album</button>
                 </div>
 
-                <div id="postDiv">
-
-                </div>
+                <div id="postDiv"></div>
             </div>
 
 
@@ -69,14 +77,19 @@
             <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">put</p>
 
-                <label for="put_artist_id">
+                <label for="put_album_id">
                     ID:
-                    <input id="put_artist_id" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" type="number" />
+                    <input id="put_album_id" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" type="number" />
                 </label>
 
-                <label for="put_artist_name">
+                <label for="put_album_name">
                     Name:
-                    <input id="put_artist_name" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" />
+                    <input id="put_album_name" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" />
+                </label>
+
+                <label for="put_artist_id">
+                    Artist ID:
+                    <input id="put_artist_id" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" type="number" />
                 </label>
     
                 <label for="put_image">
@@ -85,7 +98,7 @@
                 </label>
     
                 <div class="flex justify-center gap-5 mt-2">
-                    <button id="putArtistBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">put artist</button>
+                    <button id="putAlbumBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">put album</button>
                 </div>
 
                 <div id="putDiv">
@@ -103,20 +116,20 @@
                 </div>
 
                 <div class="flex justify-center gap-5">
-                    <input id="deleteArtistId" class="border border-fuchsia-600 rounded-4xl px-5 w-20" placeholder="id" type="number"/>
-                    <button id="deleteArtistBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">delete artist</button>
+                    <input id="deleteAlbumId" class="border border-fuchsia-600 rounded-4xl px-5 w-20" placeholder="id" type="number"/>
+                    <button id="deleteAlbumBtn" class="border border-fuchsia-600 rounded-full hover:cursor-pointer hover:bg-neutral-700 active:bg-fuchsia-800 px-5 py-2">delete album</button>
                 </div>
             </div>
 
 
-            <!-- all artists -->
-            <div id="allArtistsDiv" class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
-                <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">all artists</p>
+            <!-- all albums -->
+            <div id="allAlbumsDiv" class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
+                <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">all albums</p>
 
                 <!-- div template -->
                 <!-- <div class="border border-fuchsia-600 rounded-xl w-xs px-2 flex gap-2">
                     <div class="size-24 overflow-hidden flex items-center">
-                        <img src="/storage/artist_image/e0zWFZgOt2sD3cYlXxv4p3vF3ccBJAegcHkfkQj3.png"/>
+                        <img src="/storage/song_image/e0zWFZgOt2sD3cYlXxv4p3vF3ccBJAegcHkfkQj3.png"/>
                     </div>
 
                     <div class="h-24 flex-1 overflow-hidden flex flex-col justify-center">
@@ -139,14 +152,14 @@
 
 
     <script>
-        function getArtistById() {
-            const artistId = document.querySelector('#getArtistId').value;
+        function getAlbumById() {
+            const albumId = document.querySelector('#getAlbumId').value;
             clearElements();
 
-            fetch(`http://127.0.0.1:8000/artists/${artistId}`)
+            fetch(`http://127.0.0.1:8000/albums/${albumId}`)
             .then(response => {
                 if (!response.ok){
-                    throw new Error("can't fetch artist " + response.status);
+                    throw new Error("can't fetch album " + response.status);
                 }
                 
                 return response.json();
@@ -154,8 +167,9 @@
             .then(data => {
                 console.log("data idddddddd is " + data.id);
     
-                document.querySelector('#get_artist_id').innerHTML = data.id;
-                document.querySelector('#get_artist_name').innerHTML = data.name;
+                document.querySelector('#get_album_id').innerHTML = data.id;
+                document.querySelector('#get_album_name').innerHTML = data.name;
+                document.querySelector('#get_artist_id').innerHTML = data.artist_id;
                 document.querySelector('#get_image_path').innerHTML = data.image;
 
                 document.querySelector('#get_image').src = data.image;
@@ -163,13 +177,15 @@
 
             })
             .catch(error => console.error(error));
-            // alert(`http://127.0.0.1:8000//artists/${artistId}`);
+            // alert(`http://127.0.0.1:8000//albums/${albumId}`);
         }
 
-        function postArtist() {
-            // name of artist
-            const name = document.querySelector('#post_artist_name').value;
-            // image of artist
+        function postAlbum() {
+            // name of album
+            const name = document.querySelector('#post_album_name').value;
+            // artist id
+            const artistId = document.querySelector('#post_artist_id').value;
+            // image of album
             const file = document.querySelector('#post_image');
             // div element
             const divEl = document.querySelector('#postDiv');
@@ -179,12 +195,13 @@
             // create form to submit
             const formData = new FormData();
             formData.append('name', name);
+            formData.append('artist_id', artistId);
             formData.append('image', image);
 
             clearElements();
 
 
-            fetch("http://127.0.0.1:8000/artists", {
+            fetch("http://127.0.0.1:8000/albums", {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -193,28 +210,30 @@
             })
                 .then(response => {
                     if (!response.ok){
-                        throw new Error("can't fetch artist " + response.status);
+                        throw new Error("can't fetch album " + response.status);
                     }
                     
                     return response.json();
                 })
                 .then(
-                    artist => {
-                    console.log(artist);
+                    album => {
+                    console.log(album);
 
-                    divEl.appendChild(createArtistDiv(artist));
+                    divEl.appendChild(createAlbumDiv(album));
 
-                    refreshArtistsList();
+                    refreshAlbumsList();
                 })
                 .catch(error => console.error(error));
         }
 
-        function putArtist() {
-            // name of artist
-            const id = document.querySelector('#put_artist_id').value;
-            // name of artist
-            const name = document.querySelector('#put_artist_name').value;
-            // image of artist
+        function putAlbum() {
+            // name of album
+            const id = document.querySelector('#put_album_id').value;
+            // name of album
+            const name = document.querySelector('#put_album_name').value;
+            // artist id of album
+            const artistId = document.querySelector('#put_artist_id').value;
+            // image of album
             const file = document.querySelector('#put_image');
             // div element
             const divEl = document.querySelector('#putDiv');
@@ -225,6 +244,7 @@
             const formData = new FormData();
             formData.append('id', id);
             formData.append('name', name);
+            formData.append('artist_id', artistId);
 
             if (image) {
                 formData.append('image', image);
@@ -239,7 +259,7 @@
 
             clearElements();
 
-            fetch(`http://127.0.0.1:8000/artists/${id}`, {
+            fetch(`http://127.0.0.1:8000/albums/${id}`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -248,33 +268,33 @@
             })
                 .then(response => {
                     if (!response.ok){
-                        throw new Error("can't fetch artist " + response.status);
+                        throw new Error("can't fetch album " + response.status);
                     }
 
                     return response.json();
                 })
                 .then(
-                    artist => {
-                        divEl.appendChild(createArtistDiv(artist));
+                    album => {
+                        divEl.appendChild(createAlbumDiv(album));
 
-                        refreshArtistsList();
+                        refreshAlbumsList();
                 })
                 .catch(error => console.error(error));
         }
 
-        function deleteArtist() {
-            const artistId = document.querySelector('#deleteArtistId').value;
+        function deleteAlbum() {
+            const albumId = document.querySelector('#deleteAlbumId').value;
 
             clearElements();
 
             ///////// how to change link domain
-            fetch(`http://127.0.0.1:8000/artists/${artistId}`, {
-                method: 'DELETE',
-                body: artistId,
+            fetch(`http://127.0.0.1:8000/albums/${albumId}`, {
+                method: 'delete',
+                body: albumId,
             })
                 .then(response => {
                     if(!response.ok) {
-                        throw new Error("artist not found " + response.status);
+                        throw new Error("album not found " + response.status);
                     }
 
                     return response.json();
@@ -285,7 +305,7 @@
                     document.querySelector('#delete_image').src = data.image;
                     document.querySelector('#delete_image_div').classList.replace('hidden', 'block');
 
-                    refreshArtistsList();
+                    refreshAlbumsList();
 
                     return data;
                     /// delete image
@@ -295,35 +315,38 @@
         }
 
         function clearElements() {
+            document.querySelector('#get_album_id').innerHTML = "";
+            document.querySelector('#get_album_name').innerHTML = "";
             document.querySelector('#get_artist_id').innerHTML = "";
-            document.querySelector('#get_artist_name').innerHTML = "";
             document.querySelector('#get_image_path').innerHTML = "";
-            document.querySelector('#getArtistId').value = "";
+            document.querySelector('#getAlbumId').value = "";
             
             document.querySelector('#get_image_div').classList.replace('block', 'hidden');
 
-            document.querySelector('#post_artist_name').value = "";
+            document.querySelector('#post_album_name').value = "";
+            document.querySelector('#post_artist_id').value = "";
             document.querySelector('#post_image').value = "";
 
             document.querySelector('#postDiv').replaceChildren();
 
+            document.querySelector('#put_album_id').value = "";
+            document.querySelector('#put_album_name').value = "";
             document.querySelector('#put_artist_id').value = "";
-            document.querySelector('#put_artist_name').value = "";
             document.querySelector('#put_image').value = "";
 
             document.querySelector('#putDiv').replaceChildren();
 
-            document.querySelector('#deleteArtistId').value = "";
+            document.querySelector('#deleteAlbumId').value = "";
 
             document.querySelector('#delete_image_div').classList.replace('block', 'hidden');
             
             console.log('elements cleared');            
         }
 
-        function createArtistDiv(artist) {
+        function createAlbumDiv(album) {
             // full div
             const newDiv = document.createElement('div');
-            newDiv.id = 'artist-' + artist.id;
+            newDiv.id = 'album-' + album.id;
             newDiv.classList.add('border', 'border-fuchsia-600', 'rounded-xl', 'w-xs', 'px-2', 'py-1', 'flex', 'gap-2');
     
             // left div
@@ -332,7 +355,7 @@
 
             // img
             const newImg = document.createElement('img');
-            newImg.src = artist.image;
+            newImg.src = album.image;
 
             // append left part to main div
             leftDiv.appendChild(newImg);
@@ -345,17 +368,21 @@
 
             // details
             const newId = document.createElement('p');
-            newId.innerText = artist.id;
+            newId.innerText = album.id;
 
             const newName = document.createElement('p');
-            newName.innerText = artist.name;
+            newName.innerText = album.name;
+
+            const newArtistId = document.createElement('p');
+            newArtistId.innerText = "Artist ID: " + album.artist_id;
 
             const newPath = document.createElement('p');
-            newPath.innerText = artist.image;
+            newPath.innerText = album.image;
 
             // append right part to main div
             rightDiv.appendChild(newId);
             rightDiv.appendChild(newName);
+            rightDiv.appendChild(newArtistId);
             rightDiv.appendChild(newPath);
             newDiv.appendChild(rightDiv);
 
@@ -364,8 +391,8 @@
         }
         
 
-        function refreshArtistsList() {
-            const divEl = document.querySelector('#allArtistsDiv');
+        function refreshAlbumsList() {
+            const divEl = document.querySelector('#allAlbumsDiv');
 
             divEl.replaceChildren();
 
@@ -374,30 +401,30 @@
 
 
         function intitialLoad() {
-            const divEl = document.querySelector('#allArtistsDiv');
+            const divEl = document.querySelector('#allAlbumsDiv');
 
-            // make div per artist
-            fetch('http://127.0.0.1:8000/artists')
+            // make div per album
+            fetch('http://127.0.0.1:8000/albums')
                 .then(response => {
                     if(!response.ok) {
-                        throw new Error('artists not found');
+                        throw new Error('albums not found');
                     }
 
                     return response.json();
                 })
-                .then(artists => {
-                    for (const artist of artists) {
-                        divEl.appendChild(createArtistDiv(artist));
+                .then(albums => {
+                    for (const album of albums) {
+                        divEl.appendChild(createAlbumDiv(album));
                     }
                 })
                 .catch(error => console.error(error))
         }
 
 
-        document.querySelector('#getArtistBtn').addEventListener('click', getArtistById);
-        document.querySelector('#postArtistBtn').addEventListener('click', postArtist);
-        document.querySelector('#putArtistBtn').addEventListener('click', putArtist);
-        document.querySelector('#deleteArtistBtn').addEventListener('click', deleteArtist);
+        document.querySelector('#getAlbumBtn').addEventListener('click', getAlbumById);
+        document.querySelector('#postAlbumBtn').addEventListener('click', postAlbum);
+        document.querySelector('#putAlbumBtn').addEventListener('click', putAlbum);
+        document.querySelector('#deleteAlbumBtn').addEventListener('click', deleteAlbum);
 
         intitialLoad();
     </script>

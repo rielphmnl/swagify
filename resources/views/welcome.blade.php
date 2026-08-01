@@ -106,9 +106,9 @@
 
 				<!-- 2nd layer -->
 				<div class="flex gap-2 items-center text-sm font-light pt-4 pb-2">
-					<a class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1" href="http://127.0.0.1:8000/feartist">Artists</a>
-					<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Albums</p>
-					<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Songs</p>
+					<a href="/feartist" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Artists</a>
+					<a href="/fealbum" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Albums</a>
+					<a href="/fesong" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Songs</a>
 					<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Podcasts</p>
 				</div>
 
