@@ -42,12 +42,22 @@ class SongController extends Controller
             'name' => ['required', 'string'],
             'image' => ['nullable', 'image', 'max:5120'],
             'song_file' => ['required', 'file'], // how? text for now
-            'artist_id' => ['integer:strict', 'exists:artists,id'], // check if exists rule 
-            'album_id' => ['integer:strict', 'exists:albums,id'], // optional 
+            'artist_id' => ['required', 'numeric', 'exists:artists,id'], // check if exists rule 
+            'album_id' => ['required', 'numeric', 'exists:albums,id'], // optional 
         ]);
 
         // initialized default image
         $imagePath = Storage::url('dafault_song.png');
+
+        //
+        //
+        //
+        //
+        // todo: call album image if no image was displayed
+        //
+        //
+        //
+        //
 
         if ($request->image) {
             $imagePath = Storage::url($request->image->store('song_image', 'public'));  

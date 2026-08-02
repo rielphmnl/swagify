@@ -440,7 +440,7 @@
             const subDetailsDiv = document.createElement('div');
 
             const albumName = document.createElement('p');
-            albumName.innerText = "Album • " + song.artist.name;
+            albumName.innerText = song.album.name + " • " + song.artist.name;
             albumName.classList.add('text-neutral-400', 'text-sm', 'font-light');
 
             subDetailsDiv.appendChild(albumName);

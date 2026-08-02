@@ -23,10 +23,10 @@ Route::get('/feartist', function () {
 Route::get('/fealbum', function () {
     return view('simple/album');
 });
-// Route::get('/fesong', function () {
-//     return view('simple/song');
-// });
-// no fe yet
+Route::get('/fesong', function () {
+    return view('simple/song');
+});
+
 
 Route::get('/swagify', [SwagifyController::class, 'index']);
 
