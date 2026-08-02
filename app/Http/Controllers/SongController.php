@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use App\Models\Song;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -46,18 +47,9 @@ class SongController extends Controller
             'album_id' => ['required', 'numeric', 'exists:albums,id'], // optional 
         ]);
 
-        // initialized default image
-        $imagePath = Storage::url('dafault_song.png');
+        // initialized album image as default image 
+        $imagePath = Album::find($request->album_id)->image;
 
-        //
-        //
-        //
-        //
-        // todo: call album image if no image was displayed
-        //
-        //
-        //
-        //
 
         if ($request->image) {
             $imagePath = Storage::url($request->image->store('song_image', 'public'));  

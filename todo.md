@@ -57,8 +57,9 @@
 
 [ ] minimalist front end
     [x] artist
-    [ ] album
+    [x] album
     [ ] song
+        [ ] put
 
 
 [ ] swagify front end 

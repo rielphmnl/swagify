@@ -207,18 +207,29 @@
             const name = document.querySelector('#post_song_name').value;
             // artist id
             const artistId = document.querySelector('#post_artist_id').value;
+            // album id
+            const albumId = document.querySelector('#post_album_id').value;
             // image of song
-            const file = document.querySelector('#post_image');
+            const imageFile = document.querySelector('#post_image');
+            // file of song
+            const songFile = document.querySelector('#post_song_file');
             // div element
             const divEl = document.querySelector('#postDiv');
 
-            const image = file.files[0];
+            const image = imageFile.files[0];
+            const song = songFile.files[0];
 
             // create form to submit
             const formData = new FormData();
             formData.append('name', name);
             formData.append('artist_id', artistId);
-            formData.append('image', image);
+            formData.append('album_id', albumId);
+
+            if (image) {
+                formData.append('image', image);
+            }
+
+            formData.append('song_file', song);
 
             clearElements();
 
@@ -349,7 +360,9 @@
 
             document.querySelector('#post_song_name').value = "";
             document.querySelector('#post_artist_id').value = "";
+            document.querySelector('#post_album_id').value = "";
             document.querySelector('#post_image').value = "";
+            document.querySelector('#post_song_file').value = "";
 
             document.querySelector('#postDiv').replaceChildren();
 
