@@ -12,7 +12,7 @@
             <p class="text-fuchsia-600 px-3 text-xl font-bold">Song</p>
 
             <!-- get -->
-            <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
+            <div class="border border-fuchsia-600 rounded-xl w-lg p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">get</p>
 
                 <div id="get_image_div" class="size-24 border border-fuchsia-600 rounded-xl mx-auto overflow-hidden p-1 hidden">
@@ -57,7 +57,7 @@
 
 
             <!-- post -->
-            <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
+            <div class="border border-fuchsia-600 rounded-xl w-lg p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">post</p>
 
                 <label for="post_song_name">
@@ -94,12 +94,12 @@
 
 
             <!-- put -->
-            <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
+            <div class="border border-fuchsia-600 rounded-xl w-lg p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">put</p>
 
                 <label for="put_song_id">
                     ID:
-                    <input id="put_song_id" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" type="number" />
+                    <input id="put_song_id" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" type="number" required/>
                 </label>
 
                 <label for="put_song_name">
@@ -111,10 +111,20 @@
                     Artist ID:
                     <input id="put_artist_id" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" type="number" />
                 </label>
+
+                <label for="put_album_id">
+                    Album ID:
+                    <input id="put_album_id" class="text-fuchsia-600 border border-fuchsia-600 rounded-lg" type="number" />
+                </label>
     
                 <label for="put_image">
                     Image:
                     <input id="put_image" type="file" accept="image/*" class="bg-fuchsia-600 rounded hover:cursor-pointer hover:bg-neutral-700"/>
+                </label>
+
+                <label for="put_song_file">
+                    Song file:
+                    <input id="put_song_file" type="file" accept="audio/*" class="bg-fuchsia-600 rounded hover:cursor-pointer hover:bg-neutral-700"/>
                 </label>
     
                 <div class="flex justify-center gap-5 mt-2">
@@ -128,7 +138,7 @@
 
 
             <!-- delete -->
-            <div class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
+            <div class="border border-fuchsia-600 rounded-xl w-lg p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">delete</p>
 
                 <div id="delete_image_div" class="size-24 border border-fuchsia-600 rounded-xl mx-auto overflow-hidden p-1 hidden">
@@ -143,7 +153,7 @@
 
 
             <!-- all aongs -->
-            <div id="allSongsDiv" class="border border-fuchsia-600 rounded-xl w-sm p-3 mt-3 flex flex-col gap-2">
+            <div id="allSongsDiv" class="border border-fuchsia-600 rounded-xl w-lg p-3 mt-3 flex flex-col gap-2">
                 <p class="text-fuchsia-600 px-3 text-lg font-semibold mb-2">all songs</p>
 
                 <!-- div template -->
@@ -266,21 +276,31 @@
             const name = document.querySelector('#put_song_name').value;
             // artist id of song
             const artistId = document.querySelector('#put_artist_id').value;
+            // album id of song
+            const albumId = document.querySelector('#put_album_id').value;
             // image of song
-            const file = document.querySelector('#put_image');
+            const image_file = document.querySelector('#put_image');
+            // file of song
+            const song_file = document.querySelector('#put_song_file');
             // div element
             const divEl = document.querySelector('#putDiv');
 
-            const image = file.files[0];
+            const image = image_file.files[0];
+            const song = song_file.files[0];
 
             // create form to submit
             const formData = new FormData();
             formData.append('id', id);
             formData.append('name', name);
             formData.append('artist_id', artistId);
+            formData.append('album_id', albumId);
 
             if (image) {
                 formData.append('image', image);
+            };
+
+            if (song) {
+                formData.append('song_file', song);
             };
 
             formData.append('_method', 'PUT');
@@ -322,7 +342,7 @@
 
             ///////// how to change link domain
             fetch(`http://127.0.0.1:8000/songs/${songId}`, {
-                method: 'delete',
+                method: 'DELETE',
                 body: songId,
             })
                 .then(response => {
@@ -369,7 +389,9 @@
             document.querySelector('#put_song_id').value = "";
             document.querySelector('#put_song_name').value = "";
             document.querySelector('#put_artist_id').value = "";
+            document.querySelector('#put_album_id').value = "";
             document.querySelector('#put_image').value = "";
+            document.querySelector('#put_song_file').value = "";
 
             document.querySelector('#putDiv').replaceChildren();
 
@@ -384,7 +406,7 @@
             // full div
             const newDiv = document.createElement('div');
             newDiv.id = 'song-' + song.id;
-            newDiv.classList.add('border', 'border-fuchsia-600', 'rounded-xl', 'w-xs', 'px-2', 'py-1', 'flex', 'gap-2');
+            newDiv.classList.add('border', 'border-fuchsia-600', 'rounded-xl', 'w-md', 'px-2', 'py-1', 'flex', 'gap-2');
     
             // left div
             const leftDiv = document.createElement('div');

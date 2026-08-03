@@ -82,7 +82,8 @@
 		<!-- your library -->
 		<section class="library bg-neutral-900 min-w-xs rounded-md flex flex-col">
 			<!-- top part -->
-			<div class="shadow-black shadow-lg pt-4 px-3">		
+			<!-- shadow that separates top and bottom -->
+			<div class="shadow-black shadow-lg pt-4 px-3">
 				<!-- first layer -->
 				<div class="flex justify-between items-center">
 					<!-- left part of first layer -->
@@ -291,8 +292,12 @@
 		</section>
 
 		<!-- CURRENT SONG SECTION -->
-		<section class="bg-red-800 min-w-xs rounded-md">
-			<p>current song</p>
+		<section class="bg-red-900 w-xs rounded-md overflow-hidden">
+			<!-- image div -->
+			<div class="h-full relative">
+				<img src="/storage/song_image/0fTV0Qv4EPaAROHb9ZPyNsO03y3zodPn7fqVOidz.png" class="w-full h-2/3 object-cover"/>
+				<!-- <div class="absolute inset-0 bg-linear-to-b from-transparent to-red-900 to-95%"></div> -->
+			</div>
 		</section>
 	</section>	
 

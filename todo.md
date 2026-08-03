@@ -55,11 +55,11 @@
         [x] fix image related controllers
 
 
-[ ] minimalist front end
+[x] minimalist front end
     [x] artist
     [x] album
-    [ ] song
-        [ ] put
+    [x] song
+        [x] put
 
 
 [ ] swagify front end 

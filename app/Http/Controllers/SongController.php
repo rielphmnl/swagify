@@ -55,7 +55,7 @@ class SongController extends Controller
             $imagePath = Storage::url($request->image->store('song_image', 'public'));  
         }
 
-        $songPath = Storage::url($request->song_file->store('song_file', 'public'));  
+        $songPath = Storage::url($request->song_file->store('song_file', 'public'));
         
 
         $new_song = Song::create([
@@ -93,9 +93,9 @@ class SongController extends Controller
         $request->validate([
             'name' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:5120'],
-            'song_file' => ['nullable'],
-            'artist_id' => ['nullable', 'integer:strict', 'exists:artists,id'],
-            'album_id' => ['nullable', 'integer:strict', 'exists:album,id'],
+            'song_file' => ['nullable', 'file'],
+            'artist_id' => ['nullable', 'numeric', 'exists:artists,id'],
+            'album_id' => ['nullable', 'numeric', 'exists:albums,id'],
         ]);
 
         // not required, update only those that are changed
@@ -110,7 +110,7 @@ class SongController extends Controller
         }
 
         if ($request->song_file) {
-            $parameters['song_file'] = request('song_file');
+            $parameters['song_file'] = Storage::url($request->song_file->store('song_file', 'public'));
         }
 
         if ($request->artist_id) {
