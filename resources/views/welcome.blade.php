@@ -20,6 +20,10 @@
 			display: block;
 		}
 
+		.current-div:hover .shover {
+			display: block;
+		}
+
 		#listDiv > a:hover #playicon {
 			display:block;
 		}
@@ -80,7 +84,7 @@
 	<!-- main section -->
 	<section class="flex-1 min-h-0 m-2 flex gap-2">
 		<!-- your library -->
-		<section class="library bg-neutral-900 min-w-xs rounded-md flex flex-col">
+		<section class="library bg-neutral-900  min-w-xs overflow-x-hidden rounded-md flex flex-col">
 			<!-- top part -->
 			<!-- shadow that separates top and bottom -->
 			<div class="shadow-black shadow-lg pt-4 px-3">
@@ -88,7 +92,7 @@
 				<div class="flex justify-between items-center">
 					<!-- left part of first layer -->
 					<div class="flex gap-2 cursor-pointer">			
-						<svg id="libraryicon" class="hidden text-neutral-400 hover:text-neutral-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16"/><path d="m15 10l-2 2l2 2"/></g></svg>		
+						<svg id="libraryicon" class="hidden text-neutral-400 hover:text-neutral-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16"/><path d="m15 10l-2 2l2 2"/></g></svg>
 						<p class="font-semibold">Your Library</p>
 					</div>
 
@@ -173,7 +177,7 @@
 		</section>
 		
 		<!-- MAIN NAVIGATION SECTION -->
-		<section class="bg-yellow-600 flex-1 rounded-md overflow-hidden px-10 overflow-y-auto">
+		<section class="bg-neutral-900 flex-1 rounded-md overflow-hidden px-10 overflow-y-auto">
 			<nav class="flex gap-2 mt-3 text-neutral-300 font-light text-sm sticky">
 				<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-3 py-1">All</p>
 				<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-3 py-1">Music</p>
@@ -185,7 +189,7 @@
 				<!-- per card -->
 
 				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-40">
+				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
 						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
 					</div>
@@ -195,7 +199,7 @@
 				<!-- repeat card 8 -->
 
 				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-40">
+				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
 						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
 					</div>
@@ -205,7 +209,7 @@
 				<!-- repeat card 8 -->
 
 				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-40">
+				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
 						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
 					</div>
@@ -215,7 +219,7 @@
 				<!-- repeat card 8 -->
 
 				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-40">
+				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
 						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
 					</div>
@@ -225,7 +229,7 @@
 				<!-- repeat card 8 -->
 
 				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-40">
+				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
 						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
 					</div>
@@ -235,7 +239,7 @@
 				<!-- repeat card 8 -->
 
 				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-40">
+				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
 						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
 					</div>
@@ -245,7 +249,7 @@
 				<!-- repeat card 8 -->
 
 				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-40">
+				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
 						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
 					</div>
@@ -255,14 +259,14 @@
 				<!-- repeat card 8 -->
 
 				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-40">
+				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
 						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
 					</div>
 
 					<p class="ml-2 text-md font-medium">Playlist name</p>
 				</div>
-				<!-- repeat card 8 -->				
+				<!-- repeat card 8 -->
 			</div>
 
 			<!-- main navigation -->
@@ -292,12 +296,59 @@
 		</section>
 
 		<!-- CURRENT SONG SECTION -->
-		<section class="bg-red-900 w-xs rounded-md overflow-hidden">
+		<section class="w-xs rounded-md overflow-hidden relative">
+
+			<!-- bg color behind image div -->
+			<div class="h-full w-full absolute top-0 left-0 -z-20 bg-neutral-900"></div>
 			<!-- image div -->
-			<div class="h-full relative">
-				<img src="/storage/song_image/0fTV0Qv4EPaAROHb9ZPyNsO03y3zodPn7fqVOidz.png" class="w-full h-2/3 object-cover"/>
+			<div class="h-2/3 absolute top-0 left-0 -z-10">
+				<img
+					id="currentDivImg"
+					src="/storage/song_image/0fTV0Qv4EPaAROHb9ZPyNsO03y3zodPn7fqVOidz.png"
+					class="h-full object-cover mask-b-from-90%"
+				/>
+
 				<!-- <div class="absolute inset-0 bg-linear-to-b from-transparent to-red-900 to-95%"></div> -->
 			</div>
+
+			<!-- current song div -->
+			<div class="current-div h-full bg-neutral-900/35 pt-4 px-3 z-0">
+				<!-- top part -->
+				<div class="flex h-8 justify-between cursor-pointer">
+					<div class="flex gap-2">
+						<svg class="shover hidden -scale-x-100 text-neutral-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16"/><path d="m15 10l-2 2l2 2"/></g></svg>
+						<p id="currentDivAlbum" class="font-semibold">Debi Tirar album</p>
+					</div>
+
+					<div class="flex gap-2">
+						<div class="shover hidden hover:bg-neutral-800 cursor-pointer rounded-full p-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
+								<path d="M0 0h32v32H0z" fill="none" />
+								<path fill="none" stroke="currentColor" stroke-width="2" d="M8 17a1 1 0 1 0 0-2a1 1 0 0 0 0 2Zm8 0a1 1 0 1 0 0-2a1 1 0 0 0 0 2Zm8 0a1 1 0 1 0 0-2a1 1 0 0 0 0 2Z" />
+							</svg>
+						</div>
+
+
+						<div class="shover hidden hover:bg-neutral-800 cursor-pointer rounded-full p-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+								<path fill="currentColor" d="M17 2a1 1 0 1 0 0 2h1.586l-4.293 4.293a1 1 0 0 0 1.414 1.414L20 5.414V7a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1zM4 18.586V17a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H5.414l4.293-4.293a1 1 0 0 0-1.414-1.414z"/>
+							</svg>
+						</div>
+					</div>
+				</div>
+
+				<!-- dynamic space for image -->
+				<div class="h-1/2"></div>
+
+				<div>
+					<p id="currentDivSong" class="font-bold text-2xl cursor-pointer hover:underline">Song Name</p>
+					<p id="currentDivArtist" class="font-semibold text-lg cursor-pointer hover:underline text-neutral-400">Artist Name</p>
+				</div>
+				
+
+			</div>
+
+
 		</section>
 	</section>	
 
@@ -459,6 +510,24 @@
         }
 
 
+		function createAlbumCard(album) {
+			//
+		}
+
+		// <!-- repeat card 8 -->
+		// <div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
+		// 	<div class="size-12 ">
+		// 		<img
+		// 			class="size-full object-cover"
+		// 			src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png"
+		// 		>						
+		// 	</div>
+
+		// 	<p class="ml-2 text-md font-medium">Playlist name</p>
+		// </div>
+		// <!-- repeat card 8 -->
+
+
         function initialLoad() {
 			const listDiv = document.querySelector('#listDiv');
 
@@ -481,8 +550,6 @@
         }
 
         initialLoad();
-        // add song1 on load add div
-        // check if this works
     </script>
 </body>
 </html>

@@ -64,4 +64,7 @@
 
 [ ] swagify front end 
     [x] make javascript of initial load, loading all songs on left pane
+    [ ] make list of albums in main section
+        [ ] make function createAlbumCard
+        [ ] add createAlbumCard to initialLoad()
     [ ] ...
