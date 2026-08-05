@@ -24,7 +24,7 @@
 			display: block;
 		}
 
-		#listDiv > a:hover #playicon {
+		#listDiv > div:hover #playicon {
 			display:block;
 		}
 	</style>
@@ -312,7 +312,7 @@
 			</div>
 
 			<!-- current song div -->
-			<div class="current-div h-full bg-neutral-900/35 pt-4 px-3 z-0">
+			<div class="current-div h-full bg-neutral-900/35 hover:bg-neutral-900/5 pt-4 px-3 z-0">
 				<!-- top part -->
 				<div class="flex h-8 justify-between cursor-pointer">
 					<div class="flex gap-2">
@@ -355,16 +355,16 @@
 	<!-- playbar -->
 	<section class="h-20 flex justify-between px-5">
 		<!-- current song details -->
-		<div class="flex items-center gap-4">
+		<div class="flex flex-1 items-center gap-4">
 			<!-- song image -->
 			<div class="size-16 rounded overflow-hidden cursor-pointer">
-				<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">
+				<img id="playbarImg" class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">
 			</div>
 
 			<!-- song details -->
 			<div>
-				<p class="text-sm text-neutral-300 hover:underline cursor-pointer">DtMF</p>
-				<p class="text-xs text-neutral-400 hover:underline cursor-pointer">Bad Bunny</p>
+				<p id="playbarSong" class="text-sm text-neutral-300 hover:underline cursor-pointer">DtMF</p>
+				<p id="playbarArtist" class="text-xs text-neutral-400 hover:underline cursor-pointer">Bad Bunny</p>
 			</div>
 
 			<div class="text-neutral-400">
@@ -373,7 +373,7 @@
 		</div>
 
 		<!-- audio buttons and progress bar -->
-		<div class="text-neutral-400 flex flex-col justify-center">
+		<div class="text-neutral-400 flex flex-1 flex-col justify-center items-center">
 			<!-- audio buttons -->
 			<div class="flex gap-5 items-center justify-center">
 				<!-- shuffle -->
@@ -400,7 +400,7 @@
 		</div>
 
 		<!-- other settings -->
-		<div class="text-neutral-400 flex justify-center items-center gap-3">
+		<div class="text-neutral-400 flex flex-1 justify-end items-center gap-3">
 			<!-- lyrics -->
 			<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M19.09 4.909a5.66 5.66 0 0 0-9.602 4.823l.029.196l-5.72 6.632a2.25 2.25 0 0 0 .112 3.06l.469.47a2.25 2.25 0 0 0 3.06.112l6.633-5.72l.196.028a5.66 5.66 0 0 0 4.823-9.602m-6.943 1.06a4.16 4.16 0 1 1 2.574 7.085l-3.777-3.777a4.15 4.15 0 0 1 1.203-3.308M4.932 17.54l5.628-6.524l2.424 2.423l-6.525 5.628a.75.75 0 0 1-1.02-.037l-.47-.469a.75.75 0 0 1-.037-1.02" clip-rule="evenodd"/></svg>
 
@@ -428,9 +428,12 @@
     <script>
         function createSongCard(song) {
             // full div
-            const newDiv = document.createElement('a');
+            const newDiv = document.createElement('div');
             newDiv.id = 'song-' + song.id;
-			newDiv.href = "/songs/" + song.id;
+			// newDiv.href = "/songs/" + song.id;
+			newDiv.addEventListener('click', function () {
+				playSong(song);	
+			});
             newDiv.classList.add('hover:bg-neutral-800', 'cursor-pointer', 'rounded-md', 'h-16', 'w-full', 'flex', 'items-center', 'px-2', 'gap-2');
     
             // thumbnail div
@@ -543,11 +546,36 @@
             .then(songs => {
 				for (song of songs) {
 					listDiv.appendChild(createSongCard(song));
-					console.log(song.artist.name);
+					// console.log(song.artist.name);
 				}
             })
             .catch(error => console.error(error));
         }
+
+		function playSong(song) {
+			const currentDivSong = document.querySelector('#currentDivSong');
+			const currentDivAlbum = document.querySelector('#currentDivAlbum');
+			const currentDivArtist = document.querySelector('#currentDivArtist');
+			const currentDivImg = document.querySelector('#currentDivImg');
+
+			currentDivSong.innerHTML = song.name;
+			currentDivAlbum.innerHTML = song.album.name;
+			currentDivArtist.innerHTML = song.artist.name;
+			currentDivImg.src = song.image;
+
+
+			const playbarSong = document.querySelector('#playbarSong');
+			const playbarArtist = document.querySelector('#playbarArtist');
+			const playbarImg = document.querySelector('#playbarImg');
+
+			playbarSong.innerHTML = song.name;
+			playbarArtist.innerHTML = song.artist.name;
+			playbarImg.src = song.image;
+
+
+
+			// change details of playbar song and current song div
+		}
 
         initialLoad();
     </script>
