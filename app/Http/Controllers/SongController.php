@@ -43,7 +43,7 @@ class SongController extends Controller
             'name' => ['required', 'string'],
             'image' => ['nullable', 'image', 'max:5120'],
             'song_file' => ['required', 'file'], // how? text for now
-            'artist_id' => ['required', 'numeric', 'exists:artists,id'], // check if exists rule 
+            'artist_id' => ['nullable', 'numeric', 'exists:artists,id'], // check if exists rule 
             'album_id' => ['required', 'numeric', 'exists:albums,id'], // optional 
         ]);
 
@@ -55,6 +55,13 @@ class SongController extends Controller
             $imagePath = Storage::url($request->image->store('song_image', 'public'));  
         }
 
+
+        $artistId = Album::find($request->album_id)->artist_id;
+
+        if ($request->artist_id) {
+            $artistId = $request->artist_id;
+        }
+
         $songPath = Storage::url($request->song_file->store('song_file', 'public'));
         
 
@@ -62,7 +69,7 @@ class SongController extends Controller
             'name' => request('name'),
             'image' => $imagePath,
             'song_file' => $songPath,
-            'artist_id' => request('artist_id'),
+            'artist_id' => $artistId,
             'album_id' => request('album_id'),
         ]);
 

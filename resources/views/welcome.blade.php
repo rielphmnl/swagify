@@ -185,88 +185,20 @@
 			</nav>
 
 			<!-- 8 recently played playlist cards -->
-			<div class="mt-4 flex flex-wrap gap-2">
+			<div id="albumsDiv" class="mt-4 flex flex-wrap gap-2">
 				<!-- per card -->
 
+				<!-- album card template -->
 				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
+				<!-- <div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
 						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
 					</div>
 
 					<p class="ml-2 text-md font-medium">Playlist name</p>
-				</div>
+				</div> -->
 				<!-- repeat card 8 -->
 
-				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
-					<div class="size-12 ">
-						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
-					</div>
-
-					<p class="ml-2 text-md font-medium">Playlist name</p>
-				</div>
-				<!-- repeat card 8 -->
-
-				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
-					<div class="size-12 ">
-						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
-					</div>
-
-					<p class="ml-2 text-md font-medium">Playlist name</p>
-				</div>
-				<!-- repeat card 8 -->
-
-				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
-					<div class="size-12 ">
-						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
-					</div>
-
-					<p class="ml-2 text-md font-medium">Playlist name</p>
-				</div>
-				<!-- repeat card 8 -->
-
-				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
-					<div class="size-12 ">
-						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
-					</div>
-
-					<p class="ml-2 text-md font-medium">Playlist name</p>
-				</div>
-				<!-- repeat card 8 -->
-
-				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
-					<div class="size-12 ">
-						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
-					</div>
-
-					<p class="ml-2 text-md font-medium">Playlist name</p>
-				</div>
-				<!-- repeat card 8 -->
-
-				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
-					<div class="size-12 ">
-						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
-					</div>
-
-					<p class="ml-2 text-md font-medium">Playlist name</p>
-				</div>
-				<!-- repeat card 8 -->
-
-				<!-- repeat card 8 -->
-				<div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
-					<div class="size-12 ">
-						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
-					</div>
-
-					<p class="ml-2 text-md font-medium">Playlist name</p>
-				</div>
-				<!-- repeat card 8 -->
 			</div>
 
 			<!-- main navigation -->
@@ -296,7 +228,7 @@
 		</section>
 
 		<!-- CURRENT SONG SECTION -->
-		<section class="w-xs rounded-md overflow-hidden relative">
+		<section class="w-xs rounded-md overflow-hidden relative bg-neutral-900/35 hover:bg-neutral-900/5">
 
 			<!-- bg color behind image div -->
 			<div class="h-full w-full absolute top-0 left-0 -z-20 bg-neutral-900"></div>
@@ -304,20 +236,21 @@
 			<div class="h-2/3 absolute top-0 left-0 -z-10">
 				<img
 					id="currentDivImg"
-					src="/storage/song_image/0fTV0Qv4EPaAROHb9ZPyNsO03y3zodPn7fqVOidz.png"
-					class="h-full object-cover mask-b-from-90%"
+					src="/storage/default_song.png"
+					class="h-full min-w-xs object-cover mask-b-from-90%"
 				/>
 
-				<!-- <div class="absolute inset-0 bg-linear-to-b from-transparent to-red-900 to-95%"></div> -->
+
 			</div>
 
 			<!-- current song div -->
-			<div class="current-div h-full bg-neutral-900/35 hover:bg-neutral-900/5 pt-4 px-3 z-0">
+			<!-- <div class="current-div h-full bg-neutral-900/35 hover:bg-neutral-900/5 pt-4 px-3 overflow-y-auto"> -->
+			<div class="current-div h-full pt-4 px-3 overflow-y-auto">
 				<!-- top part -->
 				<div class="flex h-8 justify-between cursor-pointer">
 					<div class="flex gap-2">
 						<svg class="shover hidden -scale-x-100 text-neutral-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16"/><path d="m15 10l-2 2l2 2"/></g></svg>
-						<p id="currentDivAlbum" class="font-semibold">Debi Tirar album</p>
+						<p id="currentDivAlbum" class="font-semibold">Album name</p>
 					</div>
 
 					<div class="flex gap-2">
@@ -344,6 +277,25 @@
 					<p id="currentDivSong" class="font-bold text-2xl cursor-pointer hover:underline">Song Name</p>
 					<p id="currentDivArtist" class="font-semibold text-lg cursor-pointer hover:underline text-neutral-400">Artist Name</p>
 				</div>
+
+
+				<div class="bg-neutral-800 rounded-lg h-44 mt-5 relative overflow-hidden">
+
+					<div class="h-2/3 w-full top-0 m-auto overflow-hidden">
+						<img
+							id="currentDivArtistImg"
+							src=""
+							class="w-full object-cover -z-10"
+							
+						/>
+
+					</div>
+
+					<p id="currentDivArtistAbout" class="font-semibold ml-5">Artist name</p>
+
+
+					<p class="z-20 font-bold text-lg absolute top-2 left-4">About the artist</p>
+				</div>
 				
 
 			</div>
@@ -358,13 +310,13 @@
 		<div class="flex flex-1 items-center gap-4">
 			<!-- song image -->
 			<div class="size-16 rounded overflow-hidden cursor-pointer">
-				<img id="playbarImg" class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">
+				<img id="playbarImg" class="size-full object-cover" src="/storage/default_song.png">
 			</div>
 
 			<!-- song details -->
 			<div>
-				<p id="playbarSong" class="text-sm text-neutral-300 hover:underline cursor-pointer">DtMF</p>
-				<p id="playbarArtist" class="text-xs text-neutral-400 hover:underline cursor-pointer">Bad Bunny</p>
+				<p id="playbarSong" class="text-sm text-neutral-300 hover:underline cursor-pointer">Song Name</p>
+				<p id="playbarArtist" class="text-xs text-neutral-400 hover:underline cursor-pointer">Artist Name</p>
 			</div>
 
 			<div class="text-neutral-400">
@@ -430,7 +382,6 @@
             // full div
             const newDiv = document.createElement('div');
             newDiv.id = 'song-' + song.id;
-			// newDiv.href = "/songs/" + song.id;
 			newDiv.addEventListener('click', function () {
 				playSong(song);	
 			});
@@ -514,10 +465,31 @@
 
 
 		function createAlbumCard(album) {
-			//
+			const newAlbumCard = document.createElement('div');
+			newAlbumCard.classList.add('flex', 'bg-neutral-800', 'hover:bg-neutral-700', 'cursor-pointer', 'rounded', 'overflow-hidden', 'flex-1', 'min-w-36');
+
+			const newImgDiv = document.createElement('div');
+			newImgDiv.classList.add('size-12');
+
+			const newImg = document.createElement('img');
+			newImg.classList.add('size-full', 'object-cover');
+			newImg.src = album.image;
+
+			newImgDiv.appendChild(newImg);
+			newAlbumCard.appendChild(newImgDiv);
+
+
+			const newAlbum = document.createElement('p');
+			newAlbum.classList.add('ml-2', 'text-md', 'font-medium');
+			newAlbum.innerHTML = album.name;
+
+			newAlbumCard.appendChild(newAlbum);
+
+
+			return newAlbumCard
 		}
 
-		// <!-- repeat card 8 -->
+		/// <!-- repeat card 8 -->
 		// <div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 		// 	<div class="size-12 ">
 		// 		<img
@@ -526,7 +498,7 @@
 		// 		>						
 		// 	</div>
 
-		// 	<p class="ml-2 text-md font-medium">Playlist name</p>
+		/// 	<p class="ml-2 text-md font-medium">Playlist name</p>
 		// </div>
 		// <!-- repeat card 8 -->
 
@@ -537,19 +509,36 @@
 
             fetch('http://127.0.0.1:8000/swagify')
             .then(response => {
-                if (!response.ok){
+                if (!response.ok) {
                     throw new Error("can't fetch song " + response.status);
                 }
                 
                 return response.json();
-            })
-            .then(songs => {
+            }).then(songs => {
+				playSong(songs[0]);
+
 				for (song of songs) {
 					listDiv.appendChild(createSongCard(song));
 					// console.log(song.artist.name);
 				}
-            })
-            .catch(error => console.error(error));
+            }).catch(error => console.error(error));
+
+
+
+			const albumsDiv = document.querySelector('#albumsDiv');
+
+			fetch('http://127.0.0.1:8000/albums')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error("can't fetch albums" + response.status);
+				}
+
+				return response.json();
+			}).then(albums => {
+				for (album of albums) {
+					albumsDiv.appendChild(createAlbumCard(album));
+				}
+			}).catch(error => console.error(error));
         }
 
 		function playSong(song) {
@@ -557,11 +546,15 @@
 			const currentDivAlbum = document.querySelector('#currentDivAlbum');
 			const currentDivArtist = document.querySelector('#currentDivArtist');
 			const currentDivImg = document.querySelector('#currentDivImg');
+			const currentDivArtistImg = document.querySelector('#currentDivArtistImg');
+			const currentDivArtistAbout = document.querySelector('#currentDivArtistAbout');
 
 			currentDivSong.innerHTML = song.name;
 			currentDivAlbum.innerHTML = song.album.name;
 			currentDivArtist.innerHTML = song.artist.name;
 			currentDivImg.src = song.image;
+			currentDivArtistImg.src = song.artist.image;
+			currentDivArtistAbout.innerHTML = song.artist.name;
 
 
 			const playbarSong = document.querySelector('#playbarSong');
@@ -571,10 +564,6 @@
 			playbarSong.innerHTML = song.name;
 			playbarArtist.innerHTML = song.artist.name;
 			playbarImg.src = song.image;
-
-
-
-			// change details of playbar song and current song div
 		}
 
         initialLoad();
