@@ -31,6 +31,12 @@
 		.toggle-hidden {
 			display:none;
 		}
+
+		#searchResultsDiv > div:hover svg {
+			display: block;
+		}
+
+		
 	</style>
 	
 </head>
@@ -55,7 +61,7 @@
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="m229.66 218.34l-50.07-50.06a88.11 88.11 0 1 0-11.31 11.31l50.06 50.07a8 8 0 0 0 11.32-11.32M40 112a72 72 0 1 1 72 72a72.08 72.08 0 0 1-72-72"/></svg>
 				</div>
 
-				<input class="min-w-xs focus:outline-0" placeholder="What do you want to play?" />
+				<input id="searchInput" class="min-w-xs focus:outline-0" placeholder="What do you want to play?" />
 				
 				<!-- folder icon -->
 				<div class="toggle-hidden border-l border-solid border-inherit pl-3">
@@ -213,22 +219,34 @@
 			<!-- main navigation -->
 			
 			<!-- repeating style different playlists -->
-			<div class="bg-pink-500 mt-5">
-				<p class="text-xs">.</p> <!--Made for-->
-				<div class="flex justify-between items-end">
+			<div class="bg-pink mt-5">
+				<p class="text-xs"></p> <!--Made for-->
+				<div class="flex justify-between items-end mb-3">
 					<a href="/" class="text-xl font-semibold hover:underline">Search results</a> <!--made for user-->
-					<a href="/" class="text-sm hover:underline">Show all</a>
+					<a href="/" class="toggle-hidden text-sm hover:underline">Show all</a>
 				</div>
 
-				<!-- playlist large cards -->
-				<div>
-					<!-- STOPPED HERE -->
-					<!-- STOPPED HERE -->
-					<!-- STOPPED HERE -->
-					<!-- STOPPED HERE -->
-					<!-- STOPPED HERE -->
-					<!-- MAKE CARD -->
-					
+
+				<!-- div for search results -->
+				<div id="searchResultsDiv" class="flex flex-wrap">
+					<!-- large card template-->
+					<!-- large card template-->
+					<!-- <div class="w-56 hover:bg-neutral-800 cursor-pointer rounded-2xl p-4"> -->
+						<!-- <div class="size-48 rounded-2xl overflow-hidden relative"> -->
+							<!-- <img class="size-full object-cover" src="/storage/default_song.png"> -->
+	
+							<!-- play icon on hover -->
+							<!-- svg changed -->
+						<!-- </div> -->
+	
+						<!-- <div class="mt-1 overflow-x-hidden font-medium text-neutral-400"> -->
+							<!-- <p>Song name</p> -->
+							<!-- <p>Artist</p> -->
+						<!-- </div> -->
+	
+					<!-- </div> -->
+					<!-- large card template-->
+					<!-- large card template-->
 
 				</div>
 			</div>
@@ -498,18 +516,106 @@
 			return newAlbumCard
 		}
 
-		/// <!-- repeat card 8 -->
-		// <div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
-		// 	<div class="size-12 ">
-		// 		<img
-		// 			class="size-full object-cover"
-		// 			src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png"
-		// 		>						
-		// 	</div>
 
-		/// 	<p class="ml-2 text-md font-medium">Playlist name</p>
-		// </div>
-		// <!-- repeat card 8 -->
+		function createLargeCard(song) {
+			// full div
+            const newDiv = document.createElement('div');
+            newDiv.id = 'searchSong-' + song.id;
+			newDiv.addEventListener('click', function () {
+				playSong(song);	
+			});
+            newDiv.classList.add('w-56', 'hover:bg-neutral-800', 'cursor-pointer', 'rounded-2xl', 'p-4');
+
+			// thumbnail div
+            const thumbnailDiv = document.createElement('div');
+            thumbnailDiv.classList.add('size-48', 'rounded-2xl', 'overflow-hidden', 'relative');
+
+            // img
+            const newImg = document.createElement('img');
+            newImg.classList.add('size-full', 'object-cover');
+            newImg.src = song.image;
+
+			// svg div
+            const svgDiv = document.createElement('div');
+            svgDiv.classList.add('text-green-600', 'text-6xl', 'absolute', 'right-2', 'bottom-2');
+
+			// svg of play hover
+            const svgNS = "http://www.w3.org/2000/svg";
+
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("class", "hidden text-neutral-800 hover:scale-105 bg-green-500 rounded-full p-3");
+            svg.setAttribute("width", "1em");
+            svg.setAttribute("height", "1em");
+            svg.setAttribute("viewBox", "0 0 24 24");
+
+            const path = document.createElementNS(svgNS, "path");
+            path.setAttribute("fill", "currentColor");
+            path.setAttribute("stroke", "currentColor");
+            path.setAttribute("stroke-linecap", "round");
+            path.setAttribute("stroke-linejoin", "round");
+            path.setAttribute("stroke-width", "1.5");
+            path.setAttribute("d", "M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z");
+
+            svg.appendChild(path);
+
+			svgDiv.appendChild(svg);
+
+
+
+			thumbnailDiv.appendChild(newImg);
+			thumbnailDiv.appendChild(svgDiv);
+			newDiv.appendChild(thumbnailDiv);
+
+
+			// details div
+            const detailsDiv = document.createElement('div');
+            detailsDiv.classList.add('mt-1', 'overflow-x-hidden', 'font-medium', 'text-neutral-400');
+
+			const songName = document.createElement('p');
+            songName.innerText = song.name;
+
+			const artistName = document.createElement('p');
+            artistName.innerText = song.artist.name;
+
+			detailsDiv.appendChild(songName);
+			detailsDiv.appendChild(artistName);
+
+			newDiv.appendChild(detailsDiv);
+			
+			return newDiv;
+		}
+
+
+		function clearSearchResults() {
+			const searchResultsDiv = document.querySelector('#searchResultsDiv');
+			searchResultsDiv.replaceChildren();
+		}
+
+		function printSearchResultSongs(search) {
+			clearSearchResults();
+
+			fetch('http://127.0.0.1:8000/swagify?search=' + search)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("can't fetch song " + response.status);
+                }
+                
+                return response.json();
+            }).then(songs => {
+				for (song of songs) {
+					searchResultsDiv.appendChild(createLargeCard(song));
+				}
+            }).catch(error => console.error(error));
+		}
+
+		const searchInput = document.querySelector('#searchInput')
+		searchInput.addEventListener('input', (key) => {
+			clearSearchResults();
+			
+			if (key.target.value != "") {
+				printSearchResultSongs(key.target.value);
+			}
+		});
 
 
         function initialLoad() {
