@@ -27,6 +27,10 @@
 		#listDiv > div:hover #playicon {
 			display:block;
 		}
+
+		.toggle-hidden {
+			display:none;
+		}
 	</style>
 	
 </head>
@@ -34,7 +38,7 @@
 	<header class="flex pt-2 px-3 items-center">
 		<!-- left header swagify icon -->
 		<div class="flex-1">
-			<svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="currentColor" d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6c-.15-.5.15-1 .6-1.15c3.55-1.05 9.4-.85 13.1 1.35c.45.25.6.85.35 1.3c-.25.35-.85.5-1.3.25m-.1 2.8c-.25.35-.7.5-1.05.25c-2.7-1.65-6.8-2.15-9.95-1.15c-.4.1-.85-.1-.95-.5s.1-.85.5-.95c3.65-1.1 8.15-.55 11.25 1.35c.3.15.45.65.2 1m-1.2 2.75c-.2.3-.55.4-.85.2c-2.35-1.45-5.3-1.75-8.8-.95c-.35.1-.65-.15-.75-.45c-.1-.35.15-.65.45-.75c3.8-.85 7.1-.5 9.7 1.1c.35.15.4.55.25.85M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
+			<svg id="toggleVisibilityBtn" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="currentColor" d="M17.9 10.9C14.7 9 9.35 8.8 6.3 9.75c-.5.15-1-.15-1.15-.6c-.15-.5.15-1 .6-1.15c3.55-1.05 9.4-.85 13.1 1.35c.45.25.6.85.35 1.3c-.25.35-.85.5-1.3.25m-.1 2.8c-.25.35-.7.5-1.05.25c-2.7-1.65-6.8-2.15-9.95-1.15c-.4.1-.85-.1-.95-.5s.1-.85.5-.95c3.65-1.1 8.15-.55 11.25 1.35c.3.15.45.65.2 1m-1.2 2.75c-.2.3-.55.4-.85.2c-2.35-1.45-5.3-1.75-8.8-.95c-.35.1-.65-.15-.75-.45c-.1-.35.15-.65.45-.75c3.8-.85 7.1-.5 9.7 1.1c.35.15.4.55.25.85M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>
 		</div>
 
 		<!-- middle header home/search -->
@@ -54,7 +58,7 @@
 				<input class="min-w-xs focus:outline-0" placeholder="What do you want to play?" />
 				
 				<!-- folder icon -->
-				<div class="border-l border-solid border-inherit pl-3">
+				<div class="toggle-hidden border-l border-solid border-inherit pl-3">
 					<svg class="hover:text-neutral-300 hover:scale-110" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.562 7a2.132 2.132 0 0 0-2.1-2.5H6.538a2.132 2.132 0 0 0-2.1 2.5M17.5 4.5c.028-.26.043-.389.043-.496a2 2 0 0 0-1.787-1.993C15.65 2 15.52 2 15.26 2H8.74c-.26 0-.391 0-.497.011a2 2 0 0 0-1.787 1.993c0 .107.014.237.043.496"/><path stroke-linecap="round" d="M15 18H9"/><path d="M2.384 13.793c-.447-3.164-.67-4.745.278-5.77C3.61 7 5.298 7 8.672 7h6.656c3.374 0 5.062 0 6.01 1.024s.724 2.605.278 5.769l-.422 3c-.35 2.48-.525 3.721-1.422 4.464s-2.22.743-4.867.743h-5.81c-2.646 0-3.97 0-4.867-.743s-1.072-1.983-1.422-4.464z"/></g></svg>
 				</div>
 			</div>
@@ -63,28 +67,30 @@
 		<!-- right header -->
 		<div class="text-neutral-400 flex flex-1 gap-5 min-w-3xs justify-end items-center">
 			<!-- install -->
-			<div class="flex gap-1 items-center hover:cursor-pointer hover:text-neutral-300 hover:scale-110">
-				<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"><path d="M4.5 8L7 10.5L9.5 8M7 10.5v-7"/><path d="M7 13.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13"/></g></svg>
-				<p class="text-sm">Install App</p>
+			<div class="toggle-hidden">
+				<div class="flex gap-1 items-center hover:cursor-pointer hover:text-neutral-300 hover:scale-110">
+					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"><path d="M4.5 8L7 10.5L9.5 8M7 10.5v-7"/><path d="M7 13.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13"/></g></svg>
+					<p class="text-sm">Install App</p>
+				</div>
 			</div>
 
 			<!-- notification bell -->
-			 <svg class="hover:text-neutral-300 hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.019 17h-6.04m6.04 0h3.614c1.876 0 1.559-1.86.61-2.804C15.825 10.801 20.68 3 11.999 3s-3.825 7.8-7.243 11.196c-.913.908-1.302 2.804.61 2.804H8.98m6.039 0c0 1.925-.648 4-3.02 4s-3.02-2.075-3.02-4"/></svg>
+			<svg class="toggle-hidden hover:text-neutral-300 hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.019 17h-6.04m6.04 0h3.614c1.876 0 1.559-1.86.61-2.804C15.825 10.801 20.68 3 11.999 3s-3.825 7.8-7.243 11.196c-.913.908-1.302 2.804.61 2.804H8.98m6.039 0c0 1.925-.648 4-3.02 4s-3.02-2.075-3.02-4"/></svg>
 			
 			<!-- users -->
-			 <svg class="hover:text-neutral-300 hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="M243.6 148.8a6 6 0 0 1-8.4-1.2A53.58 53.58 0 0 0 192 126a6 6 0 0 1 0-12a26 26 0 1 0-25.18-32.5a6 6 0 0 1-11.62-3a38 38 0 1 1 59.91 39.63a65.7 65.7 0 0 1 29.69 22.27a6 6 0 0 1-1.2 8.4M189.19 213a6 6 0 0 1-2.19 8.2a5.9 5.9 0 0 1-3 .81a6 6 0 0 1-5.2-3a59 59 0 0 0-101.62 0a6 6 0 1 1-10.38-6a70.1 70.1 0 0 1 36.2-30.46a46 46 0 1 1 50.1 0A70.1 70.1 0 0 1 189.19 213M128 178a34 34 0 1 0-34-34a34 34 0 0 0 34 34m-58-58a6 6 0 0 0-6-6a26 26 0 1 1 25.18-32.51a6 6 0 1 0 11.62-3a38 38 0 1 0-59.91 39.63A65.7 65.7 0 0 0 11.2 140.4a6 6 0 1 0 9.6 7.2A53.58 53.58 0 0 1 64 126a6 6 0 0 0 6-6"/></svg>
+			<svg class="toggle-hidden hover:text-neutral-300 hover:cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="M243.6 148.8a6 6 0 0 1-8.4-1.2A53.58 53.58 0 0 0 192 126a6 6 0 0 1 0-12a26 26 0 1 0-25.18-32.5a6 6 0 0 1-11.62-3a38 38 0 1 1 59.91 39.63a65.7 65.7 0 0 1 29.69 22.27a6 6 0 0 1-1.2 8.4M189.19 213a6 6 0 0 1-2.19 8.2a5.9 5.9 0 0 1-3 .81a6 6 0 0 1-5.2-3a59 59 0 0 0-101.62 0a6 6 0 1 1-10.38-6a70.1 70.1 0 0 1 36.2-30.46a46 46 0 1 1 50.1 0A70.1 70.1 0 0 1 189.19 213M128 178a34 34 0 1 0-34-34a34 34 0 0 0 34 34m-58-58a6 6 0 0 0-6-6a26 26 0 1 1 25.18-32.51a6 6 0 1 0 11.62-3a38 38 0 1 0-59.91 39.63A65.7 65.7 0 0 0 11.2 140.4a6 6 0 1 0 9.6 7.2A53.58 53.58 0 0 1 64 126a6 6 0 0 0 6-6"/></svg>
 			
 			<!-- user -->
-			 <div class="rounded-full border-8 border-solid border-neutral-800 hover:border-neutral-700 hover:scale-110 size-12 overflow-hidden flex justify-center items-center cursor-pointer" title="user1">
+			<div class="rounded-full border-8 border-solid border-neutral-800 hover:border-neutral-700 hover:scale-110 size-12 overflow-hidden flex justify-center items-center cursor-pointer" title="user1">
 				<img class="size-full object-cover" src="data:image/jpeg;base64,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">
-			 </div>
+			</div>
 		</div>
 	</header>
 
 	<!-- main section -->
 	<section class="flex-1 min-h-0 m-2 flex gap-2">
 		<!-- your library -->
-		<section class="library bg-neutral-900  min-w-xs overflow-x-hidden rounded-md flex flex-col">
+		<section class="library bg-neutral-900 w-xs overflow-x-hidden rounded-md flex flex-col">
 			<!-- top part -->
 			<!-- shadow that separates top and bottom -->
 			<div class="shadow-black shadow-lg pt-4 px-3">
@@ -97,24 +103,26 @@
 					</div>
 
 					<!-- right part of first layer -->
-					<div class="flex items-center gap-5">
-						<div class="flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-5 py-2 text-sm font-semibold">
-							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M8 1a1 1 0 0 0-2 0v5H1a1 1 0 0 0 0 2h5v5a1 1 0 1 0 2 0V8h5a1 1 0 1 0 0-2H8z" clip-rule="evenodd"/></svg>
-							<p>Create</p>
-						</div>
-
-						<div class="hover:bg-neutral-800 cursor-pointer rounded-full p-1">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17 2a1 1 0 1 0 0 2h1.586l-4.293 4.293a1 1 0 0 0 1.414 1.414L20 5.414V7a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1zM4 18.586V17a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H5.414l4.293-4.293a1 1 0 0 0-1.414-1.414z"/></svg>
+					<div class="toggle-hidden">
+						<div class="flex items-center gap-5">
+							<div class="flex items-center gap-2 bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-5 py-2 text-sm font-semibold">
+								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M8 1a1 1 0 0 0-2 0v5H1a1 1 0 0 0 0 2h5v5a1 1 0 1 0 2 0V8h5a1 1 0 1 0 0-2H8z" clip-rule="evenodd"/></svg>
+								<p>Create</p>
+							</div>
+	
+							<div class="hover:bg-neutral-800 cursor-pointer rounded-full p-1">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17 2a1 1 0 1 0 0 2h1.586l-4.293 4.293a1 1 0 0 0 1.414 1.414L20 5.414V7a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1zM4 18.586V17a1 1 0 1 0-2 0v4a1 1 0 0 0 1 1h4a1 1 0 1 0 0-2H5.414l4.293-4.293a1 1 0 0 0-1.414-1.414z"/></svg>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- 2nd layer -->
-				<div class="flex gap-2 items-center text-sm font-light pt-4 pb-2">
+				<div class="flex gap-2 items-center text-sm font-light pt-4 pb-2 overflow-x-auto">
 					<a href="/feartist" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Artists</a>
 					<a href="/fealbum" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Albums</a>
 					<a href="/fesong" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Songs</a>
-					<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Podcasts</p>
+					<p class="toggle-hidden bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Podcasts</p>
 				</div>
 
 			</div>
@@ -179,9 +187,10 @@
 		<!-- MAIN NAVIGATION SECTION -->
 		<section class="bg-neutral-900 flex-1 rounded-md overflow-hidden px-10 overflow-y-auto">
 			<nav class="flex gap-2 mt-3 text-neutral-300 font-light text-sm sticky">
-				<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-3 py-1">All</p>
-				<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-3 py-1">Music</p>
-				<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-3 py-1">Podcasts</p>
+				<p class="toggle-hidden bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-3 py-1">All</p>
+				<p class="toggle-hidden bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-3 py-1">Music</p>
+				<p class="toggle-hidden bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-3 py-1">Podcasts</p>
+				<p class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-3 py-1">Albums</p>
 			</nav>
 
 			<!-- 8 recently played playlist cards -->
@@ -202,12 +211,12 @@
 			</div>
 
 			<!-- main navigation -->
-			<p class="text-xs mt-5">Made for</p>
-
+			
 			<!-- repeating style different playlists -->
-			<div class="bg-pink-500">
+			<div class="bg-pink-500 mt-5">
+				<p class="text-xs">.</p> <!--Made for-->
 				<div class="flex justify-between items-end">
-					<a href="/" class="text-xl font-semibold hover:underline">Users Name</a>
+					<a href="/" class="text-xl font-semibold hover:underline">Search results</a> <!--made for user-->
 					<a href="/" class="text-sm hover:underline">Show all</a>
 				</div>
 
@@ -247,9 +256,9 @@
 			<!-- <div class="current-div h-full bg-neutral-900/35 hover:bg-neutral-900/5 pt-4 px-3 overflow-y-auto"> -->
 			<div class="current-div h-full pt-4 px-3 overflow-y-auto">
 				<!-- top part -->
-				<div class="flex h-8 justify-between cursor-pointer">
+				<div class="flex h-8 justify-between cursor-pointer text-neutral-50">
 					<div class="flex gap-2">
-						<svg class="shover hidden -scale-x-100 text-neutral-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16"/><path d="m15 10l-2 2l2 2"/></g></svg>
+						<svg class="shover hidden -scale-x-100 text-neutral-50" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16"/><path d="m15 10l-2 2l2 2"/></g></svg>
 						<p id="currentDivAlbum" class="font-semibold">Album name</p>
 					</div>
 
@@ -274,7 +283,7 @@
 				<div class="h-1/2"></div>
 
 				<div>
-					<p id="currentDivSong" class="font-bold text-2xl cursor-pointer hover:underline">Song Name</p>
+					<p id="currentDivSong" class="font-bold text-2xl cursor-pointer hover:underline text-neutral-50">Song Name</p>
 					<p id="currentDivArtist" class="font-semibold text-lg cursor-pointer hover:underline text-neutral-400">Artist Name</p>
 				</div>
 
@@ -319,7 +328,7 @@
 				<p id="playbarArtist" class="text-xs text-neutral-400 hover:underline cursor-pointer">Artist Name</p>
 			</div>
 
-			<div class="text-neutral-400">
+			<div class="toggle-hidden text-neutral-400">
 				<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 16 16"><path fill="currentColor" d="M8 15c-3.86 0-7-3.14-7-7s3.14-7 7-7s7 3.14 7 7s-3.14 7-7 7M8 2C4.69 2 2 4.69 2 8s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6"/><path fill="currentColor" d="M8 11.5c-.28 0-.5-.22-.5-.5V5c0-.28.22-.5.5-.5s.5.22.5.5v6c0 .28-.22.5-.5.5"/><path fill="currentColor" d="M11 8.5H5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h6c.28 0 .5.22.5.5s-.22.5-.5.5"/></svg>
 			</div>
 		</div>
@@ -354,20 +363,20 @@
 		<!-- other settings -->
 		<div class="text-neutral-400 flex flex-1 justify-end items-center gap-3">
 			<!-- lyrics -->
-			<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M19.09 4.909a5.66 5.66 0 0 0-9.602 4.823l.029.196l-5.72 6.632a2.25 2.25 0 0 0 .112 3.06l.469.47a2.25 2.25 0 0 0 3.06.112l6.633-5.72l.196.028a5.66 5.66 0 0 0 4.823-9.602m-6.943 1.06a4.16 4.16 0 1 1 2.574 7.085l-3.777-3.777a4.15 4.15 0 0 1 1.203-3.308M4.932 17.54l5.628-6.524l2.424 2.423l-6.525 5.628a.75.75 0 0 1-1.02-.037l-.47-.469a.75.75 0 0 1-.037-1.02" clip-rule="evenodd"/></svg>
+			<svg class="toggle-hidden btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M19.09 4.909a5.66 5.66 0 0 0-9.602 4.823l.029.196l-5.72 6.632a2.25 2.25 0 0 0 .112 3.06l.469.47a2.25 2.25 0 0 0 3.06.112l6.633-5.72l.196.028a5.66 5.66 0 0 0 4.823-9.602m-6.943 1.06a4.16 4.16 0 1 1 2.574 7.085l-3.777-3.777a4.15 4.15 0 0 1 1.203-3.308M4.932 17.54l5.628-6.524l2.424 2.423l-6.525 5.628a.75.75 0 0 1-1.02-.037l-.47-.469a.75.75 0 0 1-.037-1.02" clip-rule="evenodd"/></svg>
 
 			<!-- queue -->
-			<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75"/></svg>
+			<svg class="toggle-hidden btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75"/></svg>
 
 			<!-- connect device -->
-			<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.5 20v-2H4.616q-.691 0-1.153-.462T3 16.384V5.616q0-.691.463-1.153T4.615 4h14.77q.69 0 1.152.463T21 5.616V7.23h-1V5.616q0-.27-.173-.443T19.384 5H4.616q-.27 0-.443.173T4 5.616v10.769q0 .269.173.442t.443.173h6.769v3zm7.27-5.23q.582-.581 1.422-.581t1.423.581t.581 1.422t-.582 1.423t-1.422.581t-1.422-.582t-.581-1.422q0-.84.581-1.422M20.154 9q.367 0 .607.24q.239.239.239.606v9.308q0 .367-.24.607q-.239.239-.606.239H14.23q-.367 0-.607-.24q-.24-.239-.24-.606V9.846q0-.367.24-.607q.24-.239.607-.239zm-3.873 1.204q-.358.357-.358.911t.358.912t.911.358t.912-.358t.358-.912t-.358-.911t-.912-.358t-.911.358m3.014 8.091q.859-.858.859-2.103t-.859-2.102q-.858-.86-2.103-.86t-2.102.86q-.86.858-.86 2.102t.86 2.103t2.102.859t2.103-.859"/></svg>
+			<svg class="toggle-hidden btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M8.5 20v-2H4.616q-.691 0-1.153-.462T3 16.384V5.616q0-.691.463-1.153T4.615 4h14.77q.69 0 1.152.463T21 5.616V7.23h-1V5.616q0-.27-.173-.443T19.384 5H4.616q-.27 0-.443.173T4 5.616v10.769q0 .269.173.442t.443.173h6.769v3zm7.27-5.23q.582-.581 1.422-.581t1.423.581t.581 1.422t-.582 1.423t-1.422.581t-1.422-.582t-.581-1.422q0-.84.581-1.422M20.154 9q.367 0 .607.24q.239.239.239.606v9.308q0 .367-.24.607q-.239.239-.606.239H14.23q-.367 0-.607-.24q-.24-.239-.24-.606V9.846q0-.367.24-.607q.24-.239.607-.239zm-3.873 1.204q-.358.357-.358.911t.358.912t.911.358t.912-.358t.358-.912t-.358-.911t-.912-.358t-.911.358m3.014 8.091q.859-.858.859-2.103t-.859-2.102q-.858-.86-2.103-.86t-2.102.86q-.86.858-.86 2.102t.86 2.103t2.102.859t2.103-.859"/></svg>
 			
 			<!-- volume -->
-			<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="M4.603 14.088V9.912c0-.416.143-.814.396-1.108c.253-.293.596-.458.954-.458h1.89c.237-.001.47-.073.675-.21l3.97-2.63c.205-.135.437-.205.672-.204s.467.074.671.212c.204.137.373.334.491.57c.118.237.18.506.182.78v10.273a1.8 1.8 0 0 1-.182.778a1.5 1.5 0 0 1-.49.571c-.205.137-.436.21-.672.212a1.2 1.2 0 0 1-.672-.204l-3.97-2.631a1.23 1.23 0 0 0-.675-.209h-1.89c-.358 0-.701-.165-.954-.459a1.7 1.7 0 0 1-.396-1.107"/><path stroke-miterlimit="10" d="M17.831 15.715a5.344 5.344 0 0 0 0-7.559"/></g></svg>
+			<svg class="toggle-hidden btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="M4.603 14.088V9.912c0-.416.143-.814.396-1.108c.253-.293.596-.458.954-.458h1.89c.237-.001.47-.073.675-.21l3.97-2.63c.205-.135.437-.205.672-.204s.467.074.671.212c.204.137.373.334.491.57c.118.237.18.506.182.78v10.273a1.8 1.8 0 0 1-.182.778a1.5 1.5 0 0 1-.49.571c-.205.137-.436.21-.672.212a1.2 1.2 0 0 1-.672-.204l-3.97-2.631a1.23 1.23 0 0 0-.675-.209h-1.89c-.358 0-.701-.165-.954-.459a1.7 1.7 0 0 1-.396-1.107"/><path stroke-miterlimit="10" d="M17.831 15.715a5.344 5.344 0 0 0 0-7.559"/></g></svg>
 			<svg class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-miterlimit="10" d="m20.951 9.554l-4.902 4.902m0-4.902l4.902 4.902"/><path stroke-linejoin="round" d="M3.049 14.088V9.912c0-.416.142-.814.395-1.108c.253-.293.597-.458.955-.458h1.89c.236-.001.469-.073.675-.21l3.969-2.63c.205-.135.437-.205.672-.204s.467.074.671.212c.204.137.374.334.492.57c.118.237.18.506.18.78v10.273c0 .273-.062.542-.18.778a1.5 1.5 0 0 1-.492.571c-.203.137-.435.21-.67.212a1.2 1.2 0 0 1-.673-.204l-3.97-2.631a1.23 1.23 0 0 0-.674-.209h-1.89c-.358 0-.702-.165-.955-.459a1.7 1.7 0 0 1-.395-1.107"/></g></svg>
 
 			<!-- miniplayer -->
-			<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><rect width="9" height="7" x="13" y="13" rx="2"/></g></svg>
+			<svg class="toggle-hidden btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><rect width="9" height="7" x="13" y="13" rx="2"/></g></svg>
 
 			<!-- full screen -->
 			<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 19h2q.425 0 .713.288T8 20t-.288.713T7 21H4q-.425 0-.712-.288T3 20v-3q0-.425.288-.712T4 16t.713.288T5 17zm14 0v-2q0-.425.288-.712T20 16t.713.288T21 17v3q0 .425-.288.713T20 21h-3q-.425 0-.712-.288T16 20t.288-.712T17 19zM5 5v2q0 .425-.288.713T4 8t-.712-.288T3 7V4q0-.425.288-.712T4 3h3q.425 0 .713.288T8 4t-.288.713T7 5zm14 0h-2q-.425 0-.712-.288T16 4t.288-.712T17 3h3q.425 0 .713.288T21 4v3q0 .425-.288.713T20 8t-.712-.288T19 7z"/></svg>
@@ -565,6 +574,25 @@
 			playbarArtist.innerHTML = song.artist.name;
 			playbarImg.src = song.image;
 		}
+
+		
+		const toggleVisibilityBtnEl = document.querySelector('#toggleVisibilityBtn');
+		toggleVisibilityBtnEl.addEventListener('click', function() {
+			const toggleClass = document.querySelector('.toggle-hidden');
+			const visibility = window.getComputedStyle(toggleClass).display;
+			const elements = document.querySelectorAll('.toggle-hidden');
+	
+			if (visibility == 'none') {
+				elements.forEach(element => {
+					element.style.display = 'block';
+				});
+			} else {
+				elements.forEach(element => {
+					element.style.display = 'none';
+				});
+	
+			}
+		});
 
         initialLoad();
     </script>
