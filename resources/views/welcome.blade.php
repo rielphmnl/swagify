@@ -373,8 +373,16 @@
 			</div>
 
 			<!-- progress bar -->
-			<div>
-				<p>00:00 ------------------- 0:69</p>
+			<div class="flex gap-3 items-center">
+				<p id="currDur">00:00</p>
+				
+				<div class="relative w-100 h-1 rounded-2xl overflow-hidden flex">
+					<div class="size-full bg-neutral-600"></div>
+
+					<div id="currDurBar" class="h-full w-10 rounded-2xl bg-neutral-300 absolute left-0"></div>
+				</div>
+
+				<p id="totalDur">0:69</p>
 			</div>
 		</div>
 
@@ -410,7 +418,7 @@
             const newDiv = document.createElement('div');
             newDiv.id = 'song-' + song.id;
 			newDiv.addEventListener('click', function () {
-				playSong(song);	
+				dockSong(song);
 			});
             newDiv.classList.add('hover:bg-neutral-800', 'cursor-pointer', 'rounded-md', 'h-16', 'w-full', 'flex', 'items-center', 'px-2', 'gap-2');
     
@@ -522,7 +530,7 @@
             const newDiv = document.createElement('div');
             newDiv.id = 'searchSong-' + song.id;
 			newDiv.addEventListener('click', function () {
-				playSong(song);	
+				dockSong(song);	
 			});
             newDiv.classList.add('w-56', 'hover:bg-neutral-800', 'cursor-pointer', 'rounded-2xl', 'p-4');
 
@@ -630,7 +638,7 @@
                 
                 return response.json();
             }).then(songs => {
-				playSong(songs[0]);
+				dockSong(songs[0]);
 
 				for (song of songs) {
 					listDiv.appendChild(createSongCard(song));
@@ -656,7 +664,7 @@
 			}).catch(error => console.error(error));
         }
 
-		function playSong(song) {
+		function dockSong(song) {
 			const currentDivSong = document.querySelector('#currentDivSong');
 			const currentDivAlbum = document.querySelector('#currentDivAlbum');
 			const currentDivArtist = document.querySelector('#currentDivArtist');
