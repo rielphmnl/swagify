@@ -362,7 +362,14 @@
 				<svg class="btn-scale-color -scale-x-100" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M2.538 4.113a1 1 0 0 1 1.035.068l10 7a1 1 0 0 1 0 1.638l-10 7A1 1 0 0 1 2 19V5a1 1 0 0 1 .538-.887M16 5.8A1.8 1.8 0 0 1 17.8 4h1.4A1.8 1.8 0 0 1 21 5.8v12.4a1.8 1.8 0 0 1-1.8 1.8h-1.4a1.8 1.8 0 0 1-1.8-1.8z" clip-rule="evenodd"/></svg>
 				
 				<!-- play -->
-				<svg id="playBtn" class="text-neutral-300 hover:scale-110 hover:text-neutral-400 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1m3.901 7L6 4.066v7.868z" clip-rule="evenodd"/></svg>
+				<div id="playBtn" class="size-7 bg-neutral-300 hover:scale-110 hover:bg-neutral-400 text-black cursor-pointer rounded-full flex justify-center items-center text-xl">
+					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path fill="currentColor" d="M6.51 18.87c.15.09.32.13.49.13s.36-.05.51-.14l10-6c.3-.18.49-.51.49-.86s-.18-.68-.49-.86l-10-6a.99.99 0 0 0-1.01-.01c-.31.18-.51.51-.51.87v12c0 .36.19.69.51.87Z"/></svg>
+				</div>
+
+				<!-- pause -->
+				<div id="pauseBtn" class="size-7 bg-neutral-300 hover:scale-110 hover:bg-neutral-400 text-black cursor-pointer rounded-full flex justify-center items-center hidden">
+					<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path fill="currentColor" d="M4.8 3h4.4a.8.8 0 0 1 .8.8v16.4a.8.8 0 0 1-.8.8H4.8a.8.8 0 0 1-.8-.8V3.8a.8.8 0 0 1 .8-.8m10 0h4.4a.8.8 0 0 1 .8.8v16.4a.8.8 0 0 1-.8.8h-4.4a.8.8 0 0 1-.8-.8V3.8a.8.8 0 0 1 .8-.8"/></svg>
+				</div>
 				
 				<!-- next -->
 				<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M2.538 4.113a1 1 0 0 1 1.035.068l10 7a1 1 0 0 1 0 1.638l-10 7A1 1 0 0 1 2 19V5a1 1 0 0 1 .538-.887M16 5.8A1.8 1.8 0 0 1 17.8 4h1.4A1.8 1.8 0 0 1 21 5.8v12.4a1.8 1.8 0 0 1-1.8 1.8h-1.4a1.8 1.8 0 0 1-1.8-1.8z" clip-rule="evenodd"/></svg>
@@ -413,6 +420,8 @@
 
 
     <script>
+		let dockedSong;
+
         function createSongCard(song) {
             // full div
             const newDiv = document.createElement('div');
@@ -668,6 +677,15 @@
 		}
 
 		function dockSong(song) {
+			// resets progress bar
+			currDurBarEl.style.width = 0;
+			currDurEl.innerHTML = formatSeconds(0);
+			clearInterval(songProgress);
+			pauseBtn.classList.add('hidden');
+			playBtn.classList.remove('hidden');
+
+			dockedSong = song;
+
 			const currentDivSong = document.querySelector('#currentDivSong');
 			const currentDivAlbum = document.querySelector('#currentDivAlbum');
 			const currentDivArtist = document.querySelector('#currentDivArtist');
@@ -690,6 +708,8 @@
 			playbarSong.innerHTML = song.name;
 			playbarArtist.innerHTML = song.artist.name;
 			playbarImg.src = song.image;
+
+			totalDurEl.innerHTML = formatSeconds(songDuration);
 		}
 
 		
@@ -712,35 +732,57 @@
 		});
 
 
+		// manipulating docked song
 		const playBtn = document.querySelector('#playBtn');
+		const pauseBtn = document.querySelector('#pauseBtn');
+		const currDurBarEl = document.querySelector('#currDurBar');
+		const currDurEl = document.querySelector('#currDur');
+		const totalDurEl = document.querySelector('#totalDur');
+		let songProgress;
+		let songDuration = 5; // hard coded for now
+		let perSec = (1 / songDuration) * 100; // computes how may % progress per second
+
 		playBtn.addEventListener('click', () => {
-			const currDurBarEl = document.querySelector('#currDurBar');
-			const currDurEl = document.querySelector('#currDur');
-			const totalDurEl = document.querySelector('#totalDur');
+			playBtn.classList.add('hidden');
+			pauseBtn.classList.remove('hidden');
+
+			console.log(dockedSong);
 
 			let i = 0;
-			// whaaat why const timer
-			// const timer = 
-			setInterval(() => {
-				// console.log(i);
-				let oldClass = "w-" + i +"/100";
-				let newClass = "w-" + (i+1) +"/100";
-				// console.log("oldClass: " + oldClass);
-				// console.log("newClass: " + newClass);
 
-				//FIX FORMAT OF DISPLAY!!!
-				currDurEl.innerHTML = "00:0" + i;
+			songProgress = setInterval(() => {
+				let width = perSec * (i);
 
-				currDurBarEl.classList.replace(oldClass, newClass);
+				currDurEl.innerHTML = formatSeconds(i);
 
+				currDurBarEl.style.width = width + '%';
 
 				i++;
 
-				if (i >= 100) {
-					clearInterval(timer);
+				if (i > songDuration) {
+					clearInterval(songProgress);
 				}
 			}, 1000);
 		});
+
+		pauseBtn.addEventListener('click', () => {
+			pauseBtn.classList.add('hidden');
+			playBtn.classList.remove('hidden');
+
+			clearInterval(songProgress);
+		});
+
+		// copied from google hehe
+		function formatSeconds(totalSeconds) {
+			const minutes = Math.floor(totalSeconds / 60);
+			const seconds = totalSeconds % 60;
+
+			// Pads single digits with a leading '0'
+			const paddedMinutes = String(minutes).padStart(2, '0');
+			const paddedSeconds = String(seconds).padStart(2, '0');
+
+			return `${paddedMinutes}:${paddedSeconds}`;
+		}
 
 
 
