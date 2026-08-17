@@ -362,7 +362,7 @@
 				<svg class="btn-scale-color -scale-x-100" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M2.538 4.113a1 1 0 0 1 1.035.068l10 7a1 1 0 0 1 0 1.638l-10 7A1 1 0 0 1 2 19V5a1 1 0 0 1 .538-.887M16 5.8A1.8 1.8 0 0 1 17.8 4h1.4A1.8 1.8 0 0 1 21 5.8v12.4a1.8 1.8 0 0 1-1.8 1.8h-1.4a1.8 1.8 0 0 1-1.8-1.8z" clip-rule="evenodd"/></svg>
 				
 				<!-- play -->
-				<svg class="text-neutral-300 hover:scale-110 hover:text-neutral-400 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1m3.901 7L6 4.066v7.868z" clip-rule="evenodd"/></svg>
+				<svg id="playBtn" class="text-neutral-300 hover:scale-110 hover:text-neutral-400 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1m3.901 7L6 4.066v7.868z" clip-rule="evenodd"/></svg>
 				
 				<!-- next -->
 				<svg class="btn-scale-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M2.538 4.113a1 1 0 0 1 1.035.068l10 7a1 1 0 0 1 0 1.638l-10 7A1 1 0 0 1 2 19V5a1 1 0 0 1 .538-.887M16 5.8A1.8 1.8 0 0 1 17.8 4h1.4A1.8 1.8 0 0 1 21 5.8v12.4a1.8 1.8 0 0 1-1.8 1.8h-1.4a1.8 1.8 0 0 1-1.8-1.8z" clip-rule="evenodd"/></svg>
@@ -379,10 +379,10 @@
 				<div class="relative w-100 h-1 rounded-2xl overflow-hidden flex">
 					<div class="size-full bg-neutral-600"></div>
 
-					<div id="currDurBar" class="h-full w-10 rounded-2xl bg-neutral-300 absolute left-0"></div>
+					<div id="currDurBar" class="h-full w-0/100 rounded-2xl bg-neutral-300 absolute left-0 flex"></div>
 				</div>
 
-				<p id="totalDur">0:69</p>
+				<p id="totalDur">1:40</p>
 			</div>
 		</div>
 
@@ -640,10 +640,7 @@
             }).then(songs => {
 				dockSong(songs[0]);
 
-				for (song of songs) {
-					listDiv.appendChild(createSongCard(song));
-					// console.log(song.artist.name);
-				}
+				dockLibrary(songs);
             }).catch(error => console.error(error));
 
 
@@ -663,6 +660,12 @@
 				}
 			}).catch(error => console.error(error));
         }
+
+		function dockLibrary(songs) {
+			for (song of songs) {
+				listDiv.appendChild(createSongCard(song));
+			}
+		}
 
 		function dockSong(song) {
 			const currentDivSong = document.querySelector('#currentDivSong');
@@ -707,6 +710,39 @@
 	
 			}
 		});
+
+
+		const playBtn = document.querySelector('#playBtn');
+		playBtn.addEventListener('click', () => {
+			const currDurBarEl = document.querySelector('#currDurBar');
+			const currDurEl = document.querySelector('#currDur');
+			const totalDurEl = document.querySelector('#totalDur');
+
+			let i = 0;
+			// whaaat why const timer
+			// const timer = 
+			setInterval(() => {
+				// console.log(i);
+				let oldClass = "w-" + i +"/100";
+				let newClass = "w-" + (i+1) +"/100";
+				// console.log("oldClass: " + oldClass);
+				// console.log("newClass: " + newClass);
+
+				//FIX FORMAT OF DISPLAY!!!
+				currDurEl.innerHTML = "00:0" + i;
+
+				currDurBarEl.classList.replace(oldClass, newClass);
+
+
+				i++;
+
+				if (i >= 100) {
+					clearInterval(timer);
+				}
+			}, 1000);
+		});
+
+
 
         initialLoad();
     </script>

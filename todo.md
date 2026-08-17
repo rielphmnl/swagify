@@ -64,7 +64,8 @@
 
 [ ] swagify front end 
     [x] make javascript of initial load, loading all songs on left pane
-    [ ] make list of albums in main section
-        [ ] make function createAlbumCard
-        [ ] add createAlbumCard to initialLoad()
-    [ ] ...
+    [x] make list of albums in main section
+        [x] make function createAlbumCard
+        [x] add createAlbumCard to initialLoad()
+    [ ] playbar fix display of current time
+    [ ] when play is clicked, switch to pause
