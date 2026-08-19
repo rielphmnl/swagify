@@ -6,6 +6,7 @@
 	<title>swagify</title>
 
 	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+	<script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 
 	<style>
 		/* @import "tailwindcss"; */
@@ -389,7 +390,7 @@
 					<div id="currDurBar" class="h-full w-0/100 rounded-2xl bg-neutral-300 absolute left-0 flex"></div>
 				</div>
 
-				<p id="totalDur">1:40</p>
+				<p id="totalDur">00:00</p>
 			</div>
 		</div>
 
@@ -421,6 +422,7 @@
 
     <script>
 		let dockedSong;
+		let songAudio;
 		const listDiv = document.querySelector('#listDiv');
 
 
@@ -428,6 +430,7 @@
 		homeBtnEl.addEventListener('click', () => {
 			location.reload();
 		});
+
 
         function createSongCard(song) {
             // full div
@@ -707,6 +710,16 @@
 
 			dockedSong = song;
 
+			songAudio = new Howl({
+				src: [dockedSong.song_file],
+				onload: function() {
+					songDuration = Math.trunc(songAudio.duration() / 1);
+					console.log(songDuration);
+					totalDurEl.innerHTML = formatSeconds(songDuration);
+					perSec = (1 / songDuration) * 100;
+				},
+			});
+
 			const currentDivSong = document.querySelector('#currentDivSong');
 			const currentDivAlbum = document.querySelector('#currentDivAlbum');
 			const currentDivArtist = document.querySelector('#currentDivArtist');
@@ -730,7 +743,7 @@
 			playbarArtist.innerHTML = song.artist.name;
 			playbarImg.src = song.image;
 
-			totalDurEl.innerHTML = formatSeconds(songDuration);
+			// totalDurEl.innerHTML = formatSeconds(songDuration);
 		}
 
 		
@@ -760,14 +773,16 @@
 		const currDurEl = document.querySelector('#currDur');
 		const totalDurEl = document.querySelector('#totalDur');
 		let songProgress;
-		let songDuration = 5; // hard coded for now
-		let perSec = (1 / songDuration) * 100; // computes how may % progress per second
+		let songDuration;
+		let perSec; // computes how may % progress per second
 
 		playBtn.addEventListener('click', () => {
 			playBtn.classList.add('hidden');
 			pauseBtn.classList.remove('hidden');
 
 			console.log(dockedSong);
+			songAudio.play();
+
 
 			let i = 0;
 
@@ -790,6 +805,8 @@
 			pauseBtn.classList.add('hidden');
 			playBtn.classList.remove('hidden');
 
+			songAudio.pause();
+
 			clearInterval(songProgress);
 		});
 
@@ -806,8 +823,11 @@
 		}
 
 
-
         initialLoad();
+
+		// songAudio = new Howl({
+		// 	src: [dockedSong.song_file],
+		// });
     </script>
 </body>
 </html>

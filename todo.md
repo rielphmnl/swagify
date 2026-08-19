@@ -67,5 +67,16 @@
     [x] make list of albums in main section
         [x] make function createAlbumCard
         [x] add createAlbumCard to initialLoad()
-    [ ] playbar fix display of current time
-    [ ] when play is clicked, switch to pause
+    [x] playbar fix display of current time
+    [x] when play is clicked, switch to pause
+    [x] include howlerjs cdn
+    [x] play button on click
+        [x] make function playAudio()
+        [x] get the song from dockedSong
+        [x] get the file_path of song
+        [x] play song via howlerjs
+    [x] pause button on click
+        [x] pause the sound
+    [ ] fix duration bar progress on pause
+    [ ] fix duration bar delay on start
+
