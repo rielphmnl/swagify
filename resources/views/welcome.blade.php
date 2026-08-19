@@ -50,7 +50,7 @@
 		<!-- middle header home/search -->
 		<div class="flex flex-1 gap-2">
 			<!-- home icon -->
-			<div class="bg-neutral-800 rounded-full flex justify-center items-center hover:scale-110 hover:bg-neutral-700 cursor-pointer">
+			<div id="homeBtn" class="bg-neutral-800 rounded-full flex justify-center items-center hover:scale-110 hover:bg-neutral-700 cursor-pointer">
 				<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="currentColor" d="M5 19v-8.692q0-.384.172-.727t.474-.565l5.385-4.078q.423-.323.966-.323t.972.323l5.385 4.077q.303.222.474.566q.172.343.172.727V19q0 .402-.299.701T18 20h-3.384q-.344 0-.576-.232q-.232-.233-.232-.576v-4.769q0-.343-.232-.575q-.233-.233-.576-.233h-2q-.343 0-.575.233q-.233.232-.233.575v4.77q0 .343-.232.575T9.385 20H6q-.402 0-.701-.299T5 19"/></svg>
 			</div>
 
@@ -421,6 +421,13 @@
 
     <script>
 		let dockedSong;
+		const listDiv = document.querySelector('#listDiv');
+
+
+		homeBtnEl = document.querySelector('#homeBtn');
+		homeBtnEl.addEventListener('click', () => {
+			location.reload();
+		});
 
         function createSongCard(song) {
             // full div
@@ -511,6 +518,19 @@
 		function createAlbumCard(album) {
 			const newAlbumCard = document.createElement('div');
 			newAlbumCard.classList.add('flex', 'bg-neutral-800', 'hover:bg-neutral-700', 'cursor-pointer', 'rounded', 'overflow-hidden', 'flex-1', 'min-w-36');
+			newAlbumCard.addEventListener('click', () => {
+				fetch('http://127.0.0.1:8000/swagify/playlist/' + album.id)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error("can't fetch playlist " + response.status);
+					}
+					
+					return response.json();
+				}).then(songs => {
+					dockLibrary(songs);
+				}).catch(error => console.error(error));
+
+			});
 
 			const newImgDiv = document.createElement('div');
 			newImgDiv.classList.add('size-12');
@@ -636,7 +656,7 @@
 
 
         function initialLoad() {
-			const listDiv = document.querySelector('#listDiv');
+			// const listDiv = document.querySelector('#listDiv');
 
 
             fetch('http://127.0.0.1:8000/swagify')
@@ -651,7 +671,6 @@
 
 				dockLibrary(songs);
             }).catch(error => console.error(error));
-
 
 
 			const albumsDiv = document.querySelector('#albumsDiv');
@@ -671,6 +690,8 @@
         }
 
 		function dockLibrary(songs) {
+			listDiv.replaceChildren();
+
 			for (song of songs) {
 				listDiv.appendChild(createSongCard(song));
 			}
