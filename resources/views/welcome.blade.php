@@ -6,7 +6,6 @@
 	<title>swagify</title>
 
 	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-	<script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 
 	<style>
 		/* @import "tailwindcss"; */
@@ -35,6 +34,10 @@
 
 		#searchResultsDiv > div:hover svg {
 			display: block;
+		}
+
+		#currDurBar {
+			transition: width 50ms;
 		}
 
 		
@@ -419,7 +422,7 @@
 	</section>
 
 
-
+	<script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
     <script>
 		let dockedSong;
 		let songAudio;
@@ -713,10 +716,15 @@
 			songAudio = new Howl({
 				src: [dockedSong.song_file],
 				onload: function() {
-					songDuration = Math.trunc(songAudio.duration() / 1);
+					// songDuration = Math.trunc(songAudio.duration() / 1);
+					songDuration = Math.round(songAudio.duration() * 100) / 100;
 					console.log(songDuration);
+					console.log(songAudio.duration());
 					totalDurEl.innerHTML = formatSeconds(songDuration);
-					perSec = (1 / songDuration) * 100;
+					// perSec = (1 / songDuration) * 100;
+					// songDuration = (1 / songDuration) * 100;
+					perSec = Math.round(((1 / songDuration) * 100) * 100) / 100;
+					console.log("perSec: " + perSec);
 				},
 			});
 
@@ -813,7 +821,7 @@
 		// copied from google hehe
 		function formatSeconds(totalSeconds) {
 			const minutes = Math.floor(totalSeconds / 60);
-			const seconds = totalSeconds % 60;
+			const seconds = Math.trunc(totalSeconds % 60);
 
 			// Pads single digits with a leading '0'
 			const paddedMinutes = String(minutes).padStart(2, '0');

@@ -79,4 +79,6 @@
         [x] pause the sound
     [ ] fix duration bar progress on pause
     [ ] fix duration bar delay on start
+    [ ] stop song on clicking other song
 
+[x] css transition
