@@ -427,6 +427,7 @@
 		let dockedSong;
 		let songAudio;
 		const listDiv = document.querySelector('#listDiv');
+		const backendURL = "http://127.0.0.1:8000";
 
 
 		homeBtnEl = document.querySelector('#homeBtn');
@@ -525,7 +526,7 @@
 			const newAlbumCard = document.createElement('div');
 			newAlbumCard.classList.add('flex', 'bg-neutral-800', 'hover:bg-neutral-700', 'cursor-pointer', 'rounded', 'overflow-hidden', 'flex-1', 'min-w-36');
 			newAlbumCard.addEventListener('click', () => {
-				fetch('http://127.0.0.1:8000/swagify/playlist/' + album.id)
+				fetch(`${backendURL}/swagify/playlist/` + album.id)
 				.then(response => {
 					if (!response.ok) {
 						throw new Error("can't fetch playlist " + response.status);
@@ -637,7 +638,7 @@
 		function printSearchResultSongs(search) {
 			clearSearchResults();
 
-			fetch('http://127.0.0.1:8000/swagify?search=' + search)
+			fetch(`${backendURL}/swagify?search=` + search)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("can't fetch song " + response.status);
@@ -665,7 +666,7 @@
 			// const listDiv = document.querySelector('#listDiv');
 
 
-            fetch('http://127.0.0.1:8000/swagify')
+            fetch(`${backendURL}/swagify`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("can't fetch song " + response.status);
@@ -681,7 +682,7 @@
 
 			const albumsDiv = document.querySelector('#albumsDiv');
 
-			fetch('http://127.0.0.1:8000/albums')
+			fetch(`${backendURL}/albums`)
 			.then(response => {
 				if (!response.ok) {
 					throw new Error("can't fetch albums" + response.status);
