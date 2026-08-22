@@ -711,6 +711,12 @@
 			clearInterval(songProgress);
 			pauseBtn.classList.add('hidden');
 			playBtn.classList.remove('hidden');
+			songProgressNow = 0;
+
+			// stops current song
+			if (songAudio) {
+				songAudio.stop();
+			}
 
 			dockedSong = song;
 
@@ -782,6 +788,7 @@
 		const currDurEl = document.querySelector('#currDur');
 		const totalDurEl = document.querySelector('#totalDur');
 		let songProgress;
+		let songProgressNow = 0;
 		let songDuration;
 		let perSec; // computes how may % progress per second
 
@@ -793,7 +800,7 @@
 			songAudio.play();
 
 
-			let i = 0;
+			let i = songProgressNow;
 
 			songProgress = setInterval(() => {
 				let width = perSec * (i);
@@ -803,6 +810,7 @@
 				currDurBarEl.style.width = width + '%';
 
 				i++;
+				songProgressNow = i;
 
 				if (i > songDuration) {
 					clearInterval(songProgress);

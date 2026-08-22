@@ -77,8 +77,71 @@
         [x] play song via howlerjs
     [x] pause button on click
         [x] pause the sound
-    [ ] fix duration bar progress on pause
-    [ ] fix duration bar delay on start
-    [ ] stop song on clicking other song
+    [x] fix duration bar progress on pause
+    [x] fix duration bar delay on start
+    [x] stop song on clicking other song
 
 [x] css transition
+[x] internship 4months may 2026 - august 2026
+San Beda College Alabang
+Philippines
+january 2026 - august 2026
+Full Stack Intern
+
+[x] linkedin
+[x] jobstreet
+[x] indeed 
+
+[ ] review async await (promises)
+[ ] optional: javascript event loop
+[ ] vue
+
+https: ssl certificate->puts encryption in server communication
+
+index: indicate which column to TRACK which can be used for sorting
+
+
+aggregate functions: MAX MIN
+
+PAGINATION:
+page = 1;
+perPage = 10;
+SELECT * FROM table LIMIT perPage OFFSET (page * perPage);
+
+
+METHODS: standard for RESTful API
+GET: query parameter
+POST: sending/creatinf data usually using multipart form data or JSON
+    : can send bigger data than GET
+PUT/PATCH: put (whole) / patch (parts)
+DELETE: deleted data
+
+
+encryptions:
+Bcrypt - encryption ng password
+SHA256, MD5
+
+
+NGINX, Apache
+servers communicate via HTTP and a server handles request and response
+server listens to a Port
+
+
+ECMA6 - standard of Javascript
+
+
+tailwind - CSS library of utility classes
+-to lessen arbitrary values
+
+//NEXT
+mobile responsiveness
+typescript
+multipage application vs single plage application
+
+
+what is:
+NPM
+vite
+node
+Node.JS
+webpack
