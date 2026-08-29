@@ -211,10 +211,12 @@
 				<!-- repeat card 8 -->
 				<!-- <div class="flex bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded overflow-hidden flex-1 min-w-36">
 					<div class="size-12 ">
-						<img class="size-full object-cover" src="https://upload.wikimedia.org/wikipedia/en/e/ef/Bad_Bunny_-_Deb%C3%AD_Tirar_M%C3%A1s_Fotos.png">						
+						<img class="w-12 object-cover" src="/storage/song_image/HyPzDVlctstGUklZbo0Yomn02dRGd17juiyvyoLj.png">
 					</div>
 
-					<p class="ml-2 text-md font-medium">Playlist name</p>
+					<div class="flex-1 h-12 text-ellipsis">
+						<p class="ml-2 text-md font-medium">We Are Your Friends (Album)</p>
+					</div>
 				</div> -->
 				<!-- repeat card 8 -->
 
@@ -543,18 +545,21 @@
 			newImgDiv.classList.add('size-12');
 
 			const newImg = document.createElement('img');
-			newImg.classList.add('size-full', 'object-cover');
+			newImg.classList.add('size-12', 'object-cover');
 			newImg.src = album.image;
 
 			newImgDiv.appendChild(newImg);
 			newAlbumCard.appendChild(newImgDiv);
 
+			const newAlbumDiv = document.createElement('div');
+			newAlbumDiv.classList.add('flex-1', 'h-12', 'text-ellipsis');
 
 			const newAlbum = document.createElement('p');
 			newAlbum.classList.add('ml-2', 'text-md', 'font-medium');
 			newAlbum.innerHTML = album.name;
 
-			newAlbumCard.appendChild(newAlbum);
+			newAlbumDiv.appendChild(newAlbum);
+			newAlbumCard.appendChild(newAlbumDiv);
 
 
 			return newAlbumCard
