@@ -429,441 +429,460 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
     <script>
-		// let app = {
-		// 	data() {
-		// 		return {
-		// 			helloputa: 'biatch'
-		// 		};
-		// 	}
+		let app = {
+			data() {
+				return {
+					testtest: null,
+					backendURL: "http://127.0.0.1:8000"
+				};
+			},
 
-		// };
+			mounted() {
+				this.testInitialLoad();
+			},
+
+			methods: {
+				testInitialLoad() {				
+					fetch(`${this.backendURL}/swagify`)
+					.then(response => {
+						if (!response.ok) {
+							throw new Error("can't fetch song " + response.status);
+						}
+						
+						return response.json();
+					}).then(data => {
+						this.testtest = data;
+					}).catch(error => console.error(error))
+					
+				}
+
+			}
+				
+		};
 
 		
-		let dockedSong;
-		let songAudio;
-		const listDiv = document.querySelector('#listDiv');
-		const backendURL = "http://127.0.0.1:8000";
+		// let dockedSong;
+		// let songAudio;
+		// const listDiv = document.querySelector('#listDiv');
+		// const backendURL = "http://127.0.0.1:8000";
 
 
-		homeBtnEl = document.querySelector('#homeBtn');
-		homeBtnEl.addEventListener('click', () => {
-			location.reload();
-		});
+		// homeBtnEl = document.querySelector('#homeBtn');
+		// homeBtnEl.addEventListener('click', () => {
+		// 	location.reload();
+		// });
 
 
-        function createSongCard(song) {
-            // full div
-            const newDiv = document.createElement('div');
-            newDiv.id = 'song-' + song.id;
-			newDiv.addEventListener('click', function () {
-				dockSong(song);
-			});
-            newDiv.classList.add('hover:bg-neutral-800', 'cursor-pointer', 'rounded-md', 'h-16', 'w-full', 'flex', 'items-center', 'px-2', 'gap-2');
+        // function createSongCard(song) {
+        //     // full div
+        //     const newDiv = document.createElement('div');
+        //     newDiv.id = 'song-' + song.id;
+		// 	newDiv.addEventListener('click', function () {
+		// 		dockSong(song);
+		// 	});
+        //     newDiv.classList.add('hover:bg-neutral-800', 'cursor-pointer', 'rounded-md', 'h-16', 'w-full', 'flex', 'items-center', 'px-2', 'gap-2');
     
-            // thumbnail div
-            const thumbnailDiv = document.createElement('div');
-            thumbnailDiv.classList.add('size-12', 'rounded', 'overflow-hidden', 'relative');
+        //     // thumbnail div
+        //     const thumbnailDiv = document.createElement('div');
+        //     thumbnailDiv.classList.add('size-12', 'rounded', 'overflow-hidden', 'relative');
 
-            // img
-            const newImg = document.createElement('img');
-            newImg.classList.add('size-full', 'object-cover');
-            newImg.src = song.image;
+        //     // img
+        //     const newImg = document.createElement('img');
+        //     newImg.classList.add('size-full', 'object-cover');
+        //     newImg.src = song.image;
 
-            // play icon div
-            const playIcon = document.createElement('div');
-            playIcon.id = 'playicon';
-            playIcon.classList.add('absolute', 'top-0', 'bottom-0', 'right-0', 'left-0', 'hidden');
+        //     // play icon div
+        //     const playIcon = document.createElement('div');
+        //     playIcon.id = 'playicon';
+        //     playIcon.classList.add('absolute', 'top-0', 'bottom-0', 'right-0', 'left-0', 'hidden');
 
-            // svg div
-            const svgDiv = document.createElement('div');
-            svgDiv.classList.add('w-full', 'h-full', 'flex', 'justify-center', 'items-center', 'bg-neutral-800/70');
+        //     // svg div
+        //     const svgDiv = document.createElement('div');
+        //     svgDiv.classList.add('w-full', 'h-full', 'flex', 'justify-center', 'items-center', 'bg-neutral-800/70');
 
-            // svg of play hover
-            const svgNS = "http://www.w3.org/2000/svg";
+        //     // svg of play hover
+        //     const svgNS = "http://www.w3.org/2000/svg";
 
-            const svg = document.createElementNS(svgNS, "svg");
-            svg.setAttribute("class", "text-neutral-300 hover:scale-105");
-            svg.setAttribute("width", "24");
-            svg.setAttribute("height", "24");
-            svg.setAttribute("viewBox", "0 0 24 24");
+        //     const svg = document.createElementNS(svgNS, "svg");
+        //     svg.setAttribute("class", "text-neutral-300 hover:scale-105");
+        //     svg.setAttribute("width", "24");
+        //     svg.setAttribute("height", "24");
+        //     svg.setAttribute("viewBox", "0 0 24 24");
 
-            const path = document.createElementNS(svgNS, "path");
-            path.setAttribute("fill", "currentColor");
-            path.setAttribute("stroke", "currentColor");
-            path.setAttribute("stroke-linecap", "round");
-            path.setAttribute("stroke-linejoin", "round");
-            path.setAttribute("stroke-width", "1.5");
-            path.setAttribute("d", "M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z");
+        //     const path = document.createElementNS(svgNS, "path");
+        //     path.setAttribute("fill", "currentColor");
+        //     path.setAttribute("stroke", "currentColor");
+        //     path.setAttribute("stroke-linecap", "round");
+        //     path.setAttribute("stroke-linejoin", "round");
+        //     path.setAttribute("stroke-width", "1.5");
+        //     path.setAttribute("d", "M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z");
 
-            svg.appendChild(path);
+        //     svg.appendChild(path);
 
-            // append thumbnail div children
-            svgDiv.appendChild(svg);
-            playIcon.appendChild(svgDiv);
-            thumbnailDiv.appendChild(newImg);
-            thumbnailDiv.appendChild(playIcon);
-            newDiv.appendChild(thumbnailDiv);
+        //     // append thumbnail div children
+        //     svgDiv.appendChild(svg);
+        //     playIcon.appendChild(svgDiv);
+        //     thumbnailDiv.appendChild(newImg);
+        //     thumbnailDiv.appendChild(playIcon);
+        //     newDiv.appendChild(thumbnailDiv);
 
 
-            // details div
-            const detailsDiv = document.createElement('div');
+        //     // details div
+        //     const detailsDiv = document.createElement('div');
 
-            // title div
-            const titleDiv = document.createElement('div');
+        //     // title div
+        //     const titleDiv = document.createElement('div');
 
-            // details
-            const songName = document.createElement('p');
-            songName.innerText = song.name;
-            songName.classList.add('text-neutral-300', 'font-light');
+        //     // details
+        //     const songName = document.createElement('p');
+        //     songName.innerText = song.name;
+        //     songName.classList.add('text-neutral-300', 'font-light');
 
-            titleDiv.appendChild(songName);
-            detailsDiv.appendChild(titleDiv);
+        //     titleDiv.appendChild(songName);
+        //     detailsDiv.appendChild(titleDiv);
 
-            // subDetails div
-            const subDetailsDiv = document.createElement('div');
+        //     // subDetails div
+        //     const subDetailsDiv = document.createElement('div');
 
-            const albumName = document.createElement('p');
-            albumName.innerText = song.album.name + " • " + song.artist.name;
-            albumName.classList.add('text-neutral-400', 'text-sm', 'font-light');
+        //     const albumName = document.createElement('p');
+        //     albumName.innerText = song.album.name + " • " + song.artist.name;
+        //     albumName.classList.add('text-neutral-400', 'text-sm', 'font-light');
 
-            subDetailsDiv.appendChild(albumName);
-            detailsDiv.appendChild(subDetailsDiv);
+        //     subDetailsDiv.appendChild(albumName);
+        //     detailsDiv.appendChild(subDetailsDiv);
 
             
-            newDiv.appendChild(detailsDiv);
+        //     newDiv.appendChild(detailsDiv);
 
     
-            return newDiv;
-        }
+        //     return newDiv;
+        // }
 
 
-		function createAlbumCard(album) {
-			const newAlbumCard = document.createElement('div');
-			newAlbumCard.classList.add('flex', 'bg-neutral-800', 'hover:bg-neutral-700', 'cursor-pointer', 'rounded', 'overflow-hidden', 'flex-1', 'min-w-36');
-			newAlbumCard.addEventListener('click', () => {
-				fetch(`${backendURL}/swagify/playlist/` + album.id)
-				.then(response => {
-					if (!response.ok) {
-						throw new Error("can't fetch playlist " + response.status);
-					}
+		// function createAlbumCard(album) {
+		// 	const newAlbumCard = document.createElement('div');
+		// 	newAlbumCard.classList.add('flex', 'bg-neutral-800', 'hover:bg-neutral-700', 'cursor-pointer', 'rounded', 'overflow-hidden', 'flex-1', 'min-w-36');
+		// 	newAlbumCard.addEventListener('click', () => {
+		// 		fetch(`${backendURL}/swagify/playlist/` + album.id)
+		// 		.then(response => {
+		// 			if (!response.ok) {
+		// 				throw new Error("can't fetch playlist " + response.status);
+		// 			}
 					
-					return response.json();
-				}).then(songs => {
-					dockLibrary(songs);
-				}).catch(error => console.error(error));
+		// 			return response.json();
+		// 		}).then(songs => {
+		// 			dockLibrary(songs);
+		// 		}).catch(error => console.error(error));
 
-			});
+		// 	});
 
-			const newImgDiv = document.createElement('div');
-			newImgDiv.classList.add('size-12');
+		// 	const newImgDiv = document.createElement('div');
+		// 	newImgDiv.classList.add('size-12');
 
-			const newImg = document.createElement('img');
-			newImg.classList.add('size-12', 'object-cover');
-			newImg.src = album.image;
+		// 	const newImg = document.createElement('img');
+		// 	newImg.classList.add('size-12', 'object-cover');
+		// 	newImg.src = album.image;
 
-			newImgDiv.appendChild(newImg);
-			newAlbumCard.appendChild(newImgDiv);
+		// 	newImgDiv.appendChild(newImg);
+		// 	newAlbumCard.appendChild(newImgDiv);
 
-			const newAlbumDiv = document.createElement('div');
-			newAlbumDiv.classList.add('flex-1', 'h-12', 'text-ellipsis');
+		// 	const newAlbumDiv = document.createElement('div');
+		// 	newAlbumDiv.classList.add('flex-1', 'h-12', 'text-ellipsis');
 
-			const newAlbum = document.createElement('p');
-			newAlbum.classList.add('ml-2', 'text-md', 'font-medium');
-			newAlbum.innerHTML = album.name;
+		// 	const newAlbum = document.createElement('p');
+		// 	newAlbum.classList.add('ml-2', 'text-md', 'font-medium');
+		// 	newAlbum.innerHTML = album.name;
 
-			newAlbumDiv.appendChild(newAlbum);
-			newAlbumCard.appendChild(newAlbumDiv);
-
-
-			return newAlbumCard
-		}
+		// 	newAlbumDiv.appendChild(newAlbum);
+		// 	newAlbumCard.appendChild(newAlbumDiv);
 
 
-		function createLargeCard(song) {
-			// full div
-            const newDiv = document.createElement('div');
-            newDiv.id = 'searchSong-' + song.id;
-			newDiv.addEventListener('click', function () {
-				dockSong(song);	
-			});
-            newDiv.classList.add('w-56', 'hover:bg-neutral-800', 'cursor-pointer', 'rounded-2xl', 'p-4');
-
-			// thumbnail div
-            const thumbnailDiv = document.createElement('div');
-            thumbnailDiv.classList.add('size-48', 'rounded-2xl', 'overflow-hidden', 'relative');
-
-            // img
-            const newImg = document.createElement('img');
-            newImg.classList.add('size-full', 'object-cover');
-            newImg.src = song.image;
-
-			// svg div
-            const svgDiv = document.createElement('div');
-            svgDiv.classList.add('text-green-600', 'text-6xl', 'absolute', 'right-2', 'bottom-2');
-
-			// svg of play hover
-            const svgNS = "http://www.w3.org/2000/svg";
-
-            const svg = document.createElementNS(svgNS, "svg");
-            svg.setAttribute("class", "hidden text-neutral-800 hover:scale-105 bg-green-500 rounded-full p-3");
-            svg.setAttribute("width", "1em");
-            svg.setAttribute("height", "1em");
-            svg.setAttribute("viewBox", "0 0 24 24");
-
-            const path = document.createElementNS(svgNS, "path");
-            path.setAttribute("fill", "currentColor");
-            path.setAttribute("stroke", "currentColor");
-            path.setAttribute("stroke-linecap", "round");
-            path.setAttribute("stroke-linejoin", "round");
-            path.setAttribute("stroke-width", "1.5");
-            path.setAttribute("d", "M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z");
-
-            svg.appendChild(path);
-
-			svgDiv.appendChild(svg);
+		// 	return newAlbumCard
+		// }
 
 
+		// function createLargeCard(song) {
+		// 	// full div
+        //     const newDiv = document.createElement('div');
+        //     newDiv.id = 'searchSong-' + song.id;
+		// 	newDiv.addEventListener('click', function () {
+		// 		dockSong(song);	
+		// 	});
+        //     newDiv.classList.add('w-56', 'hover:bg-neutral-800', 'cursor-pointer', 'rounded-2xl', 'p-4');
 
-			thumbnailDiv.appendChild(newImg);
-			thumbnailDiv.appendChild(svgDiv);
-			newDiv.appendChild(thumbnailDiv);
+		// 	// thumbnail div
+        //     const thumbnailDiv = document.createElement('div');
+        //     thumbnailDiv.classList.add('size-48', 'rounded-2xl', 'overflow-hidden', 'relative');
+
+        //     // img
+        //     const newImg = document.createElement('img');
+        //     newImg.classList.add('size-full', 'object-cover');
+        //     newImg.src = song.image;
+
+		// 	// svg div
+        //     const svgDiv = document.createElement('div');
+        //     svgDiv.classList.add('text-green-600', 'text-6xl', 'absolute', 'right-2', 'bottom-2');
+
+		// 	// svg of play hover
+        //     const svgNS = "http://www.w3.org/2000/svg";
+
+        //     const svg = document.createElementNS(svgNS, "svg");
+        //     svg.setAttribute("class", "hidden text-neutral-800 hover:scale-105 bg-green-500 rounded-full p-3");
+        //     svg.setAttribute("width", "1em");
+        //     svg.setAttribute("height", "1em");
+        //     svg.setAttribute("viewBox", "0 0 24 24");
+
+        //     const path = document.createElementNS(svgNS, "path");
+        //     path.setAttribute("fill", "currentColor");
+        //     path.setAttribute("stroke", "currentColor");
+        //     path.setAttribute("stroke-linecap", "round");
+        //     path.setAttribute("stroke-linejoin", "round");
+        //     path.setAttribute("stroke-width", "1.5");
+        //     path.setAttribute("d", "M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z");
+
+        //     svg.appendChild(path);
+
+		// 	svgDiv.appendChild(svg);
 
 
-			// details div
-            const detailsDiv = document.createElement('div');
-            detailsDiv.classList.add('mt-1', 'overflow-x-hidden', 'font-medium', 'text-neutral-400');
 
-			const songName = document.createElement('p');
-            songName.innerText = song.name;
+		// 	thumbnailDiv.appendChild(newImg);
+		// 	thumbnailDiv.appendChild(svgDiv);
+		// 	newDiv.appendChild(thumbnailDiv);
 
-			const artistName = document.createElement('p');
-            artistName.innerText = song.artist.name;
 
-			detailsDiv.appendChild(songName);
-			detailsDiv.appendChild(artistName);
+		// 	// details div
+        //     const detailsDiv = document.createElement('div');
+        //     detailsDiv.classList.add('mt-1', 'overflow-x-hidden', 'font-medium', 'text-neutral-400');
 
-			newDiv.appendChild(detailsDiv);
+		// 	const songName = document.createElement('p');
+        //     songName.innerText = song.name;
+
+		// 	const artistName = document.createElement('p');
+        //     artistName.innerText = song.artist.name;
+
+		// 	detailsDiv.appendChild(songName);
+		// 	detailsDiv.appendChild(artistName);
+
+		// 	newDiv.appendChild(detailsDiv);
 			
-			return newDiv;
-		}
+		// 	return newDiv;
+		// }
 
 
-		function clearSearchResults() {
-			const searchResultsDiv = document.querySelector('#searchResultsDiv');
-			searchResultsDiv.replaceChildren();
-		}
+		// function clearSearchResults() {
+		// 	const searchResultsDiv = document.querySelector('#searchResultsDiv');
+		// 	searchResultsDiv.replaceChildren();
+		// }
 
-		function printSearchResultSongs(search) {
-			clearSearchResults();
+		// function printSearchResultSongs(search) {
+		// 	clearSearchResults();
 
-			fetch(`${backendURL}/swagify?search=` + search)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("can't fetch song " + response.status);
-                }
+		// 	fetch(`${backendURL}/swagify?search=` + search)
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error("can't fetch song " + response.status);
+        //         }
                 
-                return response.json();
-            }).then(songs => {
-				for (song of songs) {
-					searchResultsDiv.appendChild(createLargeCard(song));
-				}
-            }).catch(error => console.error(error));
-		}
+        //         return response.json();
+        //     }).then(songs => {
+		// 		for (song of songs) {
+		// 			searchResultsDiv.appendChild(createLargeCard(song));
+		// 		}
+        //     }).catch(error => console.error(error));
+		// }
 
-		const searchInput = document.querySelector('#searchInput')
-		searchInput.addEventListener('input', (key) => {
-			clearSearchResults();
+		// const searchInput = document.querySelector('#searchInput')
+		// searchInput.addEventListener('input', (key) => {
+		// 	clearSearchResults();
 			
-			if (key.target.value != "") {
-				printSearchResultSongs(key.target.value);
-			}
-		});
+		// 	if (key.target.value != "") {
+		// 		printSearchResultSongs(key.target.value);
+		// 	}
+		// });
 
 
-        function initialLoad() {
-			// const listDiv = document.querySelector('#listDiv');
+        // function initialLoad() {
+		// 	// const listDiv = document.querySelector('#listDiv');
 
 
-            fetch(`${backendURL}/swagify`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("can't fetch song " + response.status);
-                }
+        //     fetch(`${backendURL}/swagify`)
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error("can't fetch song " + response.status);
+        //         }
                 
-                return response.json();
-            }).then(songs => {
-				dockSong(songs[0]);
+        //         return response.json();
+        //     }).then(songs => {
+		// 		dockSong(songs[0]);
 
-				dockLibrary(songs);
-            }).catch(error => console.error(error));
-
-
-			const albumsDiv = document.querySelector('#albumsDiv');
-
-			fetch(`${backendURL}/swagifyalbums`)
-			.then(response => {
-				if (!response.ok) {
-					throw new Error("can't fetch albums" + response.status);
-				}
-
-				return response.json();
-			}).then(albums => {
-				for (album of albums) {
-					albumsDiv.appendChild(createAlbumCard(album));
-				}
-			}).catch(error => console.error(error));
-        }
-
-		function dockLibrary(songs) {
-			listDiv.replaceChildren();
-
-			for (song of songs) {
-				listDiv.appendChild(createSongCard(song));
-			}
-		}
-
-		function dockSong(song) {
-			// resets progress bar
-			currDurBarEl.style.width = 0;
-			currDurEl.innerHTML = formatSeconds(0);
-			clearInterval(songProgress);
-			pauseBtn.classList.add('hidden');
-			playBtn.classList.remove('hidden');
-			songProgressNow = 0;
-
-			// stops current song
-			if (songAudio) {
-				songAudio.stop();
-			}
-
-			dockedSong = song;
-
-			songAudio = new Howl({
-				src: [dockedSong.song_file],
-				onload: function() {
-					// songDuration = Math.trunc(songAudio.duration() / 1);
-					songDuration = Math.round(songAudio.duration() * 100) / 100;
-					console.log(songDuration);
-					console.log(songAudio.duration());
-					totalDurEl.innerHTML = formatSeconds(songDuration);
-					// perSec = (1 / songDuration) * 100;
-					// songDuration = (1 / songDuration) * 100;
-					perSec = Math.round(((1 / songDuration) * 100) * 100) / 100;
-					console.log("perSec: " + perSec);
-				},
-			});
-
-			const currentDivSong = document.querySelector('#currentDivSong');
-			const currentDivAlbum = document.querySelector('#currentDivAlbum');
-			const currentDivArtist = document.querySelector('#currentDivArtist');
-			const currentDivImg = document.querySelector('#currentDivImg');
-			const currentDivArtistImg = document.querySelector('#currentDivArtistImg');
-			const currentDivArtistAbout = document.querySelector('#currentDivArtistAbout');
-
-			currentDivSong.innerHTML = song.name;
-			currentDivAlbum.innerHTML = song.album.name;
-			currentDivArtist.innerHTML = song.artist.name;
-			currentDivImg.src = song.image;
-			currentDivArtistImg.src = song.artist.image;
-			currentDivArtistAbout.innerHTML = song.artist.name;
+		// 		dockLibrary(songs);
+        //     }).catch(error => console.error(error));
 
 
-			const playbarSong = document.querySelector('#playbarSong');
-			const playbarArtist = document.querySelector('#playbarArtist');
-			const playbarImg = document.querySelector('#playbarImg');
+		// 	const albumsDiv = document.querySelector('#albumsDiv');
 
-			playbarSong.innerHTML = song.name;
-			playbarArtist.innerHTML = song.artist.name;
-			playbarImg.src = song.image;
+		// 	fetch(`${backendURL}/swagifyalbums`)
+		// 	.then(response => {
+		// 		if (!response.ok) {
+		// 			throw new Error("can't fetch albums" + response.status);
+		// 		}
 
-			// totalDurEl.innerHTML = formatSeconds(songDuration);
-		}
+		// 		return response.json();
+		// 	}).then(albums => {
+		// 		for (album of albums) {
+		// 			albumsDiv.appendChild(createAlbumCard(album));
+		// 		}
+		// 	}).catch(error => console.error(error));
+        // }
+
+		// function dockLibrary(songs) {
+		// 	listDiv.replaceChildren();
+
+		// 	for (song of songs) {
+		// 		listDiv.appendChild(createSongCard(song));
+		// 	}
+		// }
+
+		// function dockSong(song) {
+		// 	// resets progress bar
+		// 	currDurBarEl.style.width = 0;
+		// 	currDurEl.innerHTML = formatSeconds(0);
+		// 	clearInterval(songProgress);
+		// 	pauseBtn.classList.add('hidden');
+		// 	playBtn.classList.remove('hidden');
+		// 	songProgressNow = 0;
+
+		// 	// stops current song
+		// 	if (songAudio) {
+		// 		songAudio.stop();
+		// 	}
+
+		// 	dockedSong = song;
+
+		// 	songAudio = new Howl({
+		// 		src: [dockedSong.song_file],
+		// 		onload: function() {
+		// 			// songDuration = Math.trunc(songAudio.duration() / 1);
+		// 			songDuration = Math.round(songAudio.duration() * 100) / 100;
+		// 			console.log(songDuration);
+		// 			console.log(songAudio.duration());
+		// 			totalDurEl.innerHTML = formatSeconds(songDuration);
+		// 			// perSec = (1 / songDuration) * 100;
+		// 			// songDuration = (1 / songDuration) * 100;
+		// 			perSec = Math.round(((1 / songDuration) * 100) * 100) / 100;
+		// 			console.log("perSec: " + perSec);
+		// 		},
+		// 	});
+
+		// 	const currentDivSong = document.querySelector('#currentDivSong');
+		// 	const currentDivAlbum = document.querySelector('#currentDivAlbum');
+		// 	const currentDivArtist = document.querySelector('#currentDivArtist');
+		// 	const currentDivImg = document.querySelector('#currentDivImg');
+		// 	const currentDivArtistImg = document.querySelector('#currentDivArtistImg');
+		// 	const currentDivArtistAbout = document.querySelector('#currentDivArtistAbout');
+
+		// 	currentDivSong.innerHTML = song.name;
+		// 	currentDivAlbum.innerHTML = song.album.name;
+		// 	currentDivArtist.innerHTML = song.artist.name;
+		// 	currentDivImg.src = song.image;
+		// 	currentDivArtistImg.src = song.artist.image;
+		// 	currentDivArtistAbout.innerHTML = song.artist.name;
+
+
+		// 	const playbarSong = document.querySelector('#playbarSong');
+		// 	const playbarArtist = document.querySelector('#playbarArtist');
+		// 	const playbarImg = document.querySelector('#playbarImg');
+
+		// 	playbarSong.innerHTML = song.name;
+		// 	playbarArtist.innerHTML = song.artist.name;
+		// 	playbarImg.src = song.image;
+
+		// 	// totalDurEl.innerHTML = formatSeconds(songDuration);
+		// }
 
 		
-		const toggleVisibilityBtnEl = document.querySelector('#toggleVisibilityBtn');
-		toggleVisibilityBtnEl.addEventListener('click', function() {
-			const toggleClass = document.querySelector('.toggle-hidden');
-			const visibility = window.getComputedStyle(toggleClass).display;
-			const elements = document.querySelectorAll('.toggle-hidden');
+		// const toggleVisibilityBtnEl = document.querySelector('#toggleVisibilityBtn');
+		// toggleVisibilityBtnEl.addEventListener('click', function() {
+		// 	const toggleClass = document.querySelector('.toggle-hidden');
+		// 	const visibility = window.getComputedStyle(toggleClass).display;
+		// 	const elements = document.querySelectorAll('.toggle-hidden');
 	
-			if (visibility == 'none') {
-				elements.forEach(element => {
-					element.style.display = 'block';
-				});
-			} else {
-				elements.forEach(element => {
-					element.style.display = 'none';
-				});
+		// 	if (visibility == 'none') {
+		// 		elements.forEach(element => {
+		// 			element.style.display = 'block';
+		// 		});
+		// 	} else {
+		// 		elements.forEach(element => {
+		// 			element.style.display = 'none';
+		// 		});
 	
-			}
-		});
-
-
-		// manipulating docked song
-		const playBtn = document.querySelector('#playBtn');
-		const pauseBtn = document.querySelector('#pauseBtn');
-		const currDurBarEl = document.querySelector('#currDurBar');
-		const currDurEl = document.querySelector('#currDur');
-		const totalDurEl = document.querySelector('#totalDur');
-		let songProgress;
-		let songProgressNow = 0;
-		let songDuration;
-		let perSec; // computes how may % progress per second
-
-		playBtn.addEventListener('click', () => {
-			playBtn.classList.add('hidden');
-			pauseBtn.classList.remove('hidden');
-
-			console.log(dockedSong);
-			songAudio.play();
-
-
-			let i = songProgressNow;
-
-			songProgress = setInterval(() => {
-				let width = perSec * (i);
-
-				currDurEl.innerHTML = formatSeconds(i);
-
-				currDurBarEl.style.width = width + '%';
-
-				i++;
-				songProgressNow = i;
-
-				if (i > songDuration) {
-					clearInterval(songProgress);
-				}
-			}, 1000);
-		});
-
-		pauseBtn.addEventListener('click', () => {
-			pauseBtn.classList.add('hidden');
-			playBtn.classList.remove('hidden');
-
-			songAudio.pause();
-
-			clearInterval(songProgress);
-		});
-
-		// copied from google hehe
-		function formatSeconds(totalSeconds) {
-			const minutes = Math.floor(totalSeconds / 60);
-			const seconds = Math.trunc(totalSeconds % 60);
-
-			// Pads single digits with a leading '0'
-			const paddedMinutes = String(minutes).padStart(2, '0');
-			const paddedSeconds = String(seconds).padStart(2, '0');
-
-			return `${paddedMinutes}:${paddedSeconds}`;
-		}
-
-
-        initialLoad();
-
-		// songAudio = new Howl({
-		// 	src: [dockedSong.song_file],
+		// 	}
 		// });
-		// Vue.createApp(app).mount('#app');
+
+
+		// // manipulating docked song
+		// const playBtn = document.querySelector('#playBtn');
+		// const pauseBtn = document.querySelector('#pauseBtn');
+		// const currDurBarEl = document.querySelector('#currDurBar');
+		// const currDurEl = document.querySelector('#currDur');
+		// const totalDurEl = document.querySelector('#totalDur');
+		// let songProgress;
+		// let songProgressNow = 0;
+		// let songDuration;
+		// let perSec; // computes how may % progress per second
+
+		// playBtn.addEventListener('click', () => {
+		// 	playBtn.classList.add('hidden');
+		// 	pauseBtn.classList.remove('hidden');
+
+		// 	console.log(dockedSong);
+		// 	songAudio.play();
+
+
+		// 	let i = songProgressNow;
+
+		// 	songProgress = setInterval(() => {
+		// 		let width = perSec * (i);
+
+		// 		currDurEl.innerHTML = formatSeconds(i);
+
+		// 		currDurBarEl.style.width = width + '%';
+
+		// 		i++;
+		// 		songProgressNow = i;
+
+		// 		if (i > songDuration) {
+		// 			clearInterval(songProgress);
+		// 		}
+		// 	}, 1000);
+		// });
+
+		// pauseBtn.addEventListener('click', () => {
+		// 	pauseBtn.classList.add('hidden');
+		// 	playBtn.classList.remove('hidden');
+
+		// 	songAudio.pause();
+
+		// 	clearInterval(songProgress);
+		// });
+
+		// // copied from google hehe
+		// function formatSeconds(totalSeconds) {
+		// 	const minutes = Math.floor(totalSeconds / 60);
+		// 	const seconds = Math.trunc(totalSeconds % 60);
+
+		// 	// Pads single digits with a leading '0'
+		// 	const paddedMinutes = String(minutes).padStart(2, '0');
+		// 	const paddedSeconds = String(seconds).padStart(2, '0');
+
+		// 	return `${paddedMinutes}:${paddedSeconds}`;
+		// }
+
+
+        // initialLoad();
+
+		Vue.createApp(app).mount('#app');
     </script>
 </body>
 </html>
