@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// no vue
+Route::get('/novue', function () {
+    return view('novue');
+});
+
 Route::get('/feartist', function () {
     return view('simple/artist');
 });
@@ -30,6 +35,7 @@ Route::get('/fesong', function () {
 
 Route::get('/swagify', [SwagifyController::class, 'index']);
 Route::get('/swagify/playlist/{album}', [SwagifyController::class, 'playlist']);
+Route::get('/swagifyalbums', [SwagifyController::class, 'swagifyalbums']);
 
 
 

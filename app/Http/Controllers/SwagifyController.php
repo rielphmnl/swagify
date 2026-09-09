@@ -39,5 +39,12 @@ class SwagifyController extends Controller
         return response($query);
     }
 
+    public function swagifyalbums()
+    {
+        $query = new Album();
+
+        return $query->limit(8)->get();
+    }
+
     
 }
