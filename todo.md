@@ -62,7 +62,7 @@
         [x] put
 
 
-[ ] swagify front end 
+[x] swagify front end 
     [x] make javascript of initial load, loading all songs on left pane
     [x] make list of albums in main section
         [x] make function createAlbumCard
