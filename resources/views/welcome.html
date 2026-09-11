@@ -160,7 +160,7 @@
 							<!-- song card template -->
 							<!-- item repeat -->
 							<!-- item repeat -->
-							<div v-for="song in librarySongs" :id="'song-' + song.id" class="hover:bg-neutral-800 cursor-pointer rounded-md h-16 w-full flex items-center px-2 gap-2" @click="dockSong()">
+							<div v-for="song in librarySongs" :id="'song-' + song.id" class="hover:bg-neutral-800 cursor-pointer rounded-md h-16 w-full flex items-center px-2 gap-2" @click="dockSong(song)">
 								<!-- thumbnail -->
 								<div class="size-12 rounded overflow-hidden relative">
 									<img class="size-full object-cover" :src="song.image">
@@ -233,13 +233,12 @@
 					</div>
 
 
-					<!-- ##here -->
 					<!-- div for search results -->
 					<div id="searchResultsDiv" class="flex flex-wrap">
 						<div v-for="song in searchResults" id="searchResultsDiv" class="flex flex-wrap">
 							<!-- large card template-->
 							<!-- large card template-->
-							<div id="searchSong-${song.id}" class="w-56 hover:bg-neutral-800 cursor-pointer rounded-2xl p-4" @click="dockSong()">
+							<div id="searchSong-${song.id}" class="w-56 hover:bg-neutral-800 cursor-pointer rounded-2xl p-4" @click="dockSong(song)">
 								<!-- Thumbnail Div -->
 								<div class="size-48 rounded-2xl overflow-hidden relative">
 									<img class="size-full object-cover" :src="song.image" alt="${song.name}">
@@ -269,6 +268,7 @@
 
 			</section>
 
+			
 			<!-- CURRENT SONG SECTION -->
 			<section class="w-xs rounded-md overflow-hidden relative bg-neutral-900/35 hover:bg-neutral-900/5">
 
@@ -278,7 +278,7 @@
 				<div class="h-2/3 absolute top-0 left-0 -z-10">
 					<img
 						id="currentDivImg"
-						src="/storage/default_song.png"
+						:src="dockedSong.image"
 						class="h-full min-w-xs object-cover mask-b-from-90%"
 					/>
 
@@ -292,7 +292,7 @@
 					<div class="flex h-8 justify-between cursor-pointer text-neutral-50">
 						<div class="flex gap-2">
 							<svg class="shover hidden -scale-x-100 text-neutral-50" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16"/><path d="m15 10l-2 2l2 2"/></g></svg>
-							<p id="currentDivAlbum" class="font-semibold">Album name</p>
+							<p id="currentDivAlbum" class="font-semibold">{{dockedSong.album.name}}</p>
 						</div>
 
 						<div class="flex gap-2">
@@ -316,8 +316,8 @@
 					<div class="h-1/2"></div>
 
 					<div>
-						<p id="currentDivSong" class="font-bold text-2xl cursor-pointer hover:underline text-neutral-50">Song Name</p>
-						<p id="currentDivArtist" class="font-semibold text-lg cursor-pointer hover:underline text-neutral-400">Artist Name</p>
+						<p id="currentDivSong" class="font-bold text-2xl cursor-pointer hover:underline text-neutral-50">{{dockedSong.name}}</p>
+						<p id="currentDivArtist" class="font-semibold text-lg cursor-pointer hover:underline text-neutral-400">{{dockedSong.artist.name}}</p>
 					</div>
 
 
@@ -326,14 +326,14 @@
 						<div class="h-2/3 w-full top-0 m-auto overflow-hidden">
 							<img
 								id="currentDivArtistImg"
-								src=""
+								:src="dockedSong.artist.image"
 								class="w-full object-cover -z-10"
 								
 							/>
 
 						</div>
 
-						<p id="currentDivArtistAbout" class="font-semibold ml-5">Artist name</p>
+						<p id="currentDivArtistAbout" class="font-semibold ml-5">{{dockedSong.artist.name}}</p>
 
 
 						<p class="z-20 font-bold text-lg absolute top-2 left-4">About the artist</p>
@@ -352,13 +352,13 @@
 			<div class="flex flex-1 items-center gap-4">
 				<!-- song image -->
 				<div class="size-16 rounded overflow-hidden cursor-pointer">
-					<img id="playbarImg" class="size-full object-cover" src="/storage/default_song.png">
+					<img id="playbarImg" class="size-full object-cover" :src="dockedSong.image">
 				</div>
 
 				<!-- song details -->
 				<div>
-					<p id="playbarSong" class="text-sm text-neutral-300 hover:underline cursor-pointer">Song Name</p>
-					<p id="playbarArtist" class="text-xs text-neutral-400 hover:underline cursor-pointer">Artist Name</p>
+					<p id="playbarSong" class="text-sm text-neutral-300 hover:underline cursor-pointer">{{dockedSong.name}}</p>
+					<p id="playbarArtist" class="text-xs text-neutral-400 hover:underline cursor-pointer">{{dockedSong.artist.name}}</p>
 				</div>
 
 				<div :class="hiddenDisplay + 'text-neutral-400'">
@@ -454,8 +454,9 @@
 					searchQuery: null,
 					searchResults: null,
 					
-					// not yet used
-					dockedSong: null,
+					// initiated to proxy values
+					dockedSong: {"id":0,"name":"song name","image":"\/storage\/default_song.png","song_file":"\/storage\/song_file\/sample1.mp3","artist_id":0,"album_id":0,"artist":{"id":0,"name":"artist name","image":"\/storage\/default_song.png"},"album":{"id":0,"name":"album name","image":"\/storage\/default_song.png","artist_id":0}},
+
 					// songAudio: null,
 
 				};
@@ -491,6 +492,7 @@
 							return response.json();
 						}).then(data => {
 							// dockSong(data[0]);
+							this.dockedSong = data[0];
 							this.librarySongs = data;
 						}).catch(error => console.error(error))
 
@@ -508,8 +510,8 @@
 					
 				},
 
-				dockSong() {
-					alert("song docked");
+				dockSong(song) {
+					this.dockedSong = song;
 				},
 
 				dockLibrary(albumId) {

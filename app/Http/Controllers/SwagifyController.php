@@ -20,7 +20,16 @@ class SwagifyController extends Controller
 
         
         if ($request->input('search')) {
-            $query = $query->where('name', 'LIKE', '%' . $request->input('search') . '%');
+            $search = $request->input('search');
+
+            $query = $query
+                        ->where('name', 'LIKE', '%' . $request->input('search') . '%')
+                        ->orWhereHas('album', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', '%' . $search . '%');
+                        })
+                        ->orWhereHas('artist', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', '%' . $search . '%');
+                        });
         }
 
         $query = $query->get();
