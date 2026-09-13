@@ -728,10 +728,11 @@
 			songAudio = new Howl({
 				src: [dockedSong.song_file],
 				onload: function() {
+					console.log("songAudio: " + songAudio);
 					// songDuration = Math.trunc(songAudio.duration() / 1);
 					songDuration = Math.round(songAudio.duration() * 100) / 100;
-					console.log(songDuration);
-					console.log(songAudio.duration());
+					console.log("onload songDuration: " + songDuration);
+					console.log("onload songAudio.Duration(): " + songAudio.duration());
 					totalDurEl.innerHTML = formatSeconds(songDuration);
 					// perSec = (1 / songDuration) * 100;
 					// songDuration = (1 / songDuration) * 100;

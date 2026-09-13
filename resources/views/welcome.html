@@ -376,13 +376,14 @@
 					<!-- previous -->
 					<svg class="btn-scale-color -scale-x-100" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M2.538 4.113a1 1 0 0 1 1.035.068l10 7a1 1 0 0 1 0 1.638l-10 7A1 1 0 0 1 2 19V5a1 1 0 0 1 .538-.887M16 5.8A1.8 1.8 0 0 1 17.8 4h1.4A1.8 1.8 0 0 1 21 5.8v12.4a1.8 1.8 0 0 1-1.8 1.8h-1.4a1.8 1.8 0 0 1-1.8-1.8z" clip-rule="evenodd"/></svg>
 					
+					<!-- ##here -->
 					<!-- play -->
-					<div id="playBtn" class="size-7 bg-neutral-300 hover:scale-110 hover:bg-neutral-400 text-black cursor-pointer rounded-full flex justify-center items-center text-xl">
+					<div id="playBtn" :class="(isPlaying ? 'hidden' : 'flex') + ' size-7 bg-neutral-300 hover:scale-110 hover:bg-neutral-400 text-black cursor-pointer rounded-full justify-center items-center text-xl '" @click="playSong()">
 						<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path fill="currentColor" d="M6.51 18.87c.15.09.32.13.49.13s.36-.05.51-.14l10-6c.3-.18.49-.51.49-.86s-.18-.68-.49-.86l-10-6a.99.99 0 0 0-1.01-.01c-.31.18-.51.51-.51.87v12c0 .36.19.69.51.87Z"/></svg>
 					</div>
 
 					<!-- pause -->
-					<div id="pauseBtn" class="size-7 bg-neutral-300 hover:scale-110 hover:bg-neutral-400 text-black cursor-pointer rounded-full flex justify-center items-center hidden">
+					<div id="pauseBtn" :class="(isPlaying ? 'flex' : 'hidden') + ' size-7 bg-neutral-300 hover:scale-110 hover:bg-neutral-400 text-black cursor-pointer rounded-full justify-center items-center'" @click="pauseSong()">
 						<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path fill="currentColor" d="M4.8 3h4.4a.8.8 0 0 1 .8.8v16.4a.8.8 0 0 1-.8.8H4.8a.8.8 0 0 1-.8-.8V3.8a.8.8 0 0 1 .8-.8m10 0h4.4a.8.8 0 0 1 .8.8v16.4a.8.8 0 0 1-.8.8h-4.4a.8.8 0 0 1-.8-.8V3.8a.8.8 0 0 1 .8-.8"/></svg>
 					</div>
 					
@@ -396,15 +397,15 @@
 
 				<!-- progress bar -->
 				<div class="flex gap-3 items-center">
-					<p id="currDur">00:00</p>
+					<p id="currDur">{{formatSeconds(currentDuration)}}</p>
 					
 					<div class="relative w-100 h-1 rounded-2xl overflow-hidden flex">
 						<div class="size-full bg-neutral-600"></div>
 
-						<div id="currDurBar" class="h-full w-0/100 rounded-2xl bg-neutral-300 absolute left-0 flex"></div>
+						<div id="currDurBar" class="h-full w-0/100 rounded-2xl bg-neutral-300 absolute left-0 flex" :style="'width: ' + progressBarWidth + '%'"></div>
 					</div>
 
-					<p id="totalDur">00:00</p>
+					<p id="totalDur">{{formatSeconds(totalDuration)}}</p>
 				</div>
 			</div>
 
@@ -454,10 +455,22 @@
 					searchQuery: null,
 					searchResults: null,
 					
+
 					// initiated to proxy values
 					dockedSong: {"id":0,"name":"song name","image":"\/storage\/default_song.png","song_file":"\/storage\/song_file\/sample1.mp3","artist_id":0,"album_id":0,"artist":{"id":0,"name":"artist name","image":"\/storage\/default_song.png"},"album":{"id":0,"name":"album name","image":"\/storage\/default_song.png","artist_id":0}},
 
-					// songAudio: null,
+					songAudio: null,
+					isPlaying: false,
+					currentDuration: 0,
+					totalDuration: 0,
+					progressBarWidth: 0,
+					
+					// ##here
+					songProgress: null,
+					songProgressNow: 0,
+					songDuration: 0,
+					perSec: 0,
+
 
 				};
 			},
@@ -491,8 +504,7 @@
 							
 							return response.json();
 						}).then(data => {
-							// dockSong(data[0]);
-							this.dockedSong = data[0];
+							this.dockSong(data[0]);
 							this.librarySongs = data;
 						}).catch(error => console.error(error))
 
@@ -508,10 +520,6 @@
 							this.albumList = albums;
 						}).catch(error => console.error(error));
 					
-				},
-
-				dockSong(song) {
-					this.dockedSong = song;
 				},
 
 				dockLibrary(albumId) {
@@ -542,139 +550,93 @@
 					} else {
 						this.searchResults = null;
 					}
-				}
+				},
+
+
+				// copied from google hehe
+				formatSeconds(totalSeconds) {
+					const minutes = Math.floor(totalSeconds / 60);
+					const seconds = Math.trunc(totalSeconds % 60);
+
+					// Pads single digits with a leading '0'
+					const paddedMinutes = String(minutes).padStart(2, '0');
+					const paddedSeconds = String(seconds).padStart(2, '0');
+
+					return `${paddedMinutes}:${paddedSeconds}`;
+				},
+
+				// docked song manipulation
+				dockSong(song) {
+					this.dockedSong = song;
+					this.isPlaying = false;
+					this.currentDuration = 0;
+					this.totalDuration = 0;
+					this.progressBarWidth = 0;
+					this.songProgressNow = 0;
+
+					clearInterval(this.songProgress);
+					this.songProgressNow = 0;
+
+
+					// stops current song if any
+					if (this.songAudio) {
+						this.songAudio.stop();
+					}
+
+					this.songAudio = new Howl({
+						src: [this.dockedSong.song_file],
+						onload: () => {
+							console.log(song.name);
+							this.songDuration = Math.round(this.songAudio.duration() * 100) / 100;
+							console.log(this.songAudio.duration());
+							console.log(this.songDuration);
+							this.totalDuration = this.songDuration;
+							this.perSec = Math.round(((1 / this.songDuration) * 100) * 100) / 100;
+							console.log("perSec: " + this.perSec);
+						},
+					});
+				},
+
+				playSong() {
+					// this.isPlaying = true;
+					// this.songAudio.play();
+
+					let i = this.songProgressNow;
+
+					this.songProgress = setInterval(() => {
+						
+						if(! this.isPlaying) {
+							this.songAudio.play();
+							this.isPlaying = true;
+						}
+
+
+						let width = this.perSec * (i);
+
+						this.currentDuration = i;
+
+						this.progressBarWidth = width;
+
+						i++;
+						this.songProgressNow = i;
+
+						if (i > this.songDuration) {
+							clearInterval(this.songProgress);
+						}
+					}, 1000);
+				},
+
+				pauseSong() {
+					this.isPlaying = false;
+
+					this.songAudio.pause();
+
+					clearInterval(this.songProgress);
+				},
 
 			}
 				
 		};
-
-
-
-
-
-
-	
-
-
-		// function dockSong(song) {
-		// 	// resets progress bar
-		// 	currDurBarEl.style.width = 0;
-		// 	currDurEl.innerHTML = formatSeconds(0);
-		// 	clearInterval(songProgress);
-		// 	pauseBtn.classList.add('hidden');
-		// 	playBtn.classList.remove('hidden');
-		// 	songProgressNow = 0;
-
-		// 	// stops current song
-		// 	if (songAudio) {
-		// 		songAudio.stop();
-		// 	}
-
-		// 	dockedSong = song;
-
-		// 	songAudio = new Howl({
-		// 		src: [dockedSong.song_file],
-		// 		onload: function() {
-		// 			// songDuration = Math.trunc(songAudio.duration() / 1);
-		// 			songDuration = Math.round(songAudio.duration() * 100) / 100;
-		// 			console.log(songDuration);
-		// 			console.log(songAudio.duration());
-		// 			totalDurEl.innerHTML = formatSeconds(songDuration);
-		// 			// perSec = (1 / songDuration) * 100;
-		// 			// songDuration = (1 / songDuration) * 100;
-		// 			perSec = Math.round(((1 / songDuration) * 100) * 100) / 100;
-		// 			console.log("perSec: " + perSec);
-		// 		},
-		// 	});
-
-		// 	const currentDivSong = document.querySelector('#currentDivSong');
-		// 	const currentDivAlbum = document.querySelector('#currentDivAlbum');
-		// 	const currentDivArtist = document.querySelector('#currentDivArtist');
-		// 	const currentDivImg = document.querySelector('#currentDivImg');
-		// 	const currentDivArtistImg = document.querySelector('#currentDivArtistImg');
-		// 	const currentDivArtistAbout = document.querySelector('#currentDivArtistAbout');
-
-		// 	currentDivSong.innerHTML = song.name;
-		// 	currentDivAlbum.innerHTML = song.album.name;
-		// 	currentDivArtist.innerHTML = song.artist.name;
-		// 	currentDivImg.src = song.image;
-		// 	currentDivArtistImg.src = song.artist.image;
-		// 	currentDivArtistAbout.innerHTML = song.artist.name;
-
-
-		// 	const playbarSong = document.querySelector('#playbarSong');
-		// 	const playbarArtist = document.querySelector('#playbarArtist');
-		// 	const playbarImg = document.querySelector('#playbarImg');
-
-		// 	playbarSong.innerHTML = song.name;
-		// 	playbarArtist.innerHTML = song.artist.name;
-		// 	playbarImg.src = song.image;
-
-		// 	// totalDurEl.innerHTML = formatSeconds(songDuration);
-		// }
-
-		
-	
-
-
-		// // manipulating docked song
-		// const playBtn = document.querySelector('#playBtn');
-		// const pauseBtn = document.querySelector('#pauseBtn');
-		// const currDurBarEl = document.querySelector('#currDurBar');
-		// const currDurEl = document.querySelector('#currDur');
-		// const totalDurEl = document.querySelector('#totalDur');
-		// let songProgress;
-		// let songProgressNow = 0;
-		// let songDuration;
-		// let perSec; // computes how may % progress per second
-
-		// playBtn.addEventListener('click', () => {
-		// 	playBtn.classList.add('hidden');
-		// 	pauseBtn.classList.remove('hidden');
-
-		// 	console.log(dockedSong);
-		// 	songAudio.play();
-
-
-		// 	let i = songProgressNow;
-
-		// 	songProgress = setInterval(() => {
-		// 		let width = perSec * (i);
-
-		// 		currDurEl.innerHTML = formatSeconds(i);
-
-		// 		currDurBarEl.style.width = width + '%';
-
-		// 		i++;
-		// 		songProgressNow = i;
-
-		// 		if (i > songDuration) {
-		// 			clearInterval(songProgress);
-		// 		}
-		// 	}, 1000);
-		// });
-
-		// pauseBtn.addEventListener('click', () => {
-		// 	pauseBtn.classList.add('hidden');
-		// 	playBtn.classList.remove('hidden');
-
-		// 	songAudio.pause();
-
-		// 	clearInterval(songProgress);
-		// });
-
-		// // copied from google hehe
-		// function formatSeconds(totalSeconds) {
-		// 	const minutes = Math.floor(totalSeconds / 60);
-		// 	const seconds = Math.trunc(totalSeconds % 60);
-
-		// 	// Pads single digits with a leading '0'
-		// 	const paddedMinutes = String(minutes).padStart(2, '0');
-		// 	const paddedSeconds = String(seconds).padStart(2, '0');
-
-		// 	return `${paddedMinutes}:${paddedSeconds}`;
-		// }
-
 
 
 		Vue.createApp(app).mount('#app');
