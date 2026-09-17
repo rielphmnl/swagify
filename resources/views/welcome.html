@@ -128,9 +128,9 @@
 
 					<!-- 2nd layer -->
 					<div class="flex gap-2 items-center text-sm font-light pt-4 pb-2 overflow-x-auto">
-						<a href="/feartist" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Artists</a>
-						<a href="/fealbum" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Albums</a>
-						<a href="/fesong" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Songs</a>
+						<a href="/api/feartist" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Artists</a>
+						<a href="/api/fealbum" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Albums</a>
+						<a href="/api/fesong" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Songs</a>
 						<p v-if="showExtra" class="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-full px-4 py-1">Podcasts</p>
 					</div>
 
@@ -493,7 +493,7 @@
 
 				initialLoad() {		
 					// library (left pane)		
-					fetch(`${backendURL}/swagify`)
+					fetch(`${backendURL}/songs`)
 						.then(response => {
 							if (!response.ok) {
 								throw new Error("can't fetch song " + response.status);
@@ -506,7 +506,7 @@
 						}).catch(error => console.error(error))
 
 					// albums
-					fetch(`${backendURL}/swagifyalbums`)
+					fetch(`${backendURL}/albums?limit=8`)
 						.then(response => {
 							if (!response.ok) {
 								throw new Error("can't fetch albums" + response.status);
@@ -520,7 +520,7 @@
 				},
 
 				dockLibrary(albumId) {
-					fetch(`${backendURL}/swagify/playlist/${albumId}`)
+					fetch(`${backendURL}/songs?album=${albumId}`)
 						.then(response => {
 							if (!response.ok) {
 								throw new Error("can't fetch playlist " + response.status);
@@ -534,7 +534,7 @@
 
 				searchSongs(searchQuery) {
 					if(searchQuery) {
-						fetch(`${backendURL}/swagify?search=` + searchQuery)
+						fetch(`${backendURL}/songs?search=` + searchQuery)
 							.then(response => {
 								if (!response.ok) {
 									throw new Error("can't fetch song " + response.status);

@@ -152,11 +152,12 @@
 
 
     <script>
+        const backendURL = "http://127.0.0.1:8000/api";
         function getAlbumById() {
             const albumId = document.querySelector('#getAlbumId').value;
             clearElements();
 
-            fetch(`http://127.0.0.1:8000/albums/${albumId}`)
+            fetch(`${backendURL}/albums/${albumId}`)
             .then(response => {
                 if (!response.ok){
                     throw new Error("can't fetch album " + response.status);
@@ -177,7 +178,7 @@
 
             })
             .catch(error => console.error(error));
-            // alert(`http://127.0.0.1:8000//albums/${albumId}`);
+            // alert(`${backendURL}/albums/${albumId}`);
         }
 
         function postAlbum() {
@@ -201,7 +202,7 @@
             clearElements();
 
 
-            fetch("http://127.0.0.1:8000/albums", {
+            fetch(`${backendURL}/albums`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -259,7 +260,7 @@
 
             clearElements();
 
-            fetch(`http://127.0.0.1:8000/albums/${id}`, {
+            fetch(`${backendURL}/albums/${id}`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -288,7 +289,7 @@
             clearElements();
 
             ///////// how to change link domain
-            fetch(`http://127.0.0.1:8000/albums/${albumId}`, {
+            fetch(`${backendURL}/albums/${albumId}`, {
                 method: 'delete',
                 body: albumId,
             })
@@ -404,7 +405,7 @@
             const divEl = document.querySelector('#allAlbumsDiv');
 
             // make div per album
-            fetch('http://127.0.0.1:8000/albums')
+            fetch(`${backendURL}/albums`)
                 .then(response => {
                     if(!response.ok) {
                         throw new Error('albums not found');

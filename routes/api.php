@@ -33,10 +33,6 @@ Route::get('/fesong', function () {
 });
 
 
-Route::get('/swagify', [SwagifyController::class, 'index']);
-Route::get('/swagify/playlist/{album}', [SwagifyController::class, 'playlist']);
-Route::get('/swagifyalbums', [SwagifyController::class, 'swagifyalbums']);
-
 
 
 // Route::middleware('auth')->group(function() {

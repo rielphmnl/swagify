@@ -182,11 +182,12 @@
 
 
     <script>
+        const backendURL = "http://127.0.0.1:8000/api"
         function getSongById() {
             const songId = document.querySelector('#getSongId').value;
             clearElements();
 
-            fetch(`http://127.0.0.1:8000/songs/${songId}`)
+            fetch(`${backendURL}/songs/${songId}`)
             .then(response => {
                 if (!response.ok){
                     throw new Error("can't fetch song " + response.status);
@@ -209,7 +210,7 @@
 
             })
             .catch(error => console.error(error));
-            // alert(`http://127.0.0.1:8000//songs/${songId}`);
+            // alert(`${backendURL}/songs/${songId}`);
         }
 
         function postSong() {
@@ -244,7 +245,7 @@
             clearElements();
 
 
-            fetch("http://127.0.0.1:8000/songs", {
+            fetch(`${backendURL}/songs`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -312,7 +313,7 @@
 
             clearElements();
 
-            fetch(`http://127.0.0.1:8000/songs/${id}`, {
+            fetch(`${backendURL}/songs/${id}`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -341,7 +342,7 @@
             clearElements();
 
             ///////// how to change link domain
-            fetch(`http://127.0.0.1:8000/songs/${songId}`, {
+            fetch(`${backendURL}/songs/${songId}`, {
                 method: 'DELETE',
                 body: songId,
             })
@@ -471,7 +472,7 @@
             const divEl = document.querySelector('#allSongsDiv');
 
             // make div per song
-            fetch('http://127.0.0.1:8000/songs')
+            fetch(`${backendURL}/songs`)
                 .then(response => {
                     if(!response.ok) {
                         throw new Error('songs not found');

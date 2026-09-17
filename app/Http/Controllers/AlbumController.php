@@ -19,6 +19,10 @@ class AlbumController extends Controller
             $query = $query->where('name', 'LIKE', '%' . $request->input('search') . '%');
         }
 
+        if ($request->input('limit')) {
+            $query = $query->limit($request->input('limit'));
+        }
+
         
         $albums = $query->get();
 

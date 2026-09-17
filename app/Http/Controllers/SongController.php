@@ -15,15 +15,31 @@ class SongController extends Controller
     public function index(Request $request)
     {
         $query = Song::query();
-
-        if ($request->input('search')) {
-            $query = $query->where('name', 'LIKE', '%' . $request->input('search') . '%');
-        }
+        $query = $query->with(['artist', 'album']);
 
         
-        $songs = $query->get();
+        if ($request->input('search')) {
+            $search = $request->input('search');
 
-        return response($songs);
+            $query = $query
+                        ->where('name', 'LIKE', '%' . $request->input('search') . '%')
+                        ->orWhereHas('album', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', '%' . $search . '%');
+                        })
+                        ->orWhereHas('artist', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', '%' . $search . '%');
+                        });
+        }
+
+        if ($request->input('album')) {
+            $albumId = $request->input('album');
+
+            $query = $query->where('album_id', $albumId);
+        }
+
+        $query = $query->get();
+
+        return response($query);
     }
 
     /**
