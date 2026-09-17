@@ -14,20 +14,16 @@ class SwagifyController extends Controller
      */
     public function playlist(Album $album)
     {
-        $query = Song::where('album_id', $album->id);
-        $query = $query->with(['artist', 'album']);
+        // unused
+        // unused
+        // unused
+        
+        // $query = Song::where('album_id', $album->id);
+        // $query = $query->with(['artist', 'album']);
 
-        $query = $query->get();
+        // $query = $query->get();
 
-        return response($query);
+        // return response($query);
     }
-
-    public function swagifyalbums()
-    {
-        $query = new Album();
-
-        return $query->limit(8)->get();
-    }
-
     
 }
